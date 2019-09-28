@@ -9,10 +9,10 @@ public class Product {
 	public String title;
 	public String desc;
 	public int stock;
-	public double prize;
-	//public double discount;
-	
-	
+	public double price;
+	public String image;
+	// public double discount;
+
 	public Product(String type, String colour, int size, int ref, String title, String desc, int stock, double prize) {
 		super();
 		this.type = type;
@@ -22,90 +22,79 @@ public class Product {
 		this.title = title;
 		this.desc = desc;
 		this.stock = stock;
-		this.prize = prize;
+		this.price = prize;
 	}
-
 
 	public String getType() {
 		return type;
 	}
 
-
 	public void setType(String type) {
 		this.type = type;
 	}
-
 
 	public String getColour() {
 		return colour;
 	}
 
-
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
-
 
 	public int getSize() {
 		return size;
 	}
 
-
 	public void setSize(int size) {
 		this.size = size;
 	}
-
 
 	public int getRef() {
 		return ref;
 	}
 
-
 	public void setRef(int ref) {
 		this.ref = ref;
 	}
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public String getDesc() {
 		return desc;
 	}
 
-
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-
 
 	public int getStock() {
 		return stock;
 	}
 
-
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
 
-
-	public double getPrize() {
-		return prize;
+	public double getPrice() {
+		return price;
 	}
 
-
-	public void setPrize(double prize) {
-		this.prize = prize;
+	public void setPrice(double price) {
+		this.price = price;
 	}
-	
-	
-	
-	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 }
