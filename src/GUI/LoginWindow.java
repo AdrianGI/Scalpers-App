@@ -5,12 +5,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Data.DB;
+
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -26,9 +32,8 @@ public class LoginWindow extends JFrame {
 	private JTextField emailtxt;
 	private JPasswordField passwordtxt;
 
-	/**
-	 * Launch the application.
-	 */
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,9 +47,6 @@ public class LoginWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public LoginWindow() {
 
 		setResizable(false);
@@ -117,22 +119,54 @@ public class LoginWindow extends JFrame {
 		});
 
 		JButton btnLogin = new JButton("Iniciar Sesión");
-		
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					DB.getConnection();
+					int resultado = DB.findUser(emailtxt.getText(), passwordtxt.getText());
+					if (resultado == 2) {
+						JOptionPane.showMessageDialog(null, "Inicio de sesión correcto", "BIENVENIDO",
+								JOptionPane.INFORMATION_MESSAGE);
+						LoginWindow.this.setVisible(false);
+						HomeWindow hw = new HomeWindow();
+						hw.setVisible(true);
+
+					} else if (resultado == 1) {
+						JOptionPane.showMessageDialog(null, "Clave incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
+						LoginWindow.this.setVisible(false);
+						LoginWindow lw = new LoginWindow();
+						lw.setVisible(true);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Usuario desconocido", "ERROR", JOptionPane.ERROR_MESSAGE);
+						LoginWindow.this.setVisible(false);
+						LoginWindow lw = new LoginWindow();
+						lw.setVisible(true);
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
 		btnLogin.setForeground(Color.BLACK);
 		btnLogin.setBackground(Color.BLACK);
 		btnLogin.setFont(new Font("Times", Font.PLAIN, 13));
 		btnLogin.setBounds(101, 444, 117, 29);
+
 		btnLogin.setBackground(Color.BLACK);
 		contentPane.add(btnLogin);
 
 		JButton btnforgetpass = new JButton("¿Olvidaste tu contraseña?");
 		btnforgetpass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				ForgetPassWindow fpw = new ForgetPassWindow ();
+
+				ForgetPassWindow fpw = new ForgetPassWindow();
 				fpw.setVisible(true);
 				LoginWindow.this.setVisible(false);
-				
+
 			}
 		});
 		btnforgetpass.setBorder(null);
@@ -164,7 +198,7 @@ public class LoginWindow extends JFrame {
 		btnSignup.setBounds(259, 512, 63, 29);
 		contentPane.add(btnSignup);
 
-		JLabel lblscalpers = new JLabel(new ImageIcon("scalpers.jpg"));
+		JLabel lblscalpers = new JLabel(new ImageIcon("photos/scalpers.jpg"));
 		lblscalpers.setBounds(65, 35, 370, 115);
 		contentPane.add(lblscalpers);
 	}

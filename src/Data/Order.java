@@ -6,8 +6,8 @@ public class Order {
 	public String date;
 	public double price;
 	public String status;
-	public String  bill;
-	
+	public String bill;
+
 	public Order(String ref, String date, double price, String status, String bill) {
 		super();
 		this.ref = ref;
@@ -55,8 +55,6 @@ public class Order {
 
 	public void setBill(String bill) {
 		this.bill = bill;
-	} 
-	
-	
-	
+	}
+
 }
