@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class DB {
 
 	private static final String URL = "ec2-174-129-18-42.compute-1.amazonaws.com:5432/dd0pf60umh31g7";
@@ -83,5 +85,28 @@ public class DB {
 
 		return result;
 	}
+	
+	public static String ForgetPass(String email) {
+		String pass = "";
+		String query = "SELECT password FROM users WHERE email ='" + email + "'";
 
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				pass = rs.getString("password");
+			}else {
+				
+				JOptionPane.showMessageDialog(null, "El email no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+
+		return pass;
+	}
 }

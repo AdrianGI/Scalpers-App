@@ -6,11 +6,16 @@ import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
 
 import Data.DB;
 
@@ -22,6 +27,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
 
 public class SignUpWindow extends JFrame {
 
@@ -30,12 +36,11 @@ public class SignUpWindow extends JFrame {
 	private JTextField surname;
 	private JTextField txtEmail;
 	private JTextField txtPostalCode;
-	private JTextField txtBirthDate;
 	private JTextField txtPhone;
-	private JTextField txtGender;
 	private JButton btnBack;
 	private JPasswordField txtPassword;
-
+	private JComboBox gender ;
+	private JDateChooser dateChooser;
 	/**
 	 * Create the frame.
 	 */
@@ -55,7 +60,11 @@ public class SignUpWindow extends JFrame {
 		lblscalpers.setBounds(133, 18, 215, 80);
 		contentPane.add(lblscalpers);
 
+		
+		
+		
 		name = new JTextField();
+		name.setToolTipText("Nombre");
 		name.setBounds(95, 120, 296, 40);
 		name.setFont(new Font("Times", Font.PLAIN, 13));
 		name.setText("Nombre");
@@ -63,6 +72,7 @@ public class SignUpWindow extends JFrame {
 		name.setColumns(10);
 
 		surname = new JTextField();
+		surname.setToolTipText("Apellidos");
 		surname.setText("Apellidos");
 		surname.setFont(new Font("Times", Font.PLAIN, 13));
 		surname.setColumns(10);
@@ -88,6 +98,7 @@ public class SignUpWindow extends JFrame {
 		});
 
 		txtEmail = new JTextField();
+		txtEmail.setToolTipText("Email");
 		txtEmail.setText("Email");
 		txtEmail.setFont(new Font("Times", Font.PLAIN, 13));
 		txtEmail.setColumns(10);
@@ -113,6 +124,7 @@ public class SignUpWindow extends JFrame {
 		});
 
 		txtPostalCode = new JTextField();
+		txtPostalCode.setToolTipText("Código postal");
 		txtPostalCode.setText("Código postal");
 		txtPostalCode.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPostalCode.setColumns(10);
@@ -137,32 +149,9 @@ public class SignUpWindow extends JFrame {
 
 		});
 
-		txtBirthDate = new JTextField();
-		txtBirthDate.setText("Fecha de nacimiento                    Ej:2000-12-30");
-		txtBirthDate.setFont(new Font("Times", Font.PLAIN, 13));
-		txtBirthDate.setColumns(10);
-		txtBirthDate.setBounds(95, 329, 296, 40);
-		contentPane.add(txtBirthDate);
-
-		txtBirthDate.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
-
-				txtBirthDate.setText(null);
-
-			}
-
-		});
-
+	
 		txtPhone = new JTextField();
+		txtPhone.setToolTipText("Teléfono");
 		txtPhone.setText("Teléfono");
 		txtPhone.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPhone.setColumns(10);
@@ -186,44 +175,35 @@ public class SignUpWindow extends JFrame {
 			}
 
 		});
-
-		txtGender = new JTextField();
-		txtGender.setText("Género");
-		txtGender.setFont(new Font("Times", Font.PLAIN, 13));
-		txtGender.setColumns(10);
-		txtGender.setBounds(95, 485, 296, 40);
-		contentPane.add(txtGender);
-
-		txtGender.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusLost(FocusEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
-
-				txtGender.setText(null);
-
-			}
-
-		});
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setToolTipText("Fecha de Nacimiento");
+		dateChooser.setBounds(95, 329, 296, 40);
+		contentPane.add(dateChooser);
+		
+		
+		 
+		
 
 		JButton btncreate = new JButton("Crear cuenta");
 		btncreate.addActionListener(new ActionListener() {
+			
 
-			// restricciones
+			// restricciones codigo postal 5 numero valido y masculino fem 
+			
 			public void actionPerformed(ActionEvent e) {
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String date = sdf.format(dateChooser.getDate());
+				
 				String email = txtEmail.getText();
 				int pos1 = email.indexOf("@");
 				int pos2 = email.lastIndexOf("@");
+				int pos3 = email.indexOf(".");
+				int pos4 = email.lastIndexOf(".");
 
-				if (name.getText().equals("") || surname.getText().equals("") || txtEmail.getText().equals("")
-						|| txtBirthDate.getText().equals("") || txtPostalCode.getText().equals("")
-						|| txtPhone.getText().equals("") || txtGender.getText().equals("")) {
+				if (name.getText().equals("") || surname.getText().equals("") || txtEmail.getText().equals("")|| txtPostalCode.getText().equals("")
+						|| txtPhone.getText().equals("") || date.equals("") ) {
 
 					JOptionPane.showMessageDialog(null, "Hay que rellenar todos los campos", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
@@ -233,7 +213,7 @@ public class SignUpWindow extends JFrame {
 
 				} else {
 					// tiene una única arroba
-					if (pos1 != pos2 && pos1 == -1) {
+					if (pos1 != pos2 && pos1 == -1 && pos3!=pos4 && pos3==-1) {
 
 						JOptionPane.showMessageDialog(null, "Correo Electeónico no válido", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
@@ -256,8 +236,8 @@ public class SignUpWindow extends JFrame {
 
 									DB.getConnection();
 									DB.newUser(name.getText(), surname.getText(), txtPassword.getText(),
-											txtEmail.getText(), txtBirthDate.getText(), txtPostalCode.getText(),
-											txtPhone.getText(), txtGender.getText());
+											txtEmail.getText(), date, txtPostalCode.getText(),
+											txtPhone.getText(),gender.getSelectedItem().toString());
 									HomeWindow hw = new HomeWindow();
 									hw.setVisible(true);
 									SignUpWindow.this.setVisible(false);
@@ -301,10 +281,23 @@ public class SignUpWindow extends JFrame {
 		contentPane.add(btnBack);
 
 		txtPassword = new JPasswordField();
+		txtPassword.setToolTipText("Contraseña");
 		txtPassword.setText("Contraseña");
 		txtPassword.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPassword.setBounds(95, 225, 296, 40);
 		contentPane.add(txtPassword);
+		
+
+		
+		
+		gender = new JComboBox();
+		gender.setToolTipText("Género");
+		gender.setFont(new Font("Times", Font.PLAIN, 13));
+		gender.setBounds(95, 473, 296, 56);
+		gender.addItem("Masculino");
+		gender.addItem("Femenino");
+				
+		contentPane.add(gender);
 
 		txtPassword.addFocusListener(new FocusListener() {
 
@@ -323,6 +316,7 @@ public class SignUpWindow extends JFrame {
 			}
 
 		});
-
+		
 	}
+
 }
