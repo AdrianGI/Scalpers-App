@@ -71,7 +71,7 @@ public class DB {
 
 			if (rs.next()) {
 				String cl = rs.getString("password");
-				
+
 				if (cl.equals(password)) {
 					result = 2;
 				} else {
@@ -85,7 +85,7 @@ public class DB {
 
 		return result;
 	}
-	
+
 	public static String ForgetPass(String email) {
 		String pass = "";
 		String query = "SELECT password FROM users WHERE email ='" + email + "'";
@@ -96,15 +96,15 @@ public class DB {
 
 			if (rs.next()) {
 				pass = rs.getString("password");
-			}else {
-				
+			} else {
+
 				JOptionPane.showMessageDialog(null, "El email no es correcto", "ERROR", JOptionPane.ERROR_MESSAGE);
-				
+
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 		}
 
 		return pass;

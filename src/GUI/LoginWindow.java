@@ -32,8 +32,6 @@ public class LoginWindow extends JFrame {
 	private JTextField emailtxt;
 	private JPasswordField passwordtxt;
 
-	
-	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

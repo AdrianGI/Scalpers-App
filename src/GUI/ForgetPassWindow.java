@@ -86,13 +86,13 @@ public class ForgetPassWindow extends JFrame {
 					String pass = DB.ForgetPass(txtEmail.getText());
 					sendEmail(txtEmail.getText(), pass);
 					ForgetPassWindow.this.setVisible(false);
-					LoginWindow lw= new LoginWindow();
+					LoginWindow lw = new LoginWindow();
 					lw.setVisible(true);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 		btnRecover.setFont(new Font("Times", Font.PLAIN, 13));
@@ -119,91 +119,80 @@ public class ForgetPassWindow extends JFrame {
 		contentPane.add(btnBack);
 	}
 
-	
-	 // Metodo que envia la contraseña olvidada al correo correspondiente
-	  
-	 // El correo gmail de envÌo 
-	  //String correoEnvia ="scalperscompanyud@gmail.com";
-	  // String claveCorreo = "scalpers98";
-	  
-	  
-	  private void sendEmail(String mail, String pass) {
-	  
+	// Metodo que envia la contraseña olvidada al correo correspondiente
+
+	// El correo gmail de envÌo
+	// String correoEnvia ="scalperscompanyud@gmail.com";
+	// String claveCorreo = "scalpers98";
+
+	private void sendEmail(String mail, String pass) {
+
 		// El correo gmail de envÌo
-		  String correoEnvia ="scalperscompanyud@gmail.com";
-		   String claveCorreo = "scalpers98";
-		  
-		  // La configuraciÛn para enviar correo
-		  Properties properties = new Properties();
-		 
-		  properties.put("mail.smtp.host", "smtp.gmail.com");
-		  properties.put("mail.smtp.port", "587");
+		String correoEnvia = "scalperscompanyud@gmail.com";
+		String claveCorreo = "scalpers98";
 
-		  properties.put("mail.smtp.starttls.enable", "true");
-		  properties.put("mail.smtp.auth", "true");
-		  properties.put("mail.user", correoEnvia);
-		  properties.put("mail.password", claveCorreo);
-		 
-		  // Obtener la sesion
-		  Session session = Session.getInstance(properties, null);
-		  int aviso = 0;
-		  try {
-		   // Crear el cuerpo del mensaje
-		   MimeMessage mimeMessage = new MimeMessage(session);
-		 
-		   // Agregar quien envÌa el correo
-		   mimeMessage.setFrom(new InternetAddress(correoEnvia, "SCALPERS"));
-		    
-		   // Los destinatarios
-		   InternetAddress[] internetAddresses = {new InternetAddress(mail)};
+		// La configuraciÛn para enviar correo
+		Properties properties = new Properties();
 
-		 
-		   // Agregar los destinatarios al mensaje
-		   mimeMessage.setRecipients(Message.RecipientType.TO,
-		     internetAddresses);
-		 
-		   // Agregar el asunto al correo
-		   mimeMessage.setSubject("Recuperación de contraseña");
-		   
-		   // Creo la parte del mensaje
-		   MimeBodyPart mimeBodyPart = new MimeBodyPart();
-		   
-		   mimeBodyPart.setText("¿Has olvidado tu contraseña?\n" + 
-		   		"\n" + 
-		   		"No importa. ¡Son cosas que pasan! La contraseña correspondiente a tu usuario es  " + "\n" +
-		   		"	" + "\n"+ "\n"+ pass + "\n" + "\n" + "\n"
-					+ "El Equipo de Scalpers");
-		 
-		  
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.user", correoEnvia);
+		properties.put("mail.password", claveCorreo);
+
+		// Obtener la sesion
+		Session session = Session.getInstance(properties, null);
+		int aviso = 0;
+		try {
+			// Crear el cuerpo del mensaje
+			MimeMessage mimeMessage = new MimeMessage(session);
+
+			// Agregar quien envÌa el correo
+			mimeMessage.setFrom(new InternetAddress(correoEnvia, "SCALPERS"));
+
+			// Los destinatarios
+			InternetAddress[] internetAddresses = { new InternetAddress(mail) };
+
+			// Agregar los destinatarios al mensaje
+			mimeMessage.setRecipients(Message.RecipientType.TO, internetAddresses);
+
+			// Agregar el asunto al correo
+			mimeMessage.setSubject("Recuperación de contraseña");
+
+			// Creo la parte del mensaje
+			MimeBodyPart mimeBodyPart = new MimeBodyPart();
+
+			mimeBodyPart.setText("¿Has olvidado tu contraseña?\n" + "\n"
+					+ "No importa. ¡Son cosas que pasan! La contraseña correspondiente a tu usuario es  " + "\n"
+					+ "	" + "\n" + "\n" + pass + "\n" + "\n" + "\n" + "El Equipo de Scalpers");
+
 			// Crear el multipart para agregar la parte del mensaje anterior
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(mimeBodyPart);
-			//multipart.addBodyPart(mimeBodyPartAdjunto);
-		   
-		   // Agregar el multipart al cuerpo del mensaje
-		   mimeMessage.setContent(multipart);
-		 
-		   // Enviar el mensaje
-		   Transport transport = session.getTransport("smtp");
-		   transport.connect(correoEnvia, claveCorreo);
-		   transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
-		   
-		   transport.close();
-		 
-		  } catch (Exception ex) {
-		   ex.printStackTrace();
-		   JOptionPane.showMessageDialog(null, "Correo electrónico erroneo", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
-		   aviso = 1;
-		  }
-		  if (aviso==0) {
-			  JOptionPane.showMessageDialog(null, "Revise su bandeja de entrada ", "Correo enviado con éxito",
-						JOptionPane.INFORMATION_MESSAGE);
-			  
-		  }
-		 }
+			// multipart.addBodyPart(mimeBodyPartAdjunto);
 
+			// Agregar el multipart al cuerpo del mensaje
+			mimeMessage.setContent(multipart);
 
-	  
-	  }
-	  
+			// Enviar el mensaje
+			Transport transport = session.getTransport("smtp");
+			transport.connect(correoEnvia, claveCorreo);
+			transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
+
+			transport.close();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Correo electrónico erroneo", "ERROR", JOptionPane.ERROR_MESSAGE);
+			aviso = 1;
+		}
+		if (aviso == 0) {
+			JOptionPane.showMessageDialog(null, "Revise su bandeja de entrada ", "Correo enviado con éxito",
+					JOptionPane.INFORMATION_MESSAGE);
+
+		}
+	}
+
+}
