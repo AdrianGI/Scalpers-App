@@ -60,7 +60,7 @@ public class ForgetPassWindow extends JFrame {
 		lblRecover.setBounds(151, 180, 198, 30);
 		contentPane.add(lblRecover);
 
-		JLabel lblpass = new JLabel("CONTRASEÑA");
+		JLabel lblpass = new JLabel("CONTRASEñA");
 		lblpass.setFont(new Font("Times", Font.BOLD, 29));
 		lblpass.setBounds(143, 222, 215, 30);
 		contentPane.add(lblpass);
@@ -165,7 +165,7 @@ public class ForgetPassWindow extends JFrame {
 			MimeBodyPart mimeBodyPart = new MimeBodyPart();
 
 			mimeBodyPart.setText("¿Has olvidado tu contraseña?\n" + "\n"
-					+ "No importa. ¡Son cosas que pasan! La contraseña correspondiente a tu usuario es  " + "\n"
+					+ "No importa. ¡Son cosas que pasan! La contraseña correspondiente a tu usuario es:  " + "\n"
 					+ "	" + "\n" + "\n" + pass + "\n" + "\n" + "\n" + "El Equipo de Scalpers");
 
 			// Crear el multipart para agregar la parte del mensaje anterior

@@ -215,30 +215,35 @@ public class SignUpWindow extends JFrame {
 
 					} else {
 						try {
-							int phone = Integer.parseInt(txtPhone.getText());
-							int cp = Integer.parseInt(txtPostalCode.getText());
-							try {
-
-								DB.getConnection();
-								int resultado = DB.findUser(txtEmail.getText(), txtPassword.getText());
-								if (resultado != 0) {
-									JOptionPane.showMessageDialog(null, "Ese usuario ya existe", "ERROR",
-											JOptionPane.ERROR_MESSAGE);
-								} else {
+							if (txtPhone.getText().length() == 9 && txtPostalCode.getText().length() == 5) {
+								int phone = Integer.parseInt(txtPhone.getText());
+								int cp = Integer.parseInt(txtPostalCode.getText());
+								try {
 
 									DB.getConnection();
-									DB.newUser(name.getText(), surname.getText(), txtPassword.getText(),
-											txtEmail.getText(), date, txtPostalCode.getText(), txtPhone.getText(),
-											gender.getSelectedItem().toString());
-									HomeWindow hw = new HomeWindow();
-									hw.setVisible(true);
-									SignUpWindow.this.setVisible(false);
-								}
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
+									int resultado = DB.findUser(txtEmail.getText(), txtPassword.getText());
+									if (resultado != 0) {
+										JOptionPane.showMessageDialog(null, "Ese usuario ya existe", "ERROR",
+												JOptionPane.ERROR_MESSAGE);
+									} else {
 
+										DB.getConnection();
+										DB.newUser(name.getText(), surname.getText(), txtPassword.getText(),
+												txtEmail.getText(), date, txtPostalCode.getText(), txtPhone.getText(),
+												gender.getSelectedItem().toString());
+										HomeWindow hw = new HomeWindow(txtEmail.getText());
+										hw.setVisible(true);
+										SignUpWindow.this.setVisible(false);
+									}
+								} catch (SQLException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"La edad y el codigo postal tienen que tener un formato válido ", "ERROR",
+										JOptionPane.ERROR_MESSAGE);
+							}
 						} catch (NumberFormatException e1) {
 							JOptionPane.showMessageDialog(null, "La edad y el codigo postal tienen que ser numéricos",
 									"ERROR", JOptionPane.ERROR_MESSAGE);

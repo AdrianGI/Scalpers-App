@@ -126,7 +126,7 @@ public class LoginWindow extends JFrame {
 						JOptionPane.showMessageDialog(null, "Inicio de sesión correcto", "BIENVENIDO",
 								JOptionPane.INFORMATION_MESSAGE);
 						LoginWindow.this.setVisible(false);
-						HomeWindow hw = new HomeWindow();
+						HomeWindow hw = new HomeWindow(emailtxt.getText());
 						hw.setVisible(true);
 
 					} else if (resultado == 1) {

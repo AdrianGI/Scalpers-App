@@ -2,27 +2,39 @@ package Data;
 
 public class Product {
 
+	public int ref;
 	public String type;
 	public String colour;
 	public int size;
-	public int ref;
 	public String title;
 	public String desc;
 	public int stock;
 	public double price;
-	public String image;
+	public String gender;
+	public String route;
 	// public double discount;
 
-	public Product(String type, String colour, int size, int ref, String title, String desc, int stock, double prize) {
+	public Product(int ref, String type, String colour, int size, String title, String desc, int stock, double price,
+			String gender, String route) {
 		super();
+		this.ref = ref;
 		this.type = type;
 		this.colour = colour;
 		this.size = size;
-		this.ref = ref;
 		this.title = title;
 		this.desc = desc;
 		this.stock = stock;
-		this.price = prize;
+		this.price = price;
+		this.gender = gender;
+		this.route = route;
+	}
+
+	public int getRef() {
+		return ref;
+	}
+
+	public void setRef(int ref) {
+		this.ref = ref;
 	}
 
 	public String getType() {
@@ -47,14 +59,6 @@ public class Product {
 
 	public void setSize(int size) {
 		this.size = size;
-	}
-
-	public int getRef() {
-		return ref;
-	}
-
-	public void setRef(int ref) {
-		this.ref = ref;
 	}
 
 	public String getTitle() {
@@ -89,12 +93,20 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getImage() {
-		return image;
+	public String getGender() {
+		return gender;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
 	}
 
 }
