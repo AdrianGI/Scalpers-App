@@ -1,8 +1,11 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.SQLException;
@@ -10,28 +13,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
 import Data.DB;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
-import javax.swing.JComboBox;
-
-public class SignUpWindow extends JFrame {
+public class EditDataWindow extends JFrame {
 
 	private JPanel contentPane;
+	
 	private JTextField name;
 	private JTextField surname;
 	private JTextField txtEmail;
@@ -43,10 +42,14 @@ public class SignUpWindow extends JFrame {
 	private JDateChooser dateChooser;
 
 	/**
+	 * Launch the application.
+	 */
+	
+
+	/**
 	 * Create the frame.
 	 */
-	public SignUpWindow() {
-
+	public EditDataWindow(String email) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 500, 650);
@@ -62,16 +65,18 @@ public class SignUpWindow extends JFrame {
 		contentPane.add(lblscalpers);
 
 		name = new JTextField();
+		name.setText(DB.GetName(email));
 		name.setToolTipText("Nombre");
 		name.setBounds(95, 120, 296, 40);
 		name.setFont(new Font("Times", Font.PLAIN, 13));
-		name.setText("Nombre");
+		
 		contentPane.add(name);
 		name.setColumns(10);
 
 		surname = new JTextField();
+		surname.setText(DB.GetSur(email));
 		surname.setToolTipText("Apellidos");
-		surname.setText("Apellidos");
+		
 		surname.setFont(new Font("Times", Font.PLAIN, 13));
 		surname.setColumns(10);
 		surname.setBounds(95, 173, 296, 40);
@@ -96,8 +101,9 @@ public class SignUpWindow extends JFrame {
 		});
 
 		txtEmail = new JTextField();
+		txtEmail.setText(email);
 		txtEmail.setToolTipText("Email");
-		txtEmail.setText("Email");
+		
 		txtEmail.setFont(new Font("Times", Font.PLAIN, 13));
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(95, 277, 296, 40);
@@ -122,8 +128,9 @@ public class SignUpWindow extends JFrame {
 		});
 
 		txtPostalCode = new JTextField();
+		txtPostalCode.setText(DB.GetPc(email));
 		txtPostalCode.setToolTipText("Código postal");
-		txtPostalCode.setText("Código postal");
+		
 		txtPostalCode.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPostalCode.setColumns(10);
 		txtPostalCode.setBounds(95, 381, 296, 40);
@@ -148,8 +155,9 @@ public class SignUpWindow extends JFrame {
 		});
 
 		txtPhone = new JTextField();
+		txtPhone.setText(DB.GetPhone(email));
 		txtPhone.setToolTipText("Teléfono");
-		txtPhone.setText("Teléfono");
+		
 		txtPhone.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPhone.setColumns(10);
 		txtPhone.setBounds(95, 433, 296, 40);
@@ -172,13 +180,15 @@ public class SignUpWindow extends JFrame {
 			}
 
 		});
-
+		Date date = DB.GetDate(email);
+		
 		dateChooser = new JDateChooser();
+		dateChooser.setDate(date);
 		dateChooser.setToolTipText("Fecha de Nacimiento");
 		dateChooser.setBounds(95, 329, 296, 40);
 		contentPane.add(dateChooser);
 
-		JButton btncreate = new JButton("Crear cuenta");
+		JButton btncreate = new JButton("ACTUALIZAR CUENTA ...");
 		btncreate.addActionListener(new ActionListener() {
 
 			// restricciones codigo postal 5 numero valido y masculino fem
@@ -199,9 +209,9 @@ public class SignUpWindow extends JFrame {
 
 					JOptionPane.showMessageDialog(null, "Hay que rellenar todos los campos", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
-					SignUpWindow.this.setVisible(false);
-					SignUpWindow suw = new SignUpWindow();
-					suw.setVisible(true);
+					ProfileWindow pw = new ProfileWindow(email);
+					pw.setVisible(true);
+					EditDataWindow.this.setVisible(false);
 
 				} else {
 					// tiene una única arroba
@@ -209,9 +219,9 @@ public class SignUpWindow extends JFrame {
 
 						JOptionPane.showMessageDialog(null, "Correo Electeónico no válido", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
-						SignUpWindow.this.setVisible(false);
-						SignUpWindow suw = new SignUpWindow();
-						suw.setVisible(true);
+						ProfileWindow pw = new ProfileWindow(email);
+						pw.setVisible(true);
+						EditDataWindow.this.setVisible(false);
 
 					} else {
 						try {
@@ -228,17 +238,20 @@ public class SignUpWindow extends JFrame {
 									} else {
 
 										DB.getConnection();
-										DB.newUser(name.getText(), surname.getText(), txtPassword.getText(),
+										
+										DB.UpdateUser(name.getText(), surname.getText(), txtPassword.getText(),
 												txtEmail.getText(), date, txtPostalCode.getText(), txtPhone.getText(),
 												gender.getSelectedItem().toString());
 										
 										JOptionPane.showMessageDialog(null,
-												"Usuario Registrado ", null,
+												"Datos Personales Actualizados ", null,
 												JOptionPane.INFORMATION_MESSAGE);
 										
-										HomeWindow hw = new HomeWindow(txtEmail.getText());
-										hw.setVisible(true);
-										SignUpWindow.this.setVisible(false);
+										ProfileWindow pw = new ProfileWindow(email);
+										pw.setVisible(true);
+										EditDataWindow.this.setVisible(false);
+										
+										
 									}
 								} catch (SQLException e1) {
 									// TODO Auto-generated catch block
@@ -252,8 +265,8 @@ public class SignUpWindow extends JFrame {
 						} catch (NumberFormatException e1) {
 							JOptionPane.showMessageDialog(null, "La edad y el codigo postal tienen que ser numéricos",
 									"ERROR", JOptionPane.ERROR_MESSAGE);
-							SignUpWindow.this.setVisible(false);
-							SignUpWindow suw = new SignUpWindow();
+							EditDataWindow.this.setVisible(false);
+							EditDataWindow suw = new EditDataWindow(email);
 							suw.setVisible(true);
 						}
 					}
@@ -264,16 +277,16 @@ public class SignUpWindow extends JFrame {
 
 		btncreate.setBackground(Color.BLACK);
 		btncreate.setFont(new Font("Times", Font.PLAIN, 13));
-		btncreate.setBounds(264, 553, 127, 29);
+		btncreate.setBounds(213, 553, 178, 29);
 		contentPane.add(btncreate);
 
 		btnBack = new JButton("Volver");
 		btnBack.setBorder(null);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginWindow lw = new LoginWindow();
+				ProfileWindow lw = new ProfileWindow(email);
 				lw.setVisible(true);
-				SignUpWindow.this.setVisible(false);
+				EditDataWindow.this.setVisible(false);
 
 			}
 		});
@@ -293,6 +306,7 @@ public class SignUpWindow extends JFrame {
 		gender.setToolTipText("Género");
 		gender.setFont(new Font("Times", Font.PLAIN, 13));
 		gender.setBounds(95, 473, 296, 56);
+		gender.setSelectedItem(DB.GetGender(email));
 		gender.addItem("Masculino");
 		gender.addItem("Femenino");
 

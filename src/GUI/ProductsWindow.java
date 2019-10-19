@@ -16,13 +16,21 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import Data.DB;
+
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
+
 import javax.swing.SwingConstants;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class ProductsWindow extends JFrame {
 
@@ -30,6 +38,8 @@ public class ProductsWindow extends JFrame {
 	private JFrame ventanaAnterior;
 	private String gender, type;
 	private JScrollPane scroll;
+	private JPanel panelWest;
+	private JPanel panelEast;
 
 	public ProductsWindow(String email) {
 
@@ -41,16 +51,33 @@ public class ProductsWindow extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		JFrame ventana = this;
+		JFrame v = this;
 
 		JPanel PanelUp = new JPanel();
 		PanelUp.setBackground(Color.WHITE);
-		FlowLayout fl_PanelUp = (FlowLayout) PanelUp.getLayout();
-		fl_PanelUp.setAlignment(FlowLayout.LEFT);
 		contentPane.add(PanelUp, BorderLayout.NORTH);
+		PanelUp.setLayout(new BorderLayout(0, 0));
+		
+		panelWest = new JPanel();
+		PanelUp.add(panelWest, BorderLayout.WEST);
+		panelWest.setBackground(Color.WHITE);
+		
+		panelEast = new JPanel();
+		PanelUp.add(panelEast, BorderLayout.EAST);
+		panelEast.setBackground(Color.WHITE);
 
+		
+		
+		try {
+			DB.getConnection();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		JMenuBar MenuBar = new JMenuBar();
-		PanelUp.add(MenuBar);
+		panelWest.add(MenuBar);
 
 		JMenu Female = new JMenu("MUJER");
 		Female.setFont(new Font("Times", Font.PLAIN, 13));
@@ -96,6 +123,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Femenino";
 				type = "Camiseta";
 				contentPane.remove(scroll);
 				try {
@@ -137,7 +165,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -154,6 +182,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Femenino";
 				type = "Camisa";
 				contentPane.remove(scroll);
 				try {
@@ -195,7 +224,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -212,6 +241,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Femenino";
 				type = "Sudadera";
 				contentPane.remove(scroll);
 				try {
@@ -253,7 +283,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -270,6 +300,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Femenino";
 				type = "Gafa";
 				contentPane.remove(scroll);
 				try {
@@ -311,7 +342,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -320,7 +351,7 @@ public class ProductsWindow extends JFrame {
 			}
 		});
 
-		JMenuItem jewells = new JMenuItem("Bisutería");
+		JMenuItem jewells = new JMenuItem("Bolsos");
 		jewells.setFont(new Font("Times", Font.PLAIN, 13));
 		Female.add(jewells);
 		jewells.addActionListener(new ActionListener() {
@@ -328,7 +359,8 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				type = "Bisuteria";
+				gender="Femenino";
+				type = "Bolso";
 				contentPane.remove(scroll);
 				try {
 					PanelCentre = new PhotosPanel(gender, type, "");
@@ -369,7 +401,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -422,7 +454,7 @@ public class ProductsWindow extends JFrame {
 		 * {"Blanco","Rojo","Azul","Rosa","Negro","Gris","Marrón","Burdeos"};
 		 * 
 		 * 
-		 * JComboBox comboBoxColor = new JComboBox(colours); PanelUp.add(comboBoxColor);
+		 * JComboBox comboBoxColor = new JComboBox(colours); panelWest.add(comboBoxColor);
 		 * comboBoxColor.addActionListener(new ActionListener() {
 		 * 
 		 * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
@@ -465,6 +497,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Masculino";
 				type = "Camiseta";
 				contentPane.remove(scroll);
 				try {
@@ -506,7 +539,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -523,6 +556,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Masculino";
 				type = "Camisa";
 				contentPane.remove(scroll);
 				try {
@@ -564,7 +598,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -581,6 +615,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Masculino";
 				type = "Sudadera";
 				contentPane.remove(scroll);
 				try {
@@ -622,7 +657,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -640,6 +675,7 @@ public class ProductsWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				type = "Pulsera";
+				gender="Masculino";
 				contentPane.remove(scroll);
 				try {
 					PanelCentre = new PhotosPanel(gender, type, "");
@@ -680,7 +716,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -694,8 +730,9 @@ public class ProductsWindow extends JFrame {
 		Male.add(Cap);
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setHorizontalAlignment(SwingConstants.TRAILING);
-		PanelUp.add(btnVolver);
-		btnVolver.setFont(new Font("Times", Font.PLAIN, 13));
+		btnVolver.setBorder(null);
+		panelEast.add(btnVolver);
+		btnVolver.setFont(new Font("Times", Font.BOLD, 13));
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override
@@ -711,6 +748,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				gender="Masculino";
 				type = "Gorra";
 				contentPane.remove(scroll);
 				try {
@@ -752,7 +790,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute());
+						new ProductWindow(pi.getRoute(),v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -760,6 +798,7 @@ public class ProductsWindow extends JFrame {
 				contentPane.updateUI();
 			}
 		});
+
 
 		PanelCentre = new PanelInformation();
 

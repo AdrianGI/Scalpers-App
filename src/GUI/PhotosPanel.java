@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import Data.DB;
+import java.awt.Color;
 
 public class PhotosPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
+	private static final long serialVersionUID = 1L;
 
 	private void LoadPhotos(String gender, String type, String colour) {
 		// TODO Auto-generated method stub
@@ -37,6 +39,7 @@ public class PhotosPanel extends JPanel {
 	}
 
 	public PhotosPanel(String gender, String type, String colour) {
+		setBackground(Color.WHITE);
 
 		setLayout(new GridLayout(0, 3, 0, 0));
 		LoadPhotos(gender, type, colour);

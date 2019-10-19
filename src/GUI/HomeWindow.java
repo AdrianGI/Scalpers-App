@@ -46,24 +46,32 @@ public class HomeWindow extends JFrame {
 		contentPane.setLayout(null);
 
 		JButton btnprofile = new JButton(new ImageIcon("photos/profile.png"));
+		btnprofile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ProfileWindow pw = new ProfileWindow(email);
+				pw.setVisible(true);
+				HomeWindow.this.setVisible(false);
+			}
+		});
 		btnprofile.setToolTipText("Perfil");
-		btnprofile.setBounds(447, 6, 34, 34);
+		btnprofile.setBounds(350, 4, 34, 34);
 		contentPane.add(btnprofile);
 
 		JButton btncart = new JButton(new ImageIcon("photos/cart.png"));
 		btncart.setToolTipText("Carrito");
-		btncart.setBounds(506, 4, 34, 35);
+		btncart.setBounds(460, 3, 34, 35);
 		contentPane.add(btncart);
 
 		JButton btnsearch = new JButton(new ImageIcon("photos/search.png"));
 		btnsearch.setToolTipText("Buscar");
-		btnsearch.setBounds(326, 5, 34, 34);
+		btnsearch.setBounds(125, 4, 34, 34);
 		contentPane.add(btnsearch);
 
 		JButton btnstores = new JButton(new ImageIcon("photos/stores.png"));
 		btnstores.setToolTipText("Tiendas");
 		btnstores.setBorder(null);
-		btnstores.setBounds(387, 5, 34, 34);
+		btnstores.setBounds(238, 4, 34, 34);
 		contentPane.add(btnstores);
 
 		JLabel lblmen = new JLabel(new ImageIcon("photos/scalpers.jpg"));
@@ -102,20 +110,21 @@ public class HomeWindow extends JFrame {
 		label.setBounds(321, 95, 100, 27);
 		contentPane.add(label);
 
-		JButton btnProducts = new JButton("PRODUCTOS");
-		btnProducts.addActionListener(new ActionListener() {
+		
+		
+		JButton btnenter = new JButton(new ImageIcon("photos/enter.png"));
+		
+		btnenter.setBorder(null);
+		btnenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				HomeWindow.this.setVisible(false);
 				ProductsWindow a = new ProductsWindow(email);
 				a.setVisible(true);
-
 			}
 		});
-		btnProducts.setBorder(null);
-		btnProducts.setFont(new Font("Times", Font.BOLD, 22));
-		btnProducts.setBounds(6, 6, 157, 34);
-		contentPane.add(btnProducts);
+		btnenter.setToolTipText("Buscar");
+		btnenter.setBounds(6, 4, 41, 34);
+		contentPane.add(btnenter);
 
 	}
 }

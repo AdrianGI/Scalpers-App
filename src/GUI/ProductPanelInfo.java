@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.sql.SQLException;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -15,6 +16,9 @@ import javax.swing.border.Border;
 import Data.DB;
 
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
 
 public class ProductPanelInfo extends JPanel {
 
@@ -27,61 +31,46 @@ public class ProductPanelInfo extends JPanel {
 	/**
 	 * Create the panel.
 	 */
+	private static final long serialVersionUID = 1L;
 	public ProductPanelInfo(String route) {
 
 		this.route = route;
-		setLayout(new BorderLayout(0, 0));
-
-		JPanel panelCentro = new JPanel();
-		add(panelCentro, BorderLayout.CENTER);
-		panelCentro.setLayout(new GridLayout(2, 1, 0, 0));
-
-		JPanel PanelPhoto = new JPanel();
-		panelCentro.add(PanelPhoto);
-
+		setBackground(Color.WHITE);
+	
+		setLayout(new GridBagLayout());
 		ImageIcon im = new ImageIcon(route);
 		im.setDescription(route);
-		JLabel lblPhoto = new JLabel(im);
-		PanelPhoto.add(lblPhoto);
+		JLabel lblfoto = new JLabel(im);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.gridx = 4;  //En qué columna empieza
+		constraints.gridy = 0;  //En qué fila empieza
+		constraints.gridwidth = 5; //Cuántas columnas ocupa
+		constraints.gridheight = 4; //Cuántas filas ocupa
 
-		JPanel PanelInfo = new JPanel();
-		panelCentro.add(PanelInfo);
-		PanelInfo.setLayout(new GridLayout(3, 1, 0, 0));
-
-		JPanel TittlePanel = new JPanel();
-		PanelInfo.add(TittlePanel);
-
-		try {
-			DB.getConnection();
-
-			JLabel lblTitle = new JLabel(DB.getProductTittle(route));
-			lblTitle.setFont(new Font("Times", Font.PLAIN, 13));
-			lblTitle.setBackground(Color.WHITE);
-			TittlePanel.add(lblTitle);
-
-			JPanel PricePanel = new JPanel();
-			PanelInfo.add(PricePanel);
-
-			JLabel price = new JLabel("€" + String.valueOf(DB.getProductPrice(route)));
-			price.setFont(new Font("Times", Font.PLAIN, 13));
-			PricePanel.add(price);
-
-			JPanel ColoursPanel = new JPanel();
-			PanelInfo.add(ColoursPanel);
-
-			JLabel lblColours = new JLabel("+" + String.valueOf(DB.getProductColours(route) + "COLORES"));
-			lblColours.setFont(new Font("Times", Font.PLAIN, 13));
-			PricePanel.add(lblColours);
-			setVisible(true);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Border line = BorderFactory.createLineBorder(Color.BLACK, 1);
-		setBorder(line);
-
+		add(lblfoto,constraints);
+		
+		JLabel lblTitle = new JLabel(DB.getProductTittle(route));
+		constraints.gridx = 6;  //En qué columna empieza
+		constraints.gridy = 6;  //En qué fila empieza
+		constraints.gridwidth = 3; //Cuántas columnas ocupa
+		constraints.gridheight = 1; //Cuántas filas ocupa
+		add(lblTitle,constraints);
+		
+		JLabel price = new JLabel("€" + String.valueOf(DB.getProductPrice(route)));
+		constraints.gridx = 6;  //En qué columna empieza
+		constraints.gridy = 7;  //En qué fila empieza
+		constraints.gridwidth = 3; //Cuántas columnas ocupa
+		constraints.gridheight = 1; //Cuántas filas ocupa
+		add(price,constraints);
+		
+		
+		JLabel lblColours = new JLabel("+" + String.valueOf(DB.getProductColours(route) + "COLORES"));
+		constraints.gridx = 6;  //En qué columna empieza
+		constraints.gridy = 8;  //En qué fila empieza
+		constraints.gridwidth = 3; //Cuántas columnas ocupa
+		constraints.gridheight = 1; //Cuántas filas ocupa
+		add(lblColours,constraints);
+		
 	}
 
 }

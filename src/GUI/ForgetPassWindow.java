@@ -57,12 +57,12 @@ public class ForgetPassWindow extends JFrame {
 
 		JLabel lblRecover = new JLabel("RECUPERAR ");
 		lblRecover.setFont(new Font("Times", Font.BOLD, 29));
-		lblRecover.setBounds(151, 180, 198, 30);
+		lblRecover.setBounds(151, 166, 198, 30);
 		contentPane.add(lblRecover);
 
-		JLabel lblpass = new JLabel("CONTRASEñA");
+		JLabel lblpass = new JLabel("CONTRASEÑA");
 		lblpass.setFont(new Font("Times", Font.BOLD, 29));
-		lblpass.setBounds(143, 222, 215, 30);
+		lblpass.setBounds(143, 208, 215, 47);
 		contentPane.add(lblpass);
 
 		JLabel lblplease = new JLabel("Por favor introduce tu email:");
