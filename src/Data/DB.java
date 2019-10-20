@@ -55,8 +55,7 @@ public class DB {
 
 	public static void UpdateUser(String name, String surname, String password, String email, String date, String cp,
 			String phone, String gender) {
-		
-		
+
 		String sql = "UPDATE users set VALUES('" + name + "','" + surname + "','" + password + "','" + email + "','"
 				+ date + "','" + cp + "','" + phone + "','" + gender + "')";
 
@@ -125,7 +124,7 @@ public class DB {
 			e.printStackTrace();
 
 		}
-	
+
 		return name;
 	}
 
@@ -176,6 +175,29 @@ public class DB {
 
 	}
 
+	public static ArrayList<String> GetImageRoute2(String gender, String type, String colour) {
+		ArrayList<String> routes = new ArrayList<String>();
+		String query = "SELECT DISTINCT route FROM productsinfo WHERE type='" + type + "' AND gender='" + gender
+				+ "' AND colour='" + colour + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				String r = rs.getString("route");
+				routes.add(r);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return routes;
+
+	}
+
 	public static ArrayList<String> GetAllRoutes() {
 		ArrayList<String> routes = new ArrayList<String>();
 		String sql = "SELECT DISTINCT route FROM productsinfo";
@@ -202,128 +224,123 @@ public class DB {
 
 	public static float getProductPrice(String route) {
 		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
-		
+
 		float price = 0;
-		String ref="";
+		String ref = "";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			
+
 			if (rs.next()) {
-				
-				 ref = rs.getString("ref");
+
+				ref = rs.getString("ref");
 			}
-			String sql2= "SELECT price FROM products WHERE ref='" + ref + "'";
-			
+			String sql2 = "SELECT price FROM products WHERE ref='" + ref + "'";
+
 			try {
 				Statement stmt2 = conn.createStatement();
 				ResultSet rs2 = stmt2.executeQuery(sql2);
-				
+
 				if (rs2.next()) {
-					
-					 price = rs2.getFloat("price");
+
+					price = rs2.getFloat("price");
 				}
-			
-			rs.close();
-			rs2.close();
+
+				rs.close();
+				rs2.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-		
-	}catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
 		return price;
 	}
-	
+
 	public static String getProductTittle(String route) {
-		
-String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
-		
-		String title ="";
-		String ref="";
+
+		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
+
+		String title = "";
+		String ref = "";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			
+
 			if (rs.next()) {
-				
-				 ref = rs.getString("ref");
+
+				ref = rs.getString("ref");
 			}
-			String sql2= "SELECT title FROM products WHERE ref='" + ref + "'";
-			
+			String sql2 = "SELECT title FROM products WHERE ref='" + ref + "'";
+
 			try {
 				Statement stmt2 = conn.createStatement();
 				ResultSet rs2 = stmt2.executeQuery(sql2);
-				
+
 				if (rs2.next()) {
-					
+
 					title = rs2.getString("title");
 				}
-			
-			rs.close();
-			rs2.close();
+
+				rs.close();
+				rs2.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-			
-		
-	}catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
 		return title;
 	}
 
 	public static int getProductColours(String route) {
-		
-			
-			String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
-					
-					int colour =0;
-					String ref="";
-					try {
-						Statement stmt = conn.createStatement();
-						ResultSet rs = stmt.executeQuery(sql);
-						
-						if (rs.next()) {
-							
-							 ref = rs.getString("ref");
-						}
-						String sql2= "SELECT colours FROM products WHERE ref='" + ref + "'";
-						
-						try {
-							Statement stmt2 = conn.createStatement();
-							ResultSet rs2 = stmt2.executeQuery(sql2);
-							
-							if (rs2.next()) {
-								
-								colour = rs2.getInt("colours");
-							}
-						
-						rs.close();
-						rs2.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-						
-					
-				}catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
+
+		int colour = 0;
+		String ref = "";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+
+				ref = rs.getString("ref");
+			}
+			String sql2 = "SELECT colours FROM products WHERE ref='" + ref + "'";
+
+			try {
+				Statement stmt2 = conn.createStatement();
+				ResultSet rs2 = stmt2.executeQuery(sql2);
+
+				if (rs2.next()) {
+
+					colour = rs2.getInt("colours");
 				}
-					return colour;
-				}
-	
-	
+
+				rs.close();
+				rs2.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return colour;
+	}
+
 	public static String GetName(String email) {
 		String r = "";
-		String query = "SELECT name FROM users WHERE email='" + email+  "'";
+		String query = "SELECT name FROM users WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -331,7 +348,7 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 			if (rs.next()) {
 				r = rs.getString("name");
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -342,10 +359,10 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 		return r;
 
 	}
-	
+
 	public static String GetSur(String email) {
 		String r = "";
-		String query = "SELECT surname FROM users WHERE email='" + email+  "'";
+		String query = "SELECT surname FROM users WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -353,7 +370,7 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 			if (rs.next()) {
 				r = rs.getString("surname");
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -364,10 +381,10 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 		return r;
 
 	}
-	
+
 	public static String GetGender(String email) {
 		String r = "";
-		String query = "SELECT gender FROM users WHERE email='" + email+  "'";
+		String query = "SELECT gender FROM users WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -375,7 +392,7 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 			if (rs.next()) {
 				r = rs.getString("gender");
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -386,11 +403,10 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 		return r;
 
 	}
-	
-	
+
 	public static Date GetDate(String email) {
-		Date r = null ;
-		String query = "SELECT date FROM users WHERE email='" + email+  "'";
+		Date r = null;
+		String query = "SELECT date FROM users WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -398,7 +414,7 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 			if (rs.next()) {
 				r = rs.getDate("date");
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -409,12 +425,10 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 		return r;
 
 	}
-	
-	
 
 	public static String GetPc(String email) {
 		String r = "";
-		String query = "SELECT pc FROM users WHERE email='" + email+  "'";
+		String query = "SELECT pc FROM users WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -422,7 +436,7 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 			if (rs.next()) {
 				r = rs.getString("pc");
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -433,11 +447,10 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 		return r;
 
 	}
-	
 
 	public static String GetPhone(String email) {
 		String r = "";
-		String query = "SELECT phone FROM users WHERE email='" + email+  "'";
+		String query = "SELECT phone FROM users WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -445,7 +458,7 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 			if (rs.next()) {
 				r = rs.getString("phone");
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -456,13 +469,10 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 		return r;
 
 	}
-	
-	
-	
-	
+
 	public static String GetImageRef(String route) {
 		String r = "";
-		String query = "SELECT ref FROM productsinfo WHERE route='" + route+  "'";
+		String query = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -470,7 +480,29 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 
 			if (rs.next()) {
 				r = rs.getString("ref");
-				
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+
+	public static String GetColourUnique(String route) {
+		String r = "";
+		String query = "SELECT DISTINCT colour FROM productsinfo WHERE route='" + route + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("colour");
+
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -483,109 +515,158 @@ String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
 	}
 
 	public static String getProductDescription(String route) {
-		
-		
+
 		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
-				
-				String desc="";
-				String ref="";
-				try {
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery(sql);
-					
-					if (rs.next()) {
-						
-						 ref = rs.getString("ref");
-					}
-					String sql2= "SELECT description FROM products WHERE ref='" + ref + "'";
-					
-					try {
-						Statement stmt2 = conn.createStatement();
-						ResultSet rs2 = stmt2.executeQuery(sql2);
-						
-						if (rs2.next()) {
-							
-							desc = rs2.getString("description");
-						}
-					
-					rs.close();
-					rs2.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+		String desc = "";
+		String ref = "";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+
+				ref = rs.getString("ref");
+			}
+			String sql2 = "SELECT description FROM products WHERE ref='" + ref + "'";
+
+			try {
+				Statement stmt2 = conn.createStatement();
+				ResultSet rs2 = stmt2.executeQuery(sql2);
+
+				if (rs2.next()) {
+
+					desc = rs2.getString("description");
 				}
-					
-				
-			}catch (SQLException e) {
+
+				rs.close();
+				rs2.close();
+			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				return desc;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return desc;
+	}
+
+	public static ArrayList<String> getProductSizes(String route, String colour) {
+
+		ArrayList<String> sizes = new ArrayList<String>();
+
+		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "' AND colour='" + colour + "'";
+
+		String ref = "";
+		String size = "";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+
+				ref = rs.getString("ref");
 			}
 
-public static ArrayList<String> getProductSizes(String route,String colour) {
-		
-	ArrayList<String> sizes = new ArrayList<String>();
-	
-	String sql = "SELECT size FROM productsinfo WHERE route='" + route + "' AND colour='" + colour + "'";
-				
-				
-				String size="";
-				try {
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery(sql);
-					
-					while(rs.next()) {
-						
-						size = rs.getString("size");
-						 sizes.add(size);
-					}
-					
-					rs.close();
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			String sql2 = "SELECT DISTINCT  size FROM productsinfo WHERE ref='" + ref + "'";
+
+			try {
+
+				Statement stmt2 = conn.createStatement();
+				ResultSet rs2 = stmt2.executeQuery(sql2);
+
+				while (rs2.next()) {
+
+					size = rs2.getString("size");
+					sizes.add(size);
 				}
-					
-				
-		
-				return sizes;
-			}
 
-public static ArrayList<String> getProductColour(String route) {
-	
-	ArrayList<String> colours = new ArrayList<String>();
-		String sql = "SELECT DISTINCT colour FROM productsinfo WHERE route='" + route + "'";
-				
-				
-				String colour="";
-				try {
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery(sql);
-					
-					while(rs.next()) {
-						
-						colour = rs.getString("colour");
-						 colours.add(colour);
-					}
-					
-					rs.close();
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				rs.close();
+				rs2.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return sizes;
+	}
+
+	public static ArrayList<String> getProductColour(String route) {
+
+		ArrayList<String> colours = new ArrayList<String>();
+		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
+
+		String ref = "";
+		String colour = "";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			if (rs.next()) {
+
+				ref = rs.getString("ref");
+			}
+			String sql2 = "SELECT DISTINCT colour FROM productsinfo WHERE ref='" + ref + "'";
+
+			try {
+
+				Statement stmt2 = conn.createStatement();
+				ResultSet rs2 = stmt2.executeQuery(sql2);
+
+				while (rs2.next()) {
+
+					colour = rs2.getString("colour");
+					colours.add(colour);
 				}
-					
-				
-		
-				return colours;
+
+				rs.close();
+				rs2.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-	
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
+		return colours;
+	}
 
+	public static void addCart(String title, String colour, String size, int uds, String ref, float price) {
 
+		try {
+			Statement stmt = conn.createStatement();
+
+			String sql2 = "SELECT title FROM cart WHERE title =" + title;
+
+			ResultSet rs = stmt.executeQuery(sql2);
+
+			if (rs.next()) {
+				String sql = "UPDATE cart SET uds = unidades + 1 WHERE title = " + title;
+				stmt.executeUpdate(sql);
+
+			} else {
+
+				String sql1 = "INSERT INTO cart VALUES('" + title + "','" + colour + "','" + size + "','" + uds + "','"
+						+ ref + "','" + price + "')";
+				stmt.executeUpdate(sql1);
+			}
+
+			String sql = "UPDATE productsinfo SET stock = stock - 1 WHERE ref = " + ref + "AND colour=" + colour
+					+ "AND size=" + size;
+			stmt.executeUpdate(sql);
+
+			rs.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
-
-

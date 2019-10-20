@@ -231,11 +231,10 @@ public class SignUpWindow extends JFrame {
 										DB.newUser(name.getText(), surname.getText(), txtPassword.getText(),
 												txtEmail.getText(), date, txtPostalCode.getText(), txtPhone.getText(),
 												gender.getSelectedItem().toString());
-										
-										JOptionPane.showMessageDialog(null,
-												"Usuario Registrado ", null,
+
+										JOptionPane.showMessageDialog(null, "Usuario Registrado ", null,
 												JOptionPane.INFORMATION_MESSAGE);
-										
+
 										HomeWindow hw = new HomeWindow(txtEmail.getText());
 										hw.setVisible(true);
 										SignUpWindow.this.setVisible(false);

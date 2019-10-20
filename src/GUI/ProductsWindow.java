@@ -57,25 +57,23 @@ public class ProductsWindow extends JFrame {
 		PanelUp.setBackground(Color.WHITE);
 		contentPane.add(PanelUp, BorderLayout.NORTH);
 		PanelUp.setLayout(new BorderLayout(0, 0));
-		
+
 		panelWest = new JPanel();
 		PanelUp.add(panelWest, BorderLayout.WEST);
 		panelWest.setBackground(Color.WHITE);
-		
+
 		panelEast = new JPanel();
 		PanelUp.add(panelEast, BorderLayout.EAST);
 		panelEast.setBackground(Color.WHITE);
 
-		
-		
 		try {
 			DB.getConnection();
-		
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		JMenuBar MenuBar = new JMenuBar();
 		panelWest.add(MenuBar);
 
@@ -123,7 +121,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Femenino";
+				gender = "Femenino";
 				type = "Camiseta";
 				contentPane.remove(scroll);
 				try {
@@ -165,7 +163,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -182,7 +180,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Femenino";
+				gender = "Femenino";
 				type = "Camisa";
 				contentPane.remove(scroll);
 				try {
@@ -224,7 +222,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -241,7 +239,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Femenino";
+				gender = "Femenino";
 				type = "Sudadera";
 				contentPane.remove(scroll);
 				try {
@@ -283,7 +281,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -300,7 +298,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Femenino";
+				gender = "Femenino";
 				type = "Gafa";
 				contentPane.remove(scroll);
 				try {
@@ -342,7 +340,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -359,7 +357,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Femenino";
+				gender = "Femenino";
 				type = "Bolso";
 				contentPane.remove(scroll);
 				try {
@@ -401,7 +399,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -449,55 +447,14 @@ public class ProductsWindow extends JFrame {
 		mntmCamisetaHombre.setFont(new Font("Times", Font.PLAIN, 13));
 		Male.add(mntmCamisetaHombre);
 
-		/*
-		 * String colours[] =
-		 * {"Blanco","Rojo","Azul","Rosa","Negro","Gris","Marrón","Burdeos"};
-		 * 
-		 * 
-		 * JComboBox comboBoxColor = new JComboBox(colours); panelWest.add(comboBoxColor);
-		 * comboBoxColor.addActionListener(new ActionListener() {
-		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
-		 * method stub contentPane.remove(scroll); try { PanelCentre = new
-		 * PhotosPanel(gender,type,String.valueOf(comboBoxColor.getSelectedItem())); }
-		 * catch (Exception e1) { // TODO Auto-generated catch block
-		 * e1.printStackTrace(); } PanelCentre.addMouseListener(new MouseListener() {
-		 * 
-		 * @Override public void mouseReleased(MouseEvent e) { // TODO Auto-generated
-		 * method stub
-		 * 
-		 * }
-		 * 
-		 * @Override public void mousePressed(MouseEvent e) { // TODO Auto-generated
-		 * method stub
-		 * 
-		 * }
-		 * 
-		 * @Override public void mouseExited(MouseEvent e) { // TODO Auto-generated
-		 * method stub
-		 * 
-		 * }
-		 * 
-		 * @Override public void mouseEntered(MouseEvent e) { // TODO Auto-generated
-		 * method stub
-		 * 
-		 * }
-		 * 
-		 * @Override public void mouseClicked(MouseEvent e) {
-		 * System.out.println("HAS HECHO CLICK"); PhotosPanel pf =
-		 * (PhotosPanel)e.getComponent(); int x = e.getX(); int y = e.getY();
-		 * ProductPanelInfo pi = (ProductPanelInfo)pf.getComponentAt(x, y); new
-		 * ProductWindow(pi.getRoute()); } }); scroll = new JScrollPane(PanelCentre);
-		 * contentPane.add(scroll, BorderLayout.CENTER); contentPane.updateUI(); } });
-		 * 
-		 */
+		String colours[] = { "Blanco", "Rojo", "Azul", "Rosa", "Negro", "Gris", "Marrón", "Burdeos" };
 
 		mntmCamisetaHombre.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Masculino";
+				gender = "Masculino";
 				type = "Camiseta";
 				contentPane.remove(scroll);
 				try {
@@ -539,7 +496,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -556,7 +513,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Masculino";
+				gender = "Masculino";
 				type = "Camisa";
 				contentPane.remove(scroll);
 				try {
@@ -598,7 +555,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -615,7 +572,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Masculino";
+				gender = "Masculino";
 				type = "Sudadera";
 				contentPane.remove(scroll);
 				try {
@@ -657,7 +614,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -675,7 +632,7 @@ public class ProductsWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				type = "Pulsera";
-				gender="Masculino";
+				gender = "Masculino";
 				contentPane.remove(scroll);
 				try {
 					PanelCentre = new PhotosPanel(gender, type, "");
@@ -716,7 +673,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -728,11 +685,88 @@ public class ProductsWindow extends JFrame {
 		JMenuItem Cap = new JMenuItem("Gorras");
 		Cap.setFont(new Font("Times", Font.PLAIN, 13));
 		Male.add(Cap);
+
+		JButton btncart = new JButton(new ImageIcon("photos/cart.png"));
+		btncart.setToolTipText("Carrito");
+		btncart.setBorder(null);
+		panelEast.add(btncart);
+
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setHorizontalAlignment(SwingConstants.TRAILING);
 		btnVolver.setBorder(null);
 		panelEast.add(btnVolver);
 		btnVolver.setFont(new Font("Times", Font.BOLD, 13));
+
+		JPanel panelCentre = new JPanel();
+		panelCentre.setBackground(Color.WHITE);
+		PanelUp.add(panelCentre, BorderLayout.CENTER);
+
+		JLabel lblfilters = new JLabel("FILTROS");
+		panelCentre.add(lblfilters);
+
+		lblfilters.setFont(new Font("Times", Font.PLAIN, 13));
+
+		JComboBox comboBoxColor = new JComboBox(colours);
+		comboBoxColor.setBackground(Color.WHITE);
+		panelCentre.add(comboBoxColor);
+		comboBoxColor.setFont(new Font("Times", Font.PLAIN, 13));
+
+		comboBoxColor.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+				contentPane.remove(scroll);
+				try {
+					PanelCentre = new PhotosPanel(gender, type, String.valueOf(comboBoxColor.getSelectedItem()));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				PanelCentre.addMouseListener(new MouseListener() {
+
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						System.out.println("HAS HECHO CLICK");
+						PhotosPanel pf = (PhotosPanel) e.getComponent();
+						int x = e.getX();
+						int y = e.getY();
+						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
+						new ProductWindow(pi.getRoute(), v);
+					}
+				});
+
+				scroll = new JScrollPane(PanelCentre);
+				contentPane.add(scroll, BorderLayout.CENTER);
+				contentPane.updateUI();
+			}
+
+		});
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override
@@ -748,7 +782,7 @@ public class ProductsWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				gender="Masculino";
+				gender = "Masculino";
 				type = "Gorra";
 				contentPane.remove(scroll);
 				try {
@@ -790,7 +824,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(),v);
+						new ProductWindow(pi.getRoute(), v);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -798,7 +832,6 @@ public class ProductsWindow extends JFrame {
 				contentPane.updateUI();
 			}
 		});
-
 
 		PanelCentre = new PanelInformation();
 

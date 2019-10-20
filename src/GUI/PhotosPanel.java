@@ -27,7 +27,7 @@ public class PhotosPanel extends JPanel {
 			routes = DB.GetImageRoute(gender, type);
 
 		} else {
-			// routes = BD.obtenerRutasFotos2(genero, tipo,color);
+			routes = DB.GetImageRoute2(gender, type, colour);
 
 		}
 		for (int i = 0; i < routes.size(); i++) {

@@ -48,7 +48,7 @@ public class HomeWindow extends JFrame {
 		JButton btnprofile = new JButton(new ImageIcon("photos/profile.png"));
 		btnprofile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				ProfileWindow pw = new ProfileWindow(email);
 				pw.setVisible(true);
 				HomeWindow.this.setVisible(false);
@@ -110,10 +110,8 @@ public class HomeWindow extends JFrame {
 		label.setBounds(321, 95, 100, 27);
 		contentPane.add(label);
 
-		
-		
 		JButton btnenter = new JButton(new ImageIcon("photos/enter.png"));
-		
+
 		btnenter.setBorder(null);
 		btnenter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

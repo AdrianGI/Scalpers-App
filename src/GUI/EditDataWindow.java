@@ -30,7 +30,7 @@ import Data.DB;
 public class EditDataWindow extends JFrame {
 
 	private JPanel contentPane;
-	
+
 	private JTextField name;
 	private JTextField surname;
 	private JTextField txtEmail;
@@ -44,7 +44,6 @@ public class EditDataWindow extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
 
 	/**
 	 * Create the frame.
@@ -69,14 +68,14 @@ public class EditDataWindow extends JFrame {
 		name.setToolTipText("Nombre");
 		name.setBounds(95, 120, 296, 40);
 		name.setFont(new Font("Times", Font.PLAIN, 13));
-		
+
 		contentPane.add(name);
 		name.setColumns(10);
 
 		surname = new JTextField();
 		surname.setText(DB.GetSur(email));
 		surname.setToolTipText("Apellidos");
-		
+
 		surname.setFont(new Font("Times", Font.PLAIN, 13));
 		surname.setColumns(10);
 		surname.setBounds(95, 173, 296, 40);
@@ -103,7 +102,7 @@ public class EditDataWindow extends JFrame {
 		txtEmail = new JTextField();
 		txtEmail.setText(email);
 		txtEmail.setToolTipText("Email");
-		
+
 		txtEmail.setFont(new Font("Times", Font.PLAIN, 13));
 		txtEmail.setColumns(10);
 		txtEmail.setBounds(95, 277, 296, 40);
@@ -130,7 +129,7 @@ public class EditDataWindow extends JFrame {
 		txtPostalCode = new JTextField();
 		txtPostalCode.setText(DB.GetPc(email));
 		txtPostalCode.setToolTipText("Código postal");
-		
+
 		txtPostalCode.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPostalCode.setColumns(10);
 		txtPostalCode.setBounds(95, 381, 296, 40);
@@ -157,7 +156,7 @@ public class EditDataWindow extends JFrame {
 		txtPhone = new JTextField();
 		txtPhone.setText(DB.GetPhone(email));
 		txtPhone.setToolTipText("Teléfono");
-		
+
 		txtPhone.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPhone.setColumns(10);
 		txtPhone.setBounds(95, 433, 296, 40);
@@ -181,7 +180,7 @@ public class EditDataWindow extends JFrame {
 
 		});
 		Date date = DB.GetDate(email);
-		
+
 		dateChooser = new JDateChooser();
 		dateChooser.setDate(date);
 		dateChooser.setToolTipText("Fecha de Nacimiento");
@@ -238,20 +237,18 @@ public class EditDataWindow extends JFrame {
 									} else {
 
 										DB.getConnection();
-										
+
 										DB.UpdateUser(name.getText(), surname.getText(), txtPassword.getText(),
 												txtEmail.getText(), date, txtPostalCode.getText(), txtPhone.getText(),
 												gender.getSelectedItem().toString());
-										
-										JOptionPane.showMessageDialog(null,
-												"Datos Personales Actualizados ", null,
+
+										JOptionPane.showMessageDialog(null, "Datos Personales Actualizados ", null,
 												JOptionPane.INFORMATION_MESSAGE);
-										
+
 										ProfileWindow pw = new ProfileWindow(email);
 										pw.setVisible(true);
 										EditDataWindow.this.setVisible(false);
-										
-										
+
 									}
 								} catch (SQLException e1) {
 									// TODO Auto-generated catch block
