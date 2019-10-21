@@ -41,7 +41,7 @@ public class PhotosPanel extends JPanel {
 	public PhotosPanel(String gender, String type, String colour) {
 		setBackground(Color.WHITE);
 
-		setLayout(new GridLayout(0, 3, 0, 0));
+		setLayout(new GridLayout(0, 2, 0, 0));
 		LoadPhotos(gender, type, colour);
 		setVisible(true);
 	}

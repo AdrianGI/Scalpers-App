@@ -193,5 +193,6 @@ public class ProductWindow extends JFrame {
 		add(btnAdd, constraints);
 
 		setVisible(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 }
