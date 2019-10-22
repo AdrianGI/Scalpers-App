@@ -38,6 +38,13 @@ public class AdminWindow extends JFrame {
 		contentPane.setLayout(null);
 
 		JButton btnDeleteUsers = new JButton(new ImageIcon("photos/deleteuser.png"));
+		btnDeleteUsers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminWindow.this.setVisible(false);
+				DeleteUserWindow dw = new DeleteUserWindow ();
+				dw.setVisible(true);
+			}
+		});
 		btnDeleteUsers.setBorder(null);
 		btnDeleteUsers.setToolTipText("Añadir Usuarios");
 		btnDeleteUsers.setBounds(338, 4, 34, 34);

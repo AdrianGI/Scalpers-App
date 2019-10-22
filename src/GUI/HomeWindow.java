@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+
 import Data.DB;
+import Data.User;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -21,6 +23,9 @@ import javax.swing.JMenuItem;
 import java.awt.Font;
 import javax.swing.Icon;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class HomeWindow extends JFrame {
@@ -104,6 +109,21 @@ public class HomeWindow extends JFrame {
 			char letra = Character.toUpperCase(nombre.charAt(0));
 			nombre = letra + nombre.substring(1);
 		}
+		try {
+			DB.getConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				
+				Main.Main.setProperties(email);
+
+			}
+
+		});
 
 		JLabel label = new JLabel(nombre);
 		label.setFont(new Font("Times", Font.BOLD, 18));

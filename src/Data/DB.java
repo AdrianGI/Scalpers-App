@@ -52,6 +52,19 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void DeleteUser(String email) {
+		String sql = "DELETE from users WHERE email='" + email+ "'"; 
+
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 
 	public static void UpdateUser(String name, String surname, String password, String email, String date, String cp,
 			String phone, String gender) {
@@ -379,7 +392,28 @@ public class DB {
 		}
 
 		return r;
+	}
+	
+		public static String GetPass(String email) {
+			String r = "";
+			String query = "SELECT password FROM users WHERE email='" + email + "'";
 
+			try {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+				if (rs.next()) {
+					r = rs.getString("password");
+
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return r;
+		
 	}
 
 	public static String GetGender(String email) {
@@ -642,6 +676,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 
+			System.out.println(title);
 			String sql2 = "SELECT title FROM cart WHERE title =" + title;
 
 			ResultSet rs = stmt.executeQuery(sql2);
@@ -653,7 +688,7 @@ public class DB {
 			} else {
 
 				String sql1 = "INSERT INTO cart VALUES('" + title + "','" + colour + "','" + size + "','" + uds + "','"
-						+ ref + "','" + price + "')";
+						+ ref + "'," + price + "')";
 				stmt.executeUpdate(sql1);
 			}
 

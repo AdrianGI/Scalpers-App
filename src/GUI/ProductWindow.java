@@ -56,7 +56,7 @@ public class ProductWindow extends JFrame {
 		constraints.gridheight = 8; // Cuántas filas ocupa
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.anchor = GridBagConstraints.CENTER;
-		constraints.weighty = 0.5;
+		constraints.weighty = 15;
 
 		add(lblPhoto, constraints);
 
@@ -66,6 +66,7 @@ public class ProductWindow extends JFrame {
 		constraints.gridy = 2; // En qué fila empieza
 		constraints.gridwidth = 6; // Cuántas columnas ocupa
 		constraints.gridheight = 1; // Cuántas filas ocupa
+		
 		add(title, constraints);
 
 		JLabel price = new JLabel("€" + String.valueOf(DB.getProductPrice(route)));
@@ -84,7 +85,7 @@ public class ProductWindow extends JFrame {
 		constraints.gridheight = 1; // Cuántas filas ocupa
 		add(ref, constraints);
 
-		JTextArea description = new JTextArea(DB.getProductDescription(route), 1, 2);
+		JTextArea description = new JTextArea(DB.getProductDescription(route), 2, 1);
 		// JScrollPane scrollDescripcion = new
 		// JScrollPane(descripcion,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		description.setFont(new Font("Times", Font.PLAIN, 13));
@@ -110,7 +111,7 @@ public class ProductWindow extends JFrame {
 		JComboBox<String> cbColours = new JComboBox<String>(colores);
 		cbColours.setSelectedItem(SelectedColour);
 		constraints.gridx = 13;
-		constraints.gridy = 9;
+		constraints.gridy = 8;
 		constraints.gridwidth = 3;
 		constraints.gridheight = 1;
 		add(cbColours, constraints);
@@ -126,7 +127,7 @@ public class ProductWindow extends JFrame {
 
 		JComboBox<String> cbsize = new JComboBox<String>(size);
 		constraints.gridx = 17;
-		constraints.gridy = 9;
+		constraints.gridy = 8;
 		constraints.gridwidth = 3;
 		constraints.gridheight = 1;
 		add(cbsize, constraints);
@@ -147,6 +148,7 @@ public class ProductWindow extends JFrame {
 		});
 
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBackground(Color.WHITE);
 		btnVolver.setFont(new Font("Times", Font.PLAIN, 13));
 		constraints.gridx = 6;
 		constraints.gridy = 11;
@@ -164,14 +166,14 @@ public class ProductWindow extends JFrame {
 		});
 
 		JButton btnAdd = new JButton("AÑADIR A LA CESTA");
-
+		btnAdd.setBackground(Color.WHITE);
 		btnAdd.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				DB.addCart(title.getText(), String.valueOf(cbColours.getSelectedItem()),
-						String.valueOf(cbsize.getSelectedItem()), 1, ref.getText(), Float.parseFloat(price.getText()));
+						String.valueOf(cbsize.getSelectedItem()), 1, ref.getText(), DB.getProductPrice(route));
 				String SelectedColour = String.valueOf(cbColours.getSelectedItem());
 				ArrayList<String> c = DB.getProductColour(route);
 				cbColours.removeAllItems();
