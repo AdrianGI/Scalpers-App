@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
 import Data.DB;
 import Data.User;
 
@@ -25,6 +24,7 @@ import javax.swing.Icon;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -86,7 +86,8 @@ public class HomeWindow extends JFrame {
 		JButton btnexit = new JButton(new ImageIcon("photos/exit.png"));
 		btnexit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				File file = new File("usuarios.ini");
+				file.delete();
 				LoginWindow lw = new LoginWindow();
 				lw.setVisible(true);
 				HomeWindow.this.setVisible(false);
@@ -115,10 +116,10 @@ public class HomeWindow extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				
+
 				Main.Main.setProperties(email);
 
 			}

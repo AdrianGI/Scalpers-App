@@ -245,12 +245,13 @@ public class SignUpWindow extends JFrame {
 								}
 							} else {
 								JOptionPane.showMessageDialog(null,
-										"La edad y el codigo postal tienen que tener un formato válido ", "ERROR",
+										"El telefono y el codigo postal tienen que tener un formato válido ", "ERROR",
 										JOptionPane.ERROR_MESSAGE);
 							}
 						} catch (NumberFormatException e1) {
-							JOptionPane.showMessageDialog(null, "La edad y el codigo postal tienen que ser numéricos",
-									"ERROR", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null,
+									"El telefono y el codigo postal tienen que ser numéricos", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
 							SignUpWindow.this.setVisible(false);
 							SignUpWindow suw = new SignUpWindow();
 							suw.setVisible(true);

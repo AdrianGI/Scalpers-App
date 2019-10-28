@@ -102,6 +102,7 @@ public class EditDataWindow extends JFrame {
 		txtEmail = new JTextField();
 		txtEmail.setText(email);
 		txtEmail.setToolTipText("Email");
+		txtEmail.enable(false);
 
 		txtEmail.setFont(new Font("Times", Font.PLAIN, 13));
 		txtEmail.setColumns(10);
@@ -230,26 +231,18 @@ public class EditDataWindow extends JFrame {
 								try {
 
 									DB.getConnection();
-									int resultado = DB.findUser(txtEmail.getText(), txtPassword.getText());
-									if (resultado != 0) {
-										JOptionPane.showMessageDialog(null, "Ese usuario ya existe", "ERROR",
-												JOptionPane.ERROR_MESSAGE);
-									} else {
 
-										DB.getConnection();
+									DB.UpdateUser(name.getText(), surname.getText(), txtPassword.getText(),
+											txtEmail.getText(), date, txtPostalCode.getText(), txtPhone.getText(),
+											gender.getSelectedItem().toString());
 
-										DB.UpdateUser(name.getText(), surname.getText(), txtPassword.getText(),
-												txtEmail.getText(), date, txtPostalCode.getText(), txtPhone.getText(),
-												gender.getSelectedItem().toString());
+									JOptionPane.showMessageDialog(null, "Datos Personales Actualizados ", null,
+											JOptionPane.INFORMATION_MESSAGE);
 
-										JOptionPane.showMessageDialog(null, "Datos Personales Actualizados ", null,
-												JOptionPane.INFORMATION_MESSAGE);
+									ProfileWindow pw = new ProfileWindow(email);
+									pw.setVisible(true);
+									EditDataWindow.this.setVisible(false);
 
-										ProfileWindow pw = new ProfileWindow(email);
-										pw.setVisible(true);
-										EditDataWindow.this.setVisible(false);
-
-									}
 								} catch (SQLException e1) {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
@@ -294,7 +287,7 @@ public class EditDataWindow extends JFrame {
 
 		txtPassword = new JPasswordField();
 		txtPassword.setToolTipText("Contraseña");
-		txtPassword.setText("Contraseña");
+		txtPassword.setText(DB.GetPass(email));
 		txtPassword.setFont(new Font("Times", Font.PLAIN, 13));
 		txtPassword.setBounds(95, 225, 296, 40);
 		contentPane.add(txtPassword);

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -43,6 +44,9 @@ public class ProductWindow extends JFrame {
 
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 
+		gbl_contentPane.columnWidths = new int[] { 20 };
+		gbl_contentPane.rowHeights = new int[] { 10 };
+
 		contentPane.setLayout(gbl_contentPane);
 
 		ImageIcon im = new ImageIcon(route);
@@ -66,7 +70,7 @@ public class ProductWindow extends JFrame {
 		constraints.gridy = 2; // En qué fila empieza
 		constraints.gridwidth = 6; // Cuántas columnas ocupa
 		constraints.gridheight = 1; // Cuántas filas ocupa
-		
+
 		add(title, constraints);
 
 		JLabel price = new JLabel("€" + String.valueOf(DB.getProductPrice(route)));
@@ -173,7 +177,8 @@ public class ProductWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				DB.addCart(title.getText(), String.valueOf(cbColours.getSelectedItem()),
-						String.valueOf(cbsize.getSelectedItem()), 1, ref.getText(), DB.getProductPrice(route));
+						String.valueOf(cbsize.getSelectedItem()), 1, ref.getText().substring(3),
+						DB.getProductPrice(route));
 				String SelectedColour = String.valueOf(cbColours.getSelectedItem());
 				ArrayList<String> c = DB.getProductColour(route);
 				cbColours.removeAllItems();
@@ -185,6 +190,8 @@ public class ProductWindow extends JFrame {
 				cbsize.removeAllItems();
 				for (int i = 0; i < c.size(); i++)
 					cbsize.addItem(c.get(i));
+
+				JOptionPane.showConfirmDialog(null, "Producto añadido a la cesta");
 			}
 		});
 		btnAdd.setFont(new Font("Times", Font.PLAIN, 13));

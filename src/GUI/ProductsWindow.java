@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
@@ -842,5 +843,6 @@ public class ProductsWindow extends JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 	}
+	
 
 }

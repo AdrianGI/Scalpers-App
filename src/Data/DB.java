@@ -52,9 +52,12 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void DeleteUser(String email) {
-		String sql = "DELETE from users WHERE email='" + email+ "'"; 
+
+	public static void newAddress(String email, String name, String surname, String enterprise, String address,
+			String pc, String phone, String country, String province, String city, int id) {
+		String sql = "INSERT INTO users VALUES('" + email + "','" + name + "','" + surname + "','" + email + "','"
+				+ enterprise + "','" + address + "','" + city + "','" + country + "','" + pc + "','" + phone + "','"
+				+ province + "','" + country + "','" + id + "')";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -64,13 +67,52 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static void DeleteUser(String email) {
+		String sql = "DELETE from users WHERE email='" + email + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public static void UpdateUser(String name, String surname, String password, String email, String date, String cp,
 			String phone, String gender) {
 
-		String sql = "UPDATE users set VALUES('" + name + "','" + surname + "','" + password + "','" + email + "','"
-				+ date + "','" + cp + "','" + phone + "','" + gender + "')";
+		String sql = "UPDATE users set name='" + name + "', surname='" + surname + "', password='" + password + "' "
+				+ ", date='" + date + "', 	pc=" + Integer.parseInt(cp) + ", phone=" + Integer.parseInt(phone)
+				+ " , gender='" + gender + "' WHERE email='" + email + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void UpdatePrice(String ref, double price) {
+
+		String sql = "UPDATE products set price='" + price + "' WHERE ref='" + ref + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void UpdateStock(String ref, String colour, String size, int stock) {
+
+		String sql = "UPDATE productsinfo set stock='" + stock + "' WHERE ref='" + ref + "' AND size='" + size
+				+ "' AND colour='" + colour + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -185,6 +227,28 @@ public class DB {
 		}
 
 		return routes;
+
+	}
+	
+	public static ArrayList<Integer> GetAddress(String email) {
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		String query = "SELECT id FROM address WHERE email='" + email +  "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				int r = rs.getInt("id");
+				ids.add(r);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ids;
 
 	}
 
@@ -393,27 +457,27 @@ public class DB {
 
 		return r;
 	}
-	
-		public static String GetPass(String email) {
-			String r = "";
-			String query = "SELECT password FROM users WHERE email='" + email + "'";
 
-			try {
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(query);
+	public static String GetPass(String email) {
+		String r = "";
+		String query = "SELECT password FROM users WHERE email='" + email + "'";
 
-				if (rs.next()) {
-					r = rs.getString("password");
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
 
-				}
-				rs.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			if (rs.next()) {
+				r = rs.getString("password");
+
 			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			return r;
-		
+		return r;
+
 	}
 
 	public static String GetGender(String email) {
@@ -448,6 +512,28 @@ public class DB {
 
 			if (rs.next()) {
 				r = rs.getDate("date");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+
+	public static double GetPrice(String ref) {
+		double r = 0;
+		String query = "SELECT price FROM products WHERE ref='" + ref + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getInt("price");
 
 			}
 			rs.close();
@@ -547,7 +633,210 @@ public class DB {
 		return r;
 
 	}
+	
+	public static String Getname(int id) {
+		String r = "";
+		String query = "SELECT name FROM address WHERE id='" + id + "'";
 
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("name");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	public static String Getsurname(int id) {
+		String r = "";
+		String query = "SELECT surname FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("surname");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	public static String GetEnterprise(int id) {
+		String r = "";
+		String query = "SELECT enterprise FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("enterprise");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+
+	public static int GetPhone(int id) {
+		int r = 0;
+		String query = "SELECT phone FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getInt("phone");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	public static int GetPC(int id) {
+		int r = 0;
+		String query = "SELECT pc FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getInt("pc");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	
+	
+	public static String GetAddress(int id) {
+		String r = "";
+		String query = "SELECT address FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("address");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	
+	public static String GetCity(int id) {
+		String r = "";
+		String query = "SELECT city FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("city");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	public static String GetProvince(int id) {
+		String r = "";
+		String query = "SELECT province FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("province");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	public static String GetCountry(int id) {
+		String r = "";
+		String query = "SELECT country FROM address WHERE id='" + id + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getString("country");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
+	
+	
 	public static String getProductDescription(String route) {
 
 		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
@@ -586,6 +875,8 @@ public class DB {
 		}
 		return desc;
 	}
+	
+	
 
 	public static ArrayList<String> getProductSizes(String route, String colour) {
 
@@ -628,6 +919,90 @@ public class DB {
 		}
 
 		return sizes;
+	}
+
+	public static ArrayList<String> getProductCol(String ref) {
+
+		ArrayList<String> colours = new ArrayList<String>();
+
+		String colour = "";
+
+		String sql2 = "SELECT DISTINCT colour FROM productsinfo WHERE ref='" + ref + "'";
+
+		try {
+
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs2 = stmt2.executeQuery(sql2);
+
+			while (rs2.next()) {
+
+				colour = rs2.getString("colour");
+				colours.add(colour);
+			}
+
+			rs2.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return colours;
+	}
+
+	public static ArrayList<String> getProSizes(String ref) {
+
+		ArrayList<String> sizes = new ArrayList<String>();
+
+		String colour = "";
+
+		String sql2 = "SELECT DISTINCT size FROM productsinfo WHERE ref='" + ref + "'";
+
+		try {
+
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs2 = stmt2.executeQuery(sql2);
+
+			while (rs2.next()) {
+
+				colour = rs2.getString("size");
+				sizes.add(colour);
+			}
+
+			rs2.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return sizes;
+	}
+
+	public static int GetStock(String ref, String size, String colour) {
+
+		int stock = 0;
+
+		String sql = "SELECT stock FROM productsinfo WHERE ref='" + ref + "' AND size='" + size + "' AND colour='"
+				+ colour + "'";
+
+		try {
+
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs2 = stmt2.executeQuery(sql);
+
+			if (rs2.next()) {
+
+				stock = rs2.getInt("stock");
+
+			}
+
+			rs2.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return stock;
+
 	}
 
 	public static ArrayList<String> getProductColour(String route) {
@@ -677,23 +1052,23 @@ public class DB {
 			Statement stmt = conn.createStatement();
 
 			System.out.println(title);
-			String sql2 = "SELECT title FROM cart WHERE title =" + title;
+			String sql2 = "SELECT title FROM cart WHERE title ='" + title + "'";
 
 			ResultSet rs = stmt.executeQuery(sql2);
 
 			if (rs.next()) {
-				String sql = "UPDATE cart SET uds = unidades + 1 WHERE title = " + title;
+				String sql = "UPDATE cart SET uds = unidades + 1 WHERE title = '" + title + "'";
 				stmt.executeUpdate(sql);
 
 			} else {
 
-				String sql1 = "INSERT INTO cart VALUES('" + title + "','" + colour + "','" + size + "','" + uds + "','"
-						+ ref + "'," + price + "')";
+				String sql1 = "INSERT INTO cart VALUES('" + title + "','" + colour + "','" + size + "'," + uds + ",'"
+						+ ref + "'," + price + ")";
 				stmt.executeUpdate(sql1);
 			}
 
-			String sql = "UPDATE productsinfo SET stock = stock - 1 WHERE ref = " + ref + "AND colour=" + colour
-					+ "AND size=" + size;
+			String sql = "UPDATE productsinfo SET stock = stock - 1 WHERE ref = '" + ref + "' AND colour='" + colour
+					+ "' AND size='" + size + "'";
 			stmt.executeUpdate(sql);
 
 			rs.close();

@@ -25,7 +25,6 @@ public class DeleteUserWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField textUser;
 
-	
 	/**
 	 * Create the frame.
 	 */
@@ -38,18 +37,18 @@ public class DeleteUserWindow extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		textUser = new JTextField();
 		textUser.setFont(new Font("Times", Font.PLAIN, 13));
 		textUser.setBounds(12, 140, 419, 26);
 		contentPane.add(textUser);
 		textUser.setColumns(10);
-		
+
 		JLabel lblNewLabel = new JLabel("Introduzca el Email del usuario que desea eliminar");
 		lblNewLabel.setFont(new Font("Times", Font.PLAIN, 20));
 		lblNewLabel.setBounds(12, 47, 438, 26);
 		contentPane.add(lblNewLabel);
-		
+
 		try {
 			DB.getConnection();
 		} catch (SQLException e1) {
@@ -62,21 +61,21 @@ public class DeleteUserWindow extends JFrame {
 				DB.DeleteUser(textUser.getText());
 				textUser.setText(null);
 				JOptionPane.showMessageDialog(null, "Usuario Eliminado");
-				
+
 			}
 		});
 		btnDelete.setBorder(null);
 		btnDelete.setFont(new Font("Times", Font.BOLD, 14));
 		btnDelete.setBounds(278, 227, 117, 29);
 		contentPane.add(btnDelete);
-		
+
 		JButton btnReturn = new JButton("Volver");
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DeleteUserWindow.this.setVisible(false);
 				AdminWindow aw = new AdminWindow();
 				aw.setVisible(true);
-				
+
 			}
 		});
 		btnReturn.setBorder(null);

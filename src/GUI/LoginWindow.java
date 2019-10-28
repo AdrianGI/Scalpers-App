@@ -121,36 +121,37 @@ public class LoginWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					DB.getConnection();
-					
-					if(emailtxt.getText().equals("Administrador")&& passwordtxt.getText().equals("Admin")) {
+
+					if (emailtxt.getText().equals("Administrador") && passwordtxt.getText().equals("Admin")) {
 						JOptionPane.showMessageDialog(null, "Inicio de sesión Administrador", "BIENVENIDO",
 								JOptionPane.INFORMATION_MESSAGE);
 						LoginWindow.this.setVisible(false);
 						AdminWindow aw = new AdminWindow();
 						aw.setVisible(true);
-						
-					}else {
-					int resultado = DB.findUser(emailtxt.getText(), passwordtxt.getText());
-					if (resultado == 2) {
-						
-						JOptionPane.showMessageDialog(null, "Inicio de sesión correcto", "BIENVENIDO",
-								JOptionPane.INFORMATION_MESSAGE);
-						LoginWindow.this.setVisible(false);
-						HomeWindow hw = new HomeWindow(emailtxt.getText());
-						hw.setVisible(true);
-
-					} else if (resultado == 1) {
-						JOptionPane.showMessageDialog(null, "Clave incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
-						LoginWindow.this.setVisible(false);
-						LoginWindow lw = new LoginWindow();
-						lw.setVisible(true);
 
 					} else {
-						JOptionPane.showMessageDialog(null, "Usuario desconocido", "ERROR", JOptionPane.ERROR_MESSAGE);
-						LoginWindow.this.setVisible(false);
-						LoginWindow lw = new LoginWindow();
-						lw.setVisible(true);
-					}
+						int resultado = DB.findUser(emailtxt.getText(), passwordtxt.getText());
+						if (resultado == 2) {
+
+							JOptionPane.showMessageDialog(null, "Inicio de sesión correcto", "BIENVENIDO",
+									JOptionPane.INFORMATION_MESSAGE);
+							LoginWindow.this.setVisible(false);
+							HomeWindow hw = new HomeWindow(emailtxt.getText());
+							hw.setVisible(true);
+
+						} else if (resultado == 1) {
+							JOptionPane.showMessageDialog(null, "Clave incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
+							LoginWindow.this.setVisible(false);
+							LoginWindow lw = new LoginWindow();
+							lw.setVisible(true);
+
+						} else {
+							JOptionPane.showMessageDialog(null, "Usuario desconocido", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+							LoginWindow.this.setVisible(false);
+							LoginWindow lw = new LoginWindow();
+							lw.setVisible(true);
+						}
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
