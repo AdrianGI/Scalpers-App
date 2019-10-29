@@ -843,6 +843,5 @@ public class ProductsWindow extends JFrame {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 	}
-	
 
 }

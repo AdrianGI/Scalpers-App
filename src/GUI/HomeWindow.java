@@ -54,8 +54,8 @@ public class HomeWindow extends JFrame {
 		btnprofile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				ProfileWindow pw = new ProfileWindow(email);
-				pw.setVisible(true);
+				MenuProfileWindow mp = new MenuProfileWindow(email);
+				mp.setVisible(true);
 				HomeWindow.this.setVisible(false);
 			}
 		});

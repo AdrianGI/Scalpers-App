@@ -128,5 +128,4 @@ public class AddressPanel extends JPanel {
 
 	}
 
-	
 }

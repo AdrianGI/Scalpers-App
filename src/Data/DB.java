@@ -229,10 +229,10 @@ public class DB {
 		return routes;
 
 	}
-	
+
 	public static ArrayList<Integer> GetAddress(String email) {
 		ArrayList<Integer> ids = new ArrayList<Integer>();
-		String query = "SELECT id FROM address WHERE email='" + email +  "'";
+		String query = "SELECT id FROM address WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -633,7 +633,7 @@ public class DB {
 		return r;
 
 	}
-	
+
 	public static String Getname(int id) {
 		String r = "";
 		String query = "SELECT name FROM address WHERE id='" + id + "'";
@@ -655,7 +655,7 @@ public class DB {
 		return r;
 
 	}
-	
+
 	public static String Getsurname(int id) {
 		String r = "";
 		String query = "SELECT surname FROM address WHERE id='" + id + "'";
@@ -677,7 +677,7 @@ public class DB {
 		return r;
 
 	}
-	
+
 	public static String GetEnterprise(int id) {
 		String r = "";
 		String query = "SELECT enterprise FROM address WHERE id='" + id + "'";
@@ -721,7 +721,7 @@ public class DB {
 		return r;
 
 	}
-	
+
 	public static int GetPC(int id) {
 		int r = 0;
 		String query = "SELECT pc FROM address WHERE id='" + id + "'";
@@ -743,9 +743,7 @@ public class DB {
 		return r;
 
 	}
-	
-	
-	
+
 	public static String GetAddress(int id) {
 		String r = "";
 		String query = "SELECT address FROM address WHERE id='" + id + "'";
@@ -767,8 +765,7 @@ public class DB {
 		return r;
 
 	}
-	
-	
+
 	public static String GetCity(int id) {
 		String r = "";
 		String query = "SELECT city FROM address WHERE id='" + id + "'";
@@ -790,7 +787,7 @@ public class DB {
 		return r;
 
 	}
-	
+
 	public static String GetProvince(int id) {
 		String r = "";
 		String query = "SELECT province FROM address WHERE id='" + id + "'";
@@ -812,7 +809,7 @@ public class DB {
 		return r;
 
 	}
-	
+
 	public static String GetCountry(int id) {
 		String r = "";
 		String query = "SELECT country FROM address WHERE id='" + id + "'";
@@ -834,9 +831,7 @@ public class DB {
 		return r;
 
 	}
-	
-	
-	
+
 	public static String getProductDescription(String route) {
 
 		String sql = "SELECT ref FROM productsinfo WHERE route='" + route + "'";
@@ -875,8 +870,6 @@ public class DB {
 		}
 		return desc;
 	}
-	
-	
 
 	public static ArrayList<String> getProductSizes(String route, String colour) {
 

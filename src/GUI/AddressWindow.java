@@ -27,6 +27,7 @@ public class AddressWindow extends JFrame {
 	private JScrollPane scroll;
 	private JPanel contentPane;
 	private JPanel PanelCentre;
+
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +62,7 @@ public class AddressWindow extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 		JPanel panelUp = new JPanel();
 		panelUp.setBackground(Color.WHITE);
 		contentPane.add(panelUp, BorderLayout.NORTH);
@@ -76,6 +77,8 @@ public class AddressWindow extends JFrame {
 		btnreturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddressWindow.this.setVisible(false);
+				MenuProfileWindow mw = new MenuProfileWindow(email);
+				mw.setVisible(true);
 
 			}
 		});
@@ -83,17 +86,25 @@ public class AddressWindow extends JFrame {
 		btnreturn.setHorizontalAlignment(SwingConstants.LEFT);
 		btnreturn.setFont(new Font("Times", Font.PLAIN, 13));
 
-		
-		JPanel PanelCentre = new JPanel();
-		PanelCentre.setBackground(Color.WHITE);
-		contentPane.add(PanelCentre, BorderLayout.CENTER);
-		
-		scroll = new JScrollPane(PanelCentre);
-		PanelCentre.setLayout(new GridLayout(0, 1, 0, 0));
+		ArrayList<Integer> Address = null;
+
+		Address = DB.GetAddress(email);
+
+		for (int i = 0; i < Address.size(); i++) {
+
+			int id = Address.get(i);
+
+			PanelCentre = new AddressPanel(id);
+			PanelCentre.setBackground(Color.WHITE);
+			contentPane.add(PanelCentre, BorderLayout.CENTER);
+
+			PanelCentre.setLayout(new GridLayout(0, 5, 0, 0));
+			scroll = new JScrollPane(PanelCentre);
+		}
+
 		contentPane.add(scroll, BorderLayout.CENTER);
 		contentPane.updateUI();
 
-		LoadAddress(email);
 		JPanel panelDown = new JPanel();
 		panelDown.setBackground(Color.WHITE);
 		contentPane.add(panelDown, BorderLayout.SOUTH);
@@ -107,7 +118,7 @@ public class AddressWindow extends JFrame {
 				aaw.setVisible(true);
 			}
 		});
-		
+
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setFont(new Font("Times", Font.PLAIN, 13));
 		panelDown.add(btnNewButton);
@@ -116,19 +127,5 @@ public class AddressWindow extends JFrame {
 		btnDelet.setFont(new Font("Times", Font.PLAIN, 13));
 		panelDown.add(btnDelet);
 	}
-	private void LoadAddress(String email) {
-		// TODO Auto-generated method stub
 
-		ArrayList<Integer> Address = null;
-		
-		Address=DB.GetAddress(email);
-		
-	
-		for (int i = 0; i < Address.size(); i++) {
-
-			int id = Address.get(i);
-			AddressPanel p = new AddressPanel(id);
-			PanelCentre.add(p);
-		}
-	}
 }

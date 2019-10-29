@@ -16,8 +16,7 @@ import GUI.LoginWindow;
 public class Main {
 
 	static User user;
-	static int cont=0;
-	
+	static int cont = 0;
 
 	public static int getCont() {
 		return cont;

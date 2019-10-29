@@ -191,7 +191,7 @@ public class ProductWindow extends JFrame {
 				for (int i = 0; i < c.size(); i++)
 					cbsize.addItem(c.get(i));
 
-				JOptionPane.showConfirmDialog(null, "Producto añadido a la cesta");
+				JOptionPane.showMessageDialog(null, "Producto añadido a la cesta");
 			}
 		});
 		btnAdd.setFont(new Font("Times", Font.PLAIN, 13));

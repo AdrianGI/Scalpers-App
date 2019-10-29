@@ -40,8 +40,6 @@ public class AddAddressWindow extends JFrame {
 	private JTextField textFieldProvince;
 	private JTextField txtCity;
 
-
-	
 	/**
 	 * Create the frame.
 	 */
@@ -56,7 +54,6 @@ public class AddAddressWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		
 		JLabel lblscalpers = new JLabel(new ImageIcon("photos/scalpers215x80.png"));
 		lblscalpers.setBounds(133, 6, 215, 80);
 		contentPane.add(lblscalpers);
@@ -299,10 +296,11 @@ public class AddAddressWindow extends JFrame {
 							try {
 
 								DB.getConnection();
-								Main.Main.setCont(Main.Main.getCont()+1);
+								Main.Main.setCont(Main.Main.getCont() + 1);
 								DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
 										textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
-										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(), Main.Main.getCont());
+										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(),
+										Main.Main.getCont());
 
 								JOptionPane.showMessageDialog(null, "Dirección Añadida ", null,
 										JOptionPane.INFORMATION_MESSAGE);
