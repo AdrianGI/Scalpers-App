@@ -64,6 +64,11 @@ public class HomeWindow extends JFrame {
 		contentPane.add(btnprofile);
 
 		JButton btncart = new JButton(new ImageIcon("photos/cart.png"));
+		btncart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CartWindow();
+			}
+		});
 		btncart.setToolTipText("Carrito");
 		btncart.setBounds(460, 3, 34, 35);
 		contentPane.add(btncart);

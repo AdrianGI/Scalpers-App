@@ -16,16 +16,7 @@ import GUI.LoginWindow;
 public class Main {
 
 	static User user;
-	static int cont = 0;
-
-	public static int getCont() {
-		return cont;
-	}
-
-	public static void setCont(int cont) {
-		Main.cont = cont;
-	}
-
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

@@ -101,23 +101,8 @@ public class ManageProductWindow extends JFrame {
 		gbc_comboBoxSize.weighty = 5;
 		contentPane.add(comboBoxSize, gbc_comboBoxSize);
 
-		JButton btnplusSize = new JButton("+");
-		btnplusSize.setBackground(Color.WHITE);
-		GridBagConstraints gbc_btnplusSize = new GridBagConstraints();
-		gbc_btnplusSize.insets = new Insets(0, 0, 5, 5);
-		gbc_btnplusSize.gridx = 3;
-		gbc_btnplusSize.gridy = 4;
-		gbc_btnplusSize.weighty = 5;
-		contentPane.add(btnplusSize, gbc_btnplusSize);
+		
 
-		JButton button = new JButton("-");
-		button.setBackground(Color.WHITE);
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.insets = new Insets(0, 0, 5, 5);
-		gbc_button.gridx = 4;
-		gbc_button.gridy = 4;
-		gbc_button.weighty = 5;
-		contentPane.add(button, gbc_button);
 
 		JLabel lblColor = new JLabel("Color");
 		lblColor.setFont(new Font("Times", Font.PLAIN, 13));
@@ -140,6 +125,17 @@ public class ManageProductWindow extends JFrame {
 		JComboBox<String> comboBoxColour = new JComboBox<String>(colour);
 		comboBoxColour.setFont(new Font("Times", Font.PLAIN, 13));
 		comboBoxColour.setBackground(Color.WHITE);
+		comboBoxColour.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				textFieldStock.setText(String.valueOf(DB.GetStock(ref, String.valueOf(comboBoxSize.getSelectedItem()),
+						String.valueOf(comboBoxColour.getSelectedItem()))));
+				
+			}
+			}));
+		
+		
+		
 		GridBagConstraints gbc_comboBoxColour = new GridBagConstraints();
 		gbc_comboBoxColour.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxColour.gridx = 2;
@@ -147,24 +143,27 @@ public class ManageProductWindow extends JFrame {
 		gbc_comboBoxColour.weighty = 5;
 		contentPane.add(comboBoxColour, gbc_comboBoxColour);
 
-		JButton button_1 = new JButton("+");
-		button_1.setBackground(Color.WHITE);
-		GridBagConstraints gbc_button_1 = new GridBagConstraints();
-		gbc_button_1.insets = new Insets(0, 0, 5, 5);
-		gbc_button_1.gridx = 3;
-		gbc_button_1.gridy = 9;
-		gbc_button_1.weighty = 5;
-		contentPane.add(button_1, gbc_button_1);
-
-		JButton button_2 = new JButton("-");
+		
+		JButton button_2 = new JButton("Eliminar Producto");
+		button_2.setFont(new Font("Times", Font.PLAIN, 13));
 		button_2.setBackground(Color.WHITE);
 		GridBagConstraints gbc_button_2 = new GridBagConstraints();
 		gbc_button_2.insets = new Insets(0, 0, 5, 5);
-		gbc_button_2.gridx = 4;
+		gbc_button_2.gridx = 3;
 		gbc_button_2.gridy = 9;
 		gbc_button_2.weighty = 5;
 		contentPane.add(button_2, gbc_button_2);
 
+		comboBoxSize.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				textFieldStock.setText(String.valueOf(DB.GetStock(ref, String.valueOf(comboBoxSize.getSelectedItem()),
+						String.valueOf(comboBoxColour.getSelectedItem()))));
+				
+			}
+			}));
+		
+	
 		JLabel lblStock = new JLabel("Stock");
 		lblStock.setFont(new Font("Times", Font.PLAIN, 13));
 		GridBagConstraints gbc_lblStock = new GridBagConstraints();
@@ -231,9 +230,21 @@ public class ManageProductWindow extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DB.UpdatePrice(ref, Double.parseDouble(textFieldPrice.getText()));
-				DB.UpdateStock(ref, String.valueOf(comboBoxSize.getSelectedItem()),
-						String.valueOf(comboBoxColour.getSelectedItem()), Integer.parseInt(textFieldStock.getText()));
+				DB.UpdateStock(ref,String.valueOf(String.valueOf(comboBoxColour.getSelectedItem())), String.valueOf(comboBoxSize.getSelectedItem()),
+						Integer.parseInt(textFieldStock.getText()));
 				JOptionPane.showMessageDialog(null, "Producto Actualizado");
+			}
+		});
+		
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DB.DeleteProduct(ref,String.valueOf(String.valueOf(comboBoxColour.getSelectedItem())), String.valueOf(comboBoxSize.getSelectedItem()));
+						JOptionPane.showMessageDialog(null, "Producto Borrado");
+						ManageProductWindow.this.setVisible(false);
+						AdminWindow a = new AdminWindow();
+						a.setVisible(true);
+				
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();

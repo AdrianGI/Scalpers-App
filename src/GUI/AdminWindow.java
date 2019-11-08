@@ -87,7 +87,8 @@ public class AdminWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				AdminWindow.this.setVisible(false);
-				ManageProductWindow mg = new ManageProductWindow("22206");
+				String ref = JOptionPane.showInputDialog("Introduce la referencia del producto: ");
+				ManageProductWindow mg = new ManageProductWindow(ref);
 				mg.setVisible(true);
 			}
 		});

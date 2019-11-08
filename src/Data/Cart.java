@@ -1,60 +1,93 @@
 package Data;
 
+import java.util.Date;
+
 public class Cart {
 
-	private String ref;
-	private String product;
+	private String title;
 	private String colour;
 	private String size;
 	private int uds;
-	private float price;
-
-	public String getRef() {
-		return ref;
-	}
-
-	public void setRef(String ref) {
+	private String ref;
+	private double price;
+	
+	
+	public Cart(String title, String colour, String size, int uds, String ref, double price) {
+		super();
+		this.title = title;
+		this.colour = colour;
+		this.size = size;
+		this.uds = uds;
 		this.ref = ref;
+		this.price = price;
 	}
 
-	public String getProduct() {
-		return product;
+
+	public String getTitle() {
+		return title;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
+
 
 	public String getColour() {
 		return colour;
 	}
 
+
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
+
 
 	public String getSize() {
 		return size;
 	}
 
+
 	public void setSize(String size) {
 		this.size = size;
 	}
+
 
 	public int getUds() {
 		return uds;
 	}
 
+
 	public void setUds(int uds) {
 		this.uds = uds;
 	}
 
-	public float getPrice() {
+
+	public String getRef() {
+		return ref;
+	}
+
+
+	public void setRef(String ref) {
+		this.ref = ref;
+	}
+
+
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+
+	public void setPrice(double price) {
 		this.price = price;
 	}
-
+	
+	
+	
+	
 }
+
+
+	
+	
+	

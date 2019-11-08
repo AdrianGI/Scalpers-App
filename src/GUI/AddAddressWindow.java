@@ -281,7 +281,7 @@ public class AddAddressWindow extends JFrame {
 
 				if (name.getText().equals("") || surname.getText().equals("") || txtCountry.getText().equals("")
 						|| txtPostalCode.getText().equals("") || txtPhone.getText().equals("")
-						|| textFieldAddress.equals("") || textFieldProvince.equals("") || txtCity.equals("")) {
+						|| textFieldAddress.getText().equals("") || textFieldProvince.getText().equals("") || txtCity.getText().equals("")) {
 
 					JOptionPane.showMessageDialog(null, "Hay que rellenar todos los campos", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
@@ -289,18 +289,20 @@ public class AddAddressWindow extends JFrame {
 					AddAddressWindow suw = new AddAddressWindow(email);
 					suw.setVisible(true);
 
+				}else{
+				
 					try {
 						if (txtPhone.getText().length() == 9 && txtPostalCode.getText().length() == 5) {
 							int phone = Integer.parseInt(txtPhone.getText());
 							int cp = Integer.parseInt(txtPostalCode.getText());
 							try {
-
+								
 								DB.getConnection();
-								Main.Main.setCont(Main.Main.getCont() + 1);
+								//int id= DB.maxId();
 								DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
 										textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
-										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(),
-										Main.Main.getCont());
+										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(),5
+										);
 
 								JOptionPane.showMessageDialog(null, "Dirección Añadida ", null,
 										JOptionPane.INFORMATION_MESSAGE);
@@ -326,7 +328,6 @@ public class AddAddressWindow extends JFrame {
 						aw.setVisible(true);
 					}
 				}
-
 			}
 		});
 		btnAdd.setForeground(Color.BLACK);

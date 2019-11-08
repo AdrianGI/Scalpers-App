@@ -86,29 +86,42 @@ public class AddressWindow extends JFrame {
 		btnreturn.setHorizontalAlignment(SwingConstants.LEFT);
 		btnreturn.setFont(new Font("Times", Font.PLAIN, 13));
 
+		JPanel panelDown = new JPanel();
+		panelDown.setBackground(Color.WHITE);
+		contentPane.add(panelDown, BorderLayout.SOUTH);
+		panelDown.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		
+		JPanel panelCenter = new JPanel();
+		contentPane.add(panelCenter, BorderLayout.CENTER);
+		panelCenter.setLayout(new GridLayout(0, 1, 0, 0));
+		
 		ArrayList<Integer> Address = null;
 
 		Address = DB.GetAddress(email);
 
 		for (int i = 0; i < Address.size(); i++) {
-
+			
 			int id = Address.get(i);
 
 			PanelCentre = new AddressPanel(id);
 			PanelCentre.setBackground(Color.WHITE);
-			contentPane.add(PanelCentre, BorderLayout.CENTER);
+			System.out.println(id);
 
-			PanelCentre.setLayout(new GridLayout(0, 5, 0, 0));
+			//PanelCentre.setLayout(new GridLayout(0, 5, 0, 0));
 			scroll = new JScrollPane(PanelCentre);
+			panelCenter.add(scroll, BorderLayout.CENTER);
+			panelCenter.updateUI();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 		contentPane.add(scroll, BorderLayout.CENTER);
 		contentPane.updateUI();
-
-		JPanel panelDown = new JPanel();
-		panelDown.setBackground(Color.WHITE);
-		contentPane.add(panelDown, BorderLayout.SOUTH);
-		panelDown.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JButton btnNewButton = new JButton("Añadir");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -126,6 +139,7 @@ public class AddressWindow extends JFrame {
 		JButton btnDelet = new JButton("Borrar");
 		btnDelet.setFont(new Font("Times", Font.PLAIN, 13));
 		panelDown.add(btnDelet);
+	
 	}
 
 }

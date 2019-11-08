@@ -55,9 +55,10 @@ public class DB {
 
 	public static void newAddress(String email, String name, String surname, String enterprise, String address,
 			String pc, String phone, String country, String province, String city, int id) {
-		String sql = "INSERT INTO users VALUES('" + email + "','" + name + "','" + surname + "','" + email + "','"
+		
+		String sql = "INSERT INTO address VALUES('" + email + "','" + name + "','" + surname + "','"
 				+ enterprise + "','" + address + "','" + city + "','" + country + "','" + pc + "','" + phone + "','"
-				+ province + "','" + country + "','" + id + "')";
+				+ province + "'," + id + ")";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -68,6 +69,9 @@ public class DB {
 		}
 	}
 
+	
+	
+	
 	public static void DeleteUser(String email) {
 		String sql = "DELETE from users WHERE email='" + email + "'";
 
@@ -79,6 +83,18 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void DeleteProduct(String ref,String colour, String size) {
+		String sql = "DELETE from productsinfo  WHERE ref='" + ref + "' AND size='" + size + "' AND COLOUR ='" + colour + "'";
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block	
+			e.printStackTrace();
+		}
+	}
+	
 
 	public static void UpdateUser(String name, String surname, String password, String email, String date, String cp,
 			String phone, String gender) {
@@ -98,7 +114,7 @@ public class DB {
 
 	public static void UpdatePrice(String ref, double price) {
 
-		String sql = "UPDATE products set price='" + price + "' WHERE ref='" + ref + "'";
+		String sql = "UPDATE products set price=" + price + " WHERE ref='" + ref + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -111,7 +127,7 @@ public class DB {
 
 	public static void UpdateStock(String ref, String colour, String size, int stock) {
 
-		String sql = "UPDATE productsinfo set stock='" + stock + "' WHERE ref='" + ref + "' AND size='" + size
+		String sql = "UPDATE productsinfo set stock=" + stock + " WHERE ref='" + ref + "' AND size='" + size
 				+ "' AND colour='" + colour + "'";
 
 		try {
@@ -457,7 +473,31 @@ public class DB {
 
 		return r;
 	}
+	
 
+	public static int maxId() {
+		int r = 0;
+		String query = "SELECT MAX(id) from address";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getInt("id");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+
+	
 	public static String GetPass(String email) {
 		String r = "";
 		String query = "SELECT password FROM users WHERE email='" + email + "'";
@@ -1050,10 +1090,10 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(sql2);
 
 			if (rs.next()) {
-				String sql = "UPDATE cart SET uds = unidades + 1 WHERE title = '" + title + "'";
+				String sql = "UPDATE cart SET uds = uds + 1 WHERE title = '" + title + "'";
 				stmt.executeUpdate(sql);
 
-			} else {
+			}  else {
 
 				String sql1 = "INSERT INTO cart VALUES('" + title + "','" + colour + "','" + size + "'," + uds + ",'"
 						+ ref + "'," + price + ")";
@@ -1071,5 +1111,55 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
+	public static ArrayList<Cart> GetCart() {
+		ArrayList<Cart> cart = new ArrayList<Cart>();
+		String sql = "SELECT * FROM cart";
 
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				String title = rs.getString("title");
+				String colour= rs.getString("colour");
+				String size= rs.getString("size");
+				int uds= rs.getInt("uds");
+				String ref= rs.getString("ref");
+				double price=Double.parseDouble(String.valueOf(rs.getInt("uds")));
+				cart.add(new Cart(title, colour, size, uds, ref,price));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return cart;
+
+	}
+	
+	public static String GetImageRouteu(String ref, String size, String colour) {
+		String routes = "";
+		String query = "SELECT route FROM productsinfo WHERE ref='" + ref + "' AND gender='" + size
+				+ "' AND colour='" + colour + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				String r = rs.getString("route");
+				
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return routes;
+
+	}
+
+	
 }
