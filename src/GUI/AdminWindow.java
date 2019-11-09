@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.Icon;
 
 public class AdminWindow extends JFrame {
 
@@ -44,13 +45,13 @@ public class AdminWindow extends JFrame {
 		});
 		btnDeleteUsers.setBorder(null);
 		btnDeleteUsers.setToolTipText("Añadir Usuarios");
-		btnDeleteUsers.setBounds(192, 4, 34, 34);
+		btnDeleteUsers.setBounds(145, 4, 34, 34);
 		contentPane.add(btnDeleteUsers);
 
 		JButton btnView = new JButton(new ImageIcon("photos/view.png"));
 		btnView.setBorder(null);
 		btnView.setToolTipText("Ver");
-		btnView.setBounds(358, 3, 34, 35);
+		btnView.setBounds(426, 4, 34, 35);
 		contentPane.add(btnView);
 
 		JLabel lblmen = new JLabel(new ImageIcon("photos/scalpers.jpg"));
@@ -82,12 +83,17 @@ public class AdminWindow extends JFrame {
 		lblAdministrador.setBounds(285, 95, 129, 27);
 		contentPane.add(lblAdministrador);
 
-		JButton btnProducts = new JButton(new ImageIcon("photos/addproduct.png"));
+		JButton btnProducts = new JButton(new ImageIcon("photos/edit.png"));
 		btnProducts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				AdminWindow.this.setVisible(false);
 				String ref = JOptionPane.showInputDialog("Introduce la referencia del producto: ");
+				if ( ref== null) {
+					AdminWindow a = new AdminWindow();
+					a.setVisible(true);
+					
+				}
 				ManageProductWindow mg = new ManageProductWindow(ref);
 				mg.setVisible(true);
 			}
@@ -96,8 +102,14 @@ public class AdminWindow extends JFrame {
 		btnProducts.setBorder(null);
 
 		btnProducts.setToolTipText("Añadir Productos");
-		btnProducts.setBounds(43, 4, 41, 34);
+		btnProducts.setBounds(26, 4, 41, 34);
 		contentPane.add(btnProducts);
+		
+		JButton btnAdd = new JButton(new ImageIcon("photos/addproduct.png"));
+		btnAdd.setToolTipText("Añadir Usuarios");
+		btnAdd.setBorder(null);
+		btnAdd.setBounds(276, 4, 34, 34);
+		contentPane.add(btnAdd);
 
 	}
 }

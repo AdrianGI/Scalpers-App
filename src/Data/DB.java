@@ -290,6 +290,32 @@ public class DB {
 		return routes;
 
 	}
+	
+	
+	public static int Getuds(String ref, String colour, String size) {
+		int uds=0;
+		String query = "SELECT uds FROM cart WHERE ref='" + ref + "' AND colour='" + colour
+				+ "' AND size='" + size + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				uds=rs.getInt("uds");
+				;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return uds;
+
+	}
+	
+	
 
 	public static ArrayList<String> GetAllRoutes() {
 		ArrayList<String> routes = new ArrayList<String>();
@@ -496,6 +522,28 @@ public class DB {
 		return r;
 
 	}
+	public static int maxIdP() {
+		int r = 0;
+		String query = "SELECT MAX(id) from productsinfo";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getInt("id");
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return r;
+
+	}
+	
 
 	
 	public static String GetPass(String email) {
@@ -1079,24 +1127,24 @@ public class DB {
 		return colours;
 	}
 
-	public static void addCart(String title, String colour, String size, int uds, String ref, float price) {
+	public static void addCart( String title, String colour, String size, int uds, String ref, float price,String route) {
 
 		try {
 			Statement stmt = conn.createStatement();
 
 			System.out.println(title);
-			String sql2 = "SELECT title FROM cart WHERE title ='" + title + "'";
+			String sql2 = "SELECT ref FROM cart WHERE title ='" + title + "'  AND colour='" + colour+"' AND size='" + size + "'";
 
 			ResultSet rs = stmt.executeQuery(sql2);
 
 			if (rs.next()) {
-				String sql = "UPDATE cart SET uds = uds + 1 WHERE title = '" + title + "'";
+				String sql = "UPDATE cart SET uds = uds + 1 WHERE title = '" + title + "' AND colour='" + colour+"' AND size='" + size + "'";
 				stmt.executeUpdate(sql);
 
 			}  else {
 
 				String sql1 = "INSERT INTO cart VALUES('" + title + "','" + colour + "','" + size + "'," + uds + ",'"
-						+ ref + "'," + price + ")";
+						+ ref + "'," + price + ", '"+ route+"')";
 				stmt.executeUpdate(sql1);
 			}
 
@@ -1111,6 +1159,93 @@ public class DB {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void UpdateCart(String ref, String colour, String size, int uds) {
+		
+		try {
+			Statement stmt = conn.createStatement();
+			
+			String sql = "UPDATE cart SET uds = "+ uds+" WHERE ref = '" + ref + "' AND colour='" + colour
+					+ "' AND size='" + size + "'";
+			stmt.executeUpdate(sql);
+
+			stmt.close();
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addProduct(String ref, String title, String description, int colours, double price,String col) {
+
+		try {
+			Statement stmt = conn.createStatement();
+
+			
+			ArrayList<String > coloura = new ArrayList<String>();
+				
+			String sql2 = "SELECT DISTINCT colour FROM productsinfo WHERE ref ='" + ref + "'";
+
+			ResultSet rs = stmt.executeQuery(sql2);
+
+			while (rs.next()) {
+				
+			
+				coloura.add(rs.getString("colour"));
+				System.out.println(coloura);
+				
+				for ( int i=0; i<coloura.size();i++) {
+					
+				if (!coloura.get(i).equals(col)) {
+					
+				
+				String sql = "UPDATE products SET colours = colours + 1 WHERE ref = '" + ref + "'";
+				stmt.executeUpdate(sql);
+				
+
+				
+				} else {
+
+				String sql1 = "INSERT INTO products VALUES('" + ref + "','" + title + "','" + description + "'," + colours + "," + price + ")";
+				stmt.executeUpdate(sql1);
+			}
+
+				}
+			}
+
+			rs.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addProductsInfo(int id,String ref, String size, String colour, String route, int stock,String gender ,String type) {
+
+		try {
+			
+			Statement stmt = conn.createStatement();
+
+			
+			
+
+				String sql1 = "INSERT INTO productsinfo VALUES(" + id + "','" + ref + "','" + size + "','" + colour + "'," + route + "," + stock + ",'" + gender + "','" + type + "')";
+				stmt.executeUpdate(sql1);
+		
+
+				stmt.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	public static ArrayList<Cart> GetCart() {
 		ArrayList<Cart> cart = new ArrayList<Cart>();
 		String sql = "SELECT * FROM cart";
@@ -1126,7 +1261,8 @@ public class DB {
 				int uds= rs.getInt("uds");
 				String ref= rs.getString("ref");
 				double price=Double.parseDouble(String.valueOf(rs.getInt("uds")));
-				cart.add(new Cart(title, colour, size, uds, ref,price));
+				String route= rs.getString("route");
+				cart.add(new Cart(title, colour, size, uds, ref,price,route));
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -1138,9 +1274,9 @@ public class DB {
 
 	}
 	
-	public static String GetImageRouteu(String ref, String size, String colour) {
+	public static String GetCartRute(String ref, String size, String colour) {
 		String routes = "";
-		String query = "SELECT route FROM productsinfo WHERE ref='" + ref + "' AND gender='" + size
+		String query = "SELECT route FROM cart WHERE ref='" + ref + "' AND size='" + size
 				+ "' AND colour='" + colour + "'";
 
 		try {
@@ -1148,7 +1284,7 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				String r = rs.getString("route");
+				routes = rs.getString("route");
 				
 			}
 			rs.close();

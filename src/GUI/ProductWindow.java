@@ -178,7 +178,7 @@ public class ProductWindow extends JFrame {
 				// TODO Auto-generated method stub
 				DB.addCart(title.getText(), String.valueOf(cbColours.getSelectedItem()),
 						String.valueOf(cbsize.getSelectedItem()), 1, ref.getText().substring(3),
-						DB.getProductPrice(route));
+						DB.getProductPrice(route),route);
 				String SelectedColour = String.valueOf(cbColours.getSelectedItem());
 				ArrayList<String> c = DB.getProductColour(route);
 				cbColours.removeAllItems();

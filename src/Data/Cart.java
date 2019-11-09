@@ -10,9 +10,9 @@ public class Cart {
 	private int uds;
 	private String ref;
 	private double price;
+	private String route;
 	
-	
-	public Cart(String title, String colour, String size, int uds, String ref, double price) {
+	public Cart(String title, String colour, String size, int uds, String ref, double price,String route) {
 		super();
 		this.title = title;
 		this.colour = colour;
@@ -20,6 +20,17 @@ public class Cart {
 		this.uds = uds;
 		this.ref = ref;
 		this.price = price;
+		this.route=route;
+	}
+
+
+	public String getRoute() {
+		return route;
+	}
+
+
+	public void setRoute(String route) {
+		this.route = route;
 	}
 
 

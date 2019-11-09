@@ -66,7 +66,7 @@ public class HomeWindow extends JFrame {
 		JButton btncart = new JButton(new ImageIcon("photos/cart.png"));
 		btncart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new CartWindow();
+				new CartWindow(email);
 			}
 		});
 		btncart.setToolTipText("Carrito");
