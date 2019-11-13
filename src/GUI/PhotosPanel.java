@@ -1,8 +1,11 @@
 package GUI;
 
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Data.DB;
@@ -35,13 +38,14 @@ public class PhotosPanel extends JPanel {
 			String route = routes.get(i);
 			ProductPanelInfo p = new ProductPanelInfo(route);
 			add(p);
+
 		}
 	}
 
 	public PhotosPanel(String gender, String type, String colour) {
 		setBackground(Color.WHITE);
 
-		setLayout(new GridLayout(0, 2, 0, 0));
+		setLayout(new GridLayout(0, 3, 0, 0));
 		LoadPhotos(gender, type, colour);
 		setVisible(true);
 	}

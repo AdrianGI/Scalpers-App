@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.sql.SQLException;
 import java.util.Set;
 
@@ -40,15 +41,18 @@ public class ProductPanelInfo extends JPanel {
 
 		setLayout(new GridBagLayout());
 		ImageIcon im = new ImageIcon(route);
-		im.setDescription(route);
-		JLabel lblfoto = new JLabel(im);
+		Image image = im.getImage();
+		Image newimg = image.getScaledInstance(300, 350, java.awt.Image.SCALE_SMOOTH);
+		im = new ImageIcon(newimg);
+		JLabel lblPhoto = new JLabel(im);
+
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 4; // En qué columna empieza
 		constraints.gridy = 0; // En qué fila empieza
 		constraints.gridwidth = 5; // Cuántas columnas ocupa
 		constraints.gridheight = 4; // Cuántas filas ocupa
 
-		add(lblfoto, constraints);
+		add(lblPhoto, constraints);
 
 		JLabel lblTitle = new JLabel(DB.getProductTittle(route));
 		constraints.gridx = 6; // En qué columna empieza
@@ -70,6 +74,13 @@ public class ProductPanelInfo extends JPanel {
 		constraints.gridwidth = 3; // Cuántas columnas ocupa
 		constraints.gridheight = 1; // Cuántas filas ocupa
 		add(lblColours, constraints);
+
+		JLabel lblIntro = new JLabel(" ");
+		constraints.gridx = 6; // En qué columna empieza
+		constraints.gridy = 9; // En qué fila empieza
+		constraints.gridwidth = 3; // Cuántas columnas ocupa
+		constraints.gridheight = 1; // Cuántas filas ocupa
+		add(lblIntro, constraints);
 
 	}
 

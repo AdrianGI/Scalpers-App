@@ -21,7 +21,7 @@ class TestCase {
 	}
 
 	@Test
-	void consultarExisteUsuario() {
+	void testconsultarExisteUsuario() {
 
 		try {
 			DB.getConnection();

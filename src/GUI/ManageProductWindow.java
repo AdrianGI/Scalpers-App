@@ -101,9 +101,6 @@ public class ManageProductWindow extends JFrame {
 		gbc_comboBoxSize.weighty = 5;
 		contentPane.add(comboBoxSize, gbc_comboBoxSize);
 
-		
-
-
 		JLabel lblColor = new JLabel("Color");
 		lblColor.setFont(new Font("Times", Font.PLAIN, 13));
 		GridBagConstraints gbc_lblColor = new GridBagConstraints();
@@ -127,15 +124,13 @@ public class ManageProductWindow extends JFrame {
 		comboBoxColour.setBackground(Color.WHITE);
 		comboBoxColour.addActionListener((new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				textFieldStock.setText(String.valueOf(DB.GetStock(ref, String.valueOf(comboBoxSize.getSelectedItem()),
 						String.valueOf(comboBoxColour.getSelectedItem()))));
-				
+
 			}
-			}));
-		
-		
-		
+		}));
+
 		GridBagConstraints gbc_comboBoxColour = new GridBagConstraints();
 		gbc_comboBoxColour.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxColour.gridx = 2;
@@ -143,7 +138,6 @@ public class ManageProductWindow extends JFrame {
 		gbc_comboBoxColour.weighty = 5;
 		contentPane.add(comboBoxColour, gbc_comboBoxColour);
 
-		
 		JButton button_2 = new JButton("Eliminar Producto");
 		button_2.setFont(new Font("Times", Font.PLAIN, 13));
 		button_2.setBackground(Color.WHITE);
@@ -156,14 +150,13 @@ public class ManageProductWindow extends JFrame {
 
 		comboBoxSize.addActionListener((new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				textFieldStock.setText(String.valueOf(DB.GetStock(ref, String.valueOf(comboBoxSize.getSelectedItem()),
 						String.valueOf(comboBoxColour.getSelectedItem()))));
-				
+
 			}
-			}));
-		
-	
+		}));
+
 		JLabel lblStock = new JLabel("Stock");
 		lblStock.setFont(new Font("Times", Font.PLAIN, 13));
 		GridBagConstraints gbc_lblStock = new GridBagConstraints();
@@ -230,21 +223,22 @@ public class ManageProductWindow extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DB.UpdatePrice(ref, Double.parseDouble(textFieldPrice.getText()));
-				DB.UpdateStock(ref,String.valueOf(String.valueOf(comboBoxColour.getSelectedItem())), String.valueOf(comboBoxSize.getSelectedItem()),
-						Integer.parseInt(textFieldStock.getText()));
+				DB.UpdateStock(ref, String.valueOf(String.valueOf(comboBoxColour.getSelectedItem())),
+						String.valueOf(comboBoxSize.getSelectedItem()), Integer.parseInt(textFieldStock.getText()));
 				JOptionPane.showMessageDialog(null, "Producto Actualizado");
 			}
 		});
-		
+
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				DB.DeleteProduct(ref,String.valueOf(String.valueOf(comboBoxColour.getSelectedItem())), String.valueOf(comboBoxSize.getSelectedItem()));
-						JOptionPane.showMessageDialog(null, "Producto Borrado");
-						ManageProductWindow.this.setVisible(false);
-						AdminWindow a = new AdminWindow();
-						a.setVisible(true);
-				
+
+				DB.DeleteProduct(ref, String.valueOf(String.valueOf(comboBoxColour.getSelectedItem())),
+						String.valueOf(comboBoxSize.getSelectedItem()));
+				JOptionPane.showMessageDialog(null, "Producto Borrado");
+				ManageProductWindow.this.setVisible(false);
+				AdminWindow a = new AdminWindow();
+				a.setVisible(true);
+
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();

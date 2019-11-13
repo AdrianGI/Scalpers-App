@@ -89,10 +89,10 @@ public class AdminWindow extends JFrame {
 
 				AdminWindow.this.setVisible(false);
 				String ref = JOptionPane.showInputDialog("Introduce la referencia del producto: ");
-				if ( ref== null) {
+				if (ref == null) {
 					AdminWindow a = new AdminWindow();
 					a.setVisible(true);
-					
+
 				}
 				ManageProductWindow mg = new ManageProductWindow(ref);
 				mg.setVisible(true);
@@ -104,7 +104,7 @@ public class AdminWindow extends JFrame {
 		btnProducts.setToolTipText("Añadir Productos");
 		btnProducts.setBounds(26, 4, 41, 34);
 		contentPane.add(btnProducts);
-		
+
 		JButton btnAdd = new JButton(new ImageIcon("photos/addproduct.png"));
 		btnAdd.setToolTipText("Añadir Usuarios");
 		btnAdd.setBorder(null);

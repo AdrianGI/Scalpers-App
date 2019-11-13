@@ -16,7 +16,7 @@ import GUI.LoginWindow;
 public class Main {
 
 	static User user;
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

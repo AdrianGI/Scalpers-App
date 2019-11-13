@@ -39,11 +39,13 @@ public class AddAddressWindow extends JFrame {
 	private JTextField textFieldAddress;
 	private JTextField textFieldProvince;
 	private JTextField txtCity;
+	private boolean pay;
 
 	/**
 	 * Create the frame.
 	 */
-	public AddAddressWindow(String email) {
+	public AddAddressWindow(String email, boolean payment) {
+		pay = payment;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 500, 650);
@@ -281,35 +283,41 @@ public class AddAddressWindow extends JFrame {
 
 				if (name.getText().equals("") || surname.getText().equals("") || txtCountry.getText().equals("")
 						|| txtPostalCode.getText().equals("") || txtPhone.getText().equals("")
-						|| textFieldAddress.getText().equals("") || textFieldProvince.getText().equals("") || txtCity.getText().equals("")) {
+						|| textFieldAddress.getText().equals("") || textFieldProvince.getText().equals("")
+						|| txtCity.getText().equals("")) {
 
 					JOptionPane.showMessageDialog(null, "Hay que rellenar todos los campos", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 					AddAddressWindow.this.setVisible(false);
-					AddAddressWindow suw = new AddAddressWindow(email);
+					AddAddressWindow suw = new AddAddressWindow(email, payment);
 					suw.setVisible(true);
 
-				}else{
-				
+				} else {
+
 					try {
 						if (txtPhone.getText().length() == 9 && txtPostalCode.getText().length() == 5) {
 							int phone = Integer.parseInt(txtPhone.getText());
 							int cp = Integer.parseInt(txtPostalCode.getText());
 							try {
-								
+
 								DB.getConnection();
-								//int id= DB.maxId();
-								DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
-										textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
-										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(),5
-										);
+								// int id= DB.maxId();
+								if (pay = false) {
+									DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
+											textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
+											txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(), 5);
 
-								JOptionPane.showMessageDialog(null, "Dirección Añadida ", null,
-										JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Dirección Añadida ", null,
+											JOptionPane.INFORMATION_MESSAGE);
 
-								AddressWindow aw = new AddressWindow(email);
-								aw.setVisible(true);
-								AddAddressWindow.this.setVisible(false);
+									AddressWindow aw = new AddressWindow(email);
+									aw.setVisible(true);
+									AddAddressWindow.this.setVisible(false);
+								} else {
+
+									// meter en bd compra
+
+								}
 
 							} catch (SQLException e1) {
 								// TODO Auto-generated catch block
@@ -324,7 +332,7 @@ public class AddAddressWindow extends JFrame {
 						JOptionPane.showMessageDialog(null, "El telefono y el codigo postal tienen que ser numéricos",
 								"ERROR", JOptionPane.ERROR_MESSAGE);
 						AddAddressWindow.this.setVisible(false);
-						AddAddressWindow aw = new AddAddressWindow(email);
+						AddAddressWindow aw = new AddAddressWindow(email, payment);
 						aw.setVisible(true);
 					}
 				}

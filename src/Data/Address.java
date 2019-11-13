@@ -11,9 +11,10 @@ public class Address {
 	public String country;
 	public int pc; // postal code
 	public String province;
+	public int id;
 
 	public Address(String name, String surname, String enterprise, int phone, String addreess, String city,
-			String country, int pc, String province) {
+			String country, int pc, String province, int id) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -24,6 +25,15 @@ public class Address {
 		this.country = country;
 		this.pc = pc;
 		this.province = province;
+		this.id = id;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {

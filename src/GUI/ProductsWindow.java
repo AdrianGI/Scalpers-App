@@ -164,7 +164,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -223,7 +223,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -282,7 +282,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -341,7 +341,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -400,7 +400,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -497,7 +497,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -556,7 +556,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -615,7 +615,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -674,7 +674,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);
@@ -702,7 +702,7 @@ public class ProductsWindow extends JFrame {
 		panelCentre.setBackground(Color.WHITE);
 		PanelUp.add(panelCentre, BorderLayout.CENTER);
 
-		JLabel lblfilters = new JLabel("FILTROS");
+		JLabel lblfilters = new JLabel("COLORES");
 		panelCentre.add(lblfilters);
 
 		lblfilters.setFont(new Font("Times", Font.PLAIN, 13));
@@ -758,7 +758,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 
@@ -825,7 +825,7 @@ public class ProductsWindow extends JFrame {
 						int x = e.getX();
 						int y = e.getY();
 						ProductPanelInfo pi = (ProductPanelInfo) pf.getComponentAt(x, y);
-						new ProductWindow(pi.getRoute(), v);
+						new ProductWindow(pi.getRoute(), v, email);
 					}
 				});
 				scroll = new JScrollPane(PanelCentre);

@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import Data.Address;
+import Data.Cart;
 import Data.DB;
 import jdk.nashorn.api.tree.NewTree;
 
@@ -48,6 +50,7 @@ public class AddressWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public AddressWindow(String email) {
+		boolean payment = false;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 450, 600);
 		contentPane = new JPanel();
@@ -91,43 +94,28 @@ public class AddressWindow extends JFrame {
 		contentPane.add(panelDown, BorderLayout.SOUTH);
 		panelDown.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		
 		JPanel panelCenter = new JPanel();
+		panelCenter.setBackground(Color.WHITE);
 		contentPane.add(panelCenter, BorderLayout.CENTER);
 		panelCenter.setLayout(new GridLayout(0, 1, 0, 0));
-		
-		ArrayList<Integer> Address = null;
 
-		Address = DB.GetAddress(email);
+		ArrayList<Address> add = DB.GetDir();
+		for (Address c : add) {
 
-		for (int i = 0; i < Address.size(); i++) {
-			
-			int id = Address.get(i);
+			AddressPanel ap = new AddressPanel(c.getId(), email);
 
-			PanelCentre = new AddressPanel(id);
-			PanelCentre.setBackground(Color.WHITE);
-			System.out.println(id);
+			panelCenter.add(ap);
 
-			//PanelCentre.setLayout(new GridLayout(0, 5, 0, 0));
-			scroll = new JScrollPane(PanelCentre);
-			panelCenter.add(scroll, BorderLayout.CENTER);
-			panelCenter.updateUI();
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		}
-
+		JScrollPane scroll = new JScrollPane(panelCenter);
 		contentPane.add(scroll, BorderLayout.CENTER);
-		contentPane.updateUI();
+		setVisible(true);
 
 		JButton btnNewButton = new JButton("Añadir");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddressWindow.this.setVisible(false);
-				AddAddressWindow aaw = new AddAddressWindow(email);
+				AddAddressWindow aaw = new AddAddressWindow(email, payment);
 				aaw.setVisible(true);
 			}
 		});
@@ -139,7 +127,7 @@ public class AddressWindow extends JFrame {
 		JButton btnDelet = new JButton("Borrar");
 		btnDelet.setFont(new Font("Times", Font.PLAIN, 13));
 		panelDown.add(btnDelet);
-	
+
 	}
 
 }

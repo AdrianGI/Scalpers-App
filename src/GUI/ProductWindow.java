@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import Data.DB;
 
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class ProductWindow extends JFrame {
 	 * /** Create the frame.
 	 */
 
-	public ProductWindow(String route, JFrame v) {
+	public ProductWindow(String route, JFrame v, String email) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 650, 500);
 		contentPane = new JPanel();
@@ -50,7 +51,12 @@ public class ProductWindow extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 
 		ImageIcon im = new ImageIcon(route);
+		Image image = im.getImage();
+		Image newimg = image.getScaledInstance(200, 250, java.awt.Image.SCALE_SMOOTH);
+		im = new ImageIcon(newimg);
 		JLabel lblPhoto = new JLabel(im);
+		add(lblPhoto);
+
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridwidth = 20;
 		constraints.gridheight = 10;
@@ -136,21 +142,6 @@ public class ProductWindow extends JFrame {
 		constraints.gridheight = 1;
 		add(cbsize, constraints);
 
-		cbColours.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-				ArrayList<String> sizes = DB.getProductSizes(route, String.valueOf(cbColours.getSelectedItem()));
-				cbsize.removeAllItems();
-				for (int i = 0; i < sizes.size(); i++) {
-					cbsize.addItem(sizes.get(i));
-				}
-
-			}
-		});
-
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setBackground(Color.WHITE);
 		btnVolver.setFont(new Font("Times", Font.PLAIN, 13));
@@ -172,16 +163,25 @@ public class ProductWindow extends JFrame {
 		JButton btnAdd = new JButton("AÑADIR A LA CESTA");
 		btnAdd.setBackground(Color.WHITE);
 		btnAdd.addActionListener(new ActionListener() {
+			int i = 0;
+			ArrayList<String> c = new ArrayList<String>();
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				DB.addCart(title.getText(), String.valueOf(cbColours.getSelectedItem()),
-						String.valueOf(cbsize.getSelectedItem()), 1, ref.getText().substring(3),
-						DB.getProductPrice(route),route);
-				String SelectedColour = String.valueOf(cbColours.getSelectedItem());
-				ArrayList<String> c = DB.getProductColour(route);
-				cbColours.removeAllItems();
+
+				if (DB.GetStock(ref.getText(), String.valueOf(cbsize.getSelectedItem()),
+						String.valueOf(cbColours.getSelectedItem())) > 0) {
+					DB.addCart(4, email, title.getText(), String.valueOf(cbColours.getSelectedItem()),
+							String.valueOf(cbsize.getSelectedItem()), 1, ref.getText().substring(3),
+							DB.getProductPrice(route), route);
+					String SelectedColour = String.valueOf(cbColours.getSelectedItem());
+					c = DB.getProductColour(route);
+					cbColours.removeAllItems();
+				} else {
+					JOptionPane.showMessageDialog(null, "Stock Insuficiente ");
+
+				}
 
 				for (int i = 0; i < c.size(); i++)
 					cbColours.addItem(c.get(i));
