@@ -170,28 +170,30 @@ public class ProductWindow extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 
-				if (DB.GetStock(ref.getText(), String.valueOf(cbsize.getSelectedItem()),
+				if (DB.GetStock(ref.getText().substring(3), String.valueOf(cbsize.getSelectedItem()),
 						String.valueOf(cbColours.getSelectedItem())) > 0) {
-					DB.addCart(4, email, title.getText(), String.valueOf(cbColours.getSelectedItem()),
+					
+					DB.addCart(DB.maxIdCart()+1, email, title.getText(), String.valueOf(cbColours.getSelectedItem()),
 							String.valueOf(cbsize.getSelectedItem()), 1, ref.getText().substring(3),
 							DB.getProductPrice(route), route);
 					String SelectedColour = String.valueOf(cbColours.getSelectedItem());
 					c = DB.getProductColour(route);
 					cbColours.removeAllItems();
+					for (int i = 0; i < c.size(); i++)
+						cbColours.addItem(c.get(i));
+
+					c = DB.getProductSizes(route, SelectedColour);
+					cbsize.removeAllItems();
+					for (int i = 0; i < c.size(); i++)
+						cbsize.addItem(c.get(i));
+
+					JOptionPane.showMessageDialog(null, "Producto añadido a la cesta");
 				} else {
 					JOptionPane.showMessageDialog(null, "Stock Insuficiente ");
 
 				}
 
-				for (int i = 0; i < c.size(); i++)
-					cbColours.addItem(c.get(i));
-
-				c = DB.getProductSizes(route, SelectedColour);
-				cbsize.removeAllItems();
-				for (int i = 0; i < c.size(); i++)
-					cbsize.addItem(c.get(i));
-
-				JOptionPane.showMessageDialog(null, "Producto añadido a la cesta");
+	
 			}
 		});
 		btnAdd.setFont(new Font("Times", Font.PLAIN, 13));

@@ -187,6 +187,9 @@ public class SignUpWindow extends JFrame {
 
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				String date = sdf.format(dateChooser.getDate());
+				
+				
+				
 
 				String email = txtEmail.getText();
 				int pos1 = email.indexOf("@");

@@ -305,7 +305,7 @@ public class AddAddressWindow extends JFrame {
 								if (pay = false) {
 									DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
 											textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
-											txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(), 5);
+											txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(), DB.maxIdAddress()+1);
 
 									JOptionPane.showMessageDialog(null, "Dirección Añadida ", null,
 											JOptionPane.INFORMATION_MESSAGE);
@@ -349,10 +349,16 @@ public class AddAddressWindow extends JFrame {
 		btnBack.setBorder(null);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (pay=true) {
+					DirMethodWindow dm= new DirMethodWindow(email);
+					dm.setVisible(false);
+					AddAddressWindow.this.setVisible(false);
+				}else {
 				AddressWindow aw = new AddressWindow(email);
 				aw.setVisible(true);
 				AddAddressWindow.this.setVisible(false);
 
+			}
 			}
 		});
 		btnBack.setFont(new Font("Times", Font.BOLD, 13));

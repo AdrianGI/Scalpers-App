@@ -228,7 +228,7 @@ public class AddProductWindow extends JFrame {
 
 				DB.addProduct(textFieldref.getText(), textFieldproduct.getText(), textArea.getText(), 1,
 						Double.parseDouble(textFieldprice.getText()), textFieldcolour.getText());
-				DB.addProductsInfo(500, textFieldref.getText(), textFieldsize.getText(), textFieldcolour.getText(),
+				DB.addProductsInfo(DB.maxIdProductsinfo()+1, textFieldref.getText(), textFieldsize.getText(), textFieldcolour.getText(),
 						textFieldruta.getText(), Integer.parseInt(textFieldstock.getText()), textFieldgender.getText(),
 						textFieldtype.getText());
 			}

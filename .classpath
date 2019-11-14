@@ -26,6 +26,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="/Users/adriangarridoibanez/Desktop/Scalpers App/resources/activation.jar"/>
 	<classpathentry kind="lib" path="/Users/adriangarridoibanez/Desktop/Scalpers App/resources/javax.mail.jar"/>

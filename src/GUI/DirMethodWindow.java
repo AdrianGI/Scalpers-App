@@ -80,5 +80,10 @@ public class DirMethodWindow extends JFrame {
 		btnSleccionarDireccinDe.setFont(new Font("Times", Font.PLAIN, 13));
 		btnSleccionarDireccinDe.setBounds(110, 189, 231, 29);
 		contentPane.add(btnSleccionarDireccinDe);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Times", Font.PLAIN, 13));
+		btnVolver.setBounds(6, 243, 117, 29);
+		contentPane.add(btnVolver);
 	}
 }

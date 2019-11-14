@@ -554,7 +554,7 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(query);
 
 			if (rs.next()) {
-				r = rs.getInt(0);
+				r = rs.getInt(1);
 
 			} else {
 				r = 1;
@@ -577,7 +577,7 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(query);
 
 			if (rs.next()) {
-				r = rs.getInt("id");
+				r = rs.getInt(1);
 
 			} else {
 				r = 1;
@@ -601,7 +601,7 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(query);
 
 			if (rs.next()) {
-				r = rs.getInt("id");
+				r = rs.getInt(1);
 
 			} else {
 				r = 1;
@@ -1130,6 +1130,7 @@ public class DB {
 
 	public static int GetStock(String ref, String size, String colour) {
 
+		System.out.println("Vamnos a comprobar el stock");
 		int stock = 0;
 
 		String sql = "SELECT stock FROM productsinfo WHERE ref='" + ref + "' AND size='" + size + "' AND colour='"
@@ -1143,7 +1144,7 @@ public class DB {
 			if (rs2.next()) {
 
 				stock = rs2.getInt("stock");
-
+				System.out.println(stock);
 			}
 
 			rs2.close();

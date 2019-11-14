@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -79,6 +80,19 @@ public class HomeWindow extends JFrame {
 		contentPane.add(btnsearch);
 
 		JButton btnstores = new JButton(new ImageIcon("photos/stores.png"));
+		btnstores.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				       
+				     try {
+						java.awt.Desktop.getDesktop().browse(java.net.URI.create("https://scalperscompany.com/pages/tiendas"));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				   
+			}
+		});
 		btnstores.setToolTipText("Tiendas");
 		btnstores.setBorder(null);
 		btnstores.setBounds(238, 4, 34, 34);

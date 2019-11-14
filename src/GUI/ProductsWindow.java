@@ -691,6 +691,9 @@ public class ProductsWindow extends JFrame {
 		btncart.setToolTipText("Carrito");
 		btncart.setBorder(null);
 		panelEast.add(btncart);
+		
+		JLabel lblNewLabel = new JLabel(" ");
+		panelEast.add(lblNewLabel);
 
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -768,6 +771,18 @@ public class ProductsWindow extends JFrame {
 			}
 
 		});
+		
+		btncart.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				ProductsWindow.this.setVisible(false);
+				CartWindow c = new CartWindow(email);
+				c.setVisible(true);
+			}
+		});
+		
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override
