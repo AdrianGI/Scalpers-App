@@ -1409,6 +1409,32 @@ public class DB {
 		return cart;
 
 	}
+	
+	public static ArrayList<Order> GetOrder(String email) {
+		ArrayList<Order> order = new ArrayList<Order>();
+		String sql = "SELECT * FROM purchases WHERE email ='" + email + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				String ref = rs.getString("ref");
+				String date = rs.getString("date");
+				double total = rs.getDouble("total");
+				
+				order.add(new Order(ref, date, total));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return order;
+
+	}
+	
 
 	public static ArrayList<Address> GetDir() {
 		ArrayList<Address> address = new ArrayList<Address>();

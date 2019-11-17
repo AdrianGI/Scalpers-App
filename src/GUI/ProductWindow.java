@@ -24,6 +24,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.Icon;
 
 public class ProductWindow extends JFrame {
 
@@ -37,75 +38,52 @@ public class ProductWindow extends JFrame {
 
 	public ProductWindow(String route, JFrame v, String email) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(450, 50, 650, 500);
+		setBounds(450, 50, 500, 480);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-
-		gbl_contentPane.columnWidths = new int[] { 20 };
-		gbl_contentPane.rowHeights = new int[] { 10 };
-
-		contentPane.setLayout(gbl_contentPane);
+		setResizable(false);
 
 		ImageIcon im = new ImageIcon(route);
 		Image image = im.getImage();
 		Image newimg = image.getScaledInstance(200, 250, java.awt.Image.SCALE_SMOOTH);
 		im = new ImageIcon(newimg);
+		contentPane.setLayout(null);
 		JLabel lblPhoto = new JLabel(im);
+		lblPhoto.setBounds(265, 89, 198, 209);
+		
 
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.gridwidth = 20;
-		constraints.gridheight = 10;
-		constraints.gridx = 0; // En qué columna empieza
-		constraints.gridy = 1; // En qué fila empieza
-		constraints.gridwidth = 9; // Cuántas columnas ocupa
-		constraints.gridheight = 8; // Cuántas filas ocupa
-		constraints.fill = GridBagConstraints.BOTH;
-		constraints.anchor = GridBagConstraints.CENTER;
-		constraints.weighty = 15;
 
-		add(lblPhoto, constraints);
+		getContentPane().add(lblPhoto);
 
 		JLabel title = new JLabel(DB.getProductTittle(route));
+		title.setBounds(16, 54, 419, 14);
 		title.setFont(new Font("Times", Font.BOLD, 13));
-		constraints.gridx = 13; // En qué columna empieza
-		constraints.gridy = 2; // En qué fila empieza
-		constraints.gridwidth = 6; // Cuántas columnas ocupa
-		constraints.gridheight = 1; // Cuántas filas ocupa
+		
 
-		add(title, constraints);
+		getContentPane().add(title);
 
 		JLabel price = new JLabel("€" + String.valueOf(DB.getProductPrice(route)));
+		price.setBounds(16, 210, 129, 14);
 		price.setFont(new Font("Times", Font.PLAIN, 13));
-		constraints.gridx = 13; // En qué columna empieza
-		constraints.gridy = 3; // En qué fila empieza
-		constraints.gridwidth = 3; // Cuántas columnas ocupa
-		constraints.gridheight = 1; // Cuántas filas ocupa
-		add(price, constraints);
+		
+		getContentPane().add(price);
 
 		JLabel ref = new JLabel("Ref " + DB.GetImageRef(route));
+		ref.setBounds(16, 98, 147, 14);
 		ref.setFont(new Font("Times", Font.PLAIN, 13));
-		constraints.gridx = 13; // En qué columna empieza
-		constraints.gridy = 4; // En qué fila empieza
-		constraints.gridwidth = 6; // Cuántas columnas ocupa
-		constraints.gridheight = 1; // Cuántas filas ocupa
-		add(ref, constraints);
+		
+		getContentPane().add(ref);
 
 		JTextArea description = new JTextArea(DB.getProductDescription(route), 2, 1);
+		description.setBounds(16, 140, 129, 58);
 		// JScrollPane scrollDescripcion = new
 		// JScrollPane(descripcion,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		description.setFont(new Font("Times", Font.PLAIN, 13));
-		constraints.gridx = 13;
-		constraints.gridy = 5;
-		constraints.gridwidth = 7;
-		constraints.gridheight = 3;
-		constraints.weighty = 1.0;
-		constraints.fill = GridBagConstraints.BOTH;
-		add(description, constraints);
-		constraints.fill = GridBagConstraints.NONE;
+		
+		getContentPane().add(description);
+		
 
 		String SelectedColour = DB.GetColourUnique(route);
 
@@ -117,13 +95,13 @@ public class ProductWindow extends JFrame {
 			colores[i] = colours.get(i);
 		}
 
+		
+		
 		JComboBox<String> cbColours = new JComboBox<String>(colores);
 		cbColours.setSelectedItem(SelectedColour);
-		constraints.gridx = 13;
-		constraints.gridy = 8;
-		constraints.gridwidth = 3;
-		constraints.gridheight = 1;
-		add(cbColours, constraints);
+		cbColours.setBounds(16, 250, 129, 30);
+		
+		add(cbColours);
 
 		ArrayList<String> sizes = DB.getProductSizes(route, String.valueOf(cbColours.getSelectedItem()));
 
@@ -135,20 +113,17 @@ public class ProductWindow extends JFrame {
 		}
 
 		JComboBox<String> cbsize = new JComboBox<String>(size);
-		constraints.gridx = 17;
-		constraints.gridy = 8;
-		constraints.gridwidth = 3;
-		constraints.gridheight = 1;
-		add(cbsize, constraints);
+		cbsize.setBounds(16, 300, 129, 30);
+		
+		add(cbsize);
+
 
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setBounds(38, 377, 81, 29);
 		btnVolver.setBackground(Color.WHITE);
 		btnVolver.setFont(new Font("Times", Font.PLAIN, 13));
-		constraints.gridx = 6;
-		constraints.gridy = 11;
-		constraints.gridwidth = 5;
-		constraints.gridheight = 1;
-		add(btnVolver, constraints);
+		
+		getContentPane().add(btnVolver);
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override
@@ -159,9 +134,12 @@ public class ProductWindow extends JFrame {
 			}
 		});
 
+
 		JButton btnAdd = new JButton("AÑADIR A LA CESTA");
+		btnAdd.setBounds(295, 363, 169, 29);
 		btnAdd.setBackground(Color.WHITE);
 		btnAdd.addActionListener(new ActionListener() {
+
 			
 			ArrayList<String> c = new ArrayList<String>();
 
@@ -194,13 +172,11 @@ public class ProductWindow extends JFrame {
 				}
 
 			}
+		
 		});
 		btnAdd.setFont(new Font("Times", Font.PLAIN, 13));
-		constraints.gridx = 13;
-		constraints.gridy = 11;
-		constraints.gridwidth = 6;
-		constraints.gridheight = 1;
-		add(btnAdd, constraints);
+		
+		getContentPane().add(btnAdd);
 
 		setVisible(true);
 

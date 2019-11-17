@@ -65,6 +65,14 @@ public class MenuProfileWindow extends JFrame {
 		contentPane.add(btnDir);
 
 		JButton btnMisPedidos = new JButton("Mis Pedidos");
+		btnMisPedidos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MenuProfileWindow.this.setVisible(false);
+				OrdersWindow ow = new OrdersWindow(email);
+				ow.setVisible(true);
+			}
+		});
 
 		btnMisPedidos.setFont(new Font("Times", Font.PLAIN, 15));
 		btnMisPedidos.setBounds(131, 193, 170, 29);
