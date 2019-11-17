@@ -31,26 +31,12 @@ public class AddressWindow extends JFrame {
 	private JPanel PanelCentre;
 
 	/**
-	 * Launch the application.
+	 * 
+	 * 
+	 * /** Create the frame.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddressWindow frame = new AddressWindow("adriangi98@opendeusto.es");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	public AddressWindow(String email, boolean purchase) {
 
-	/**
-	 * Create the frame.
-	 */
-	public AddressWindow(String email) {
-		boolean payment = false;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 450, 600);
 		contentPane = new JPanel();
@@ -79,9 +65,18 @@ public class AddressWindow extends JFrame {
 		JButton btnreturn = new JButton("Volver");
 		btnreturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AddressWindow.this.setVisible(false);
-				MenuProfileWindow mw = new MenuProfileWindow(email);
-				mw.setVisible(true);
+
+				if (purchase == false) {
+					AddressWindow.this.setVisible(false);
+					MenuProfileWindow mw = new MenuProfileWindow(email);
+					mw.setVisible(true);
+				} else {
+
+					DirMethodWindow dm = new DirMethodWindow(email);
+					dm.setVisible(true);
+					AddressWindow.this.setVisible(true);
+
+				}
 
 			}
 		});
@@ -102,7 +97,7 @@ public class AddressWindow extends JFrame {
 		ArrayList<Address> add = DB.GetDir();
 		for (Address c : add) {
 
-			AddressPanel ap = new AddressPanel(c.getId(), email);
+			AddressPanel ap = new AddressPanel(c.getId(), email, purchase);
 
 			panelCenter.add(ap);
 
@@ -114,19 +109,22 @@ public class AddressWindow extends JFrame {
 		JButton btnNewButton = new JButton("Añadir");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				AddressWindow.this.setVisible(false);
+				boolean payment = false;
 				AddAddressWindow aaw = new AddAddressWindow(email, payment);
 				aaw.setVisible(true);
 			}
 		});
 
+		if (purchase == true) {
+
+			btnNewButton.setVisible(false);
+		}
+
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		btnNewButton.setFont(new Font("Times", Font.PLAIN, 13));
 		panelDown.add(btnNewButton);
-
-		JButton btnDelet = new JButton("Borrar");
-		btnDelet.setFont(new Font("Times", Font.PLAIN, 13));
-		panelDown.add(btnDelet);
 
 	}
 

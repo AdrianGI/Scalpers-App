@@ -68,6 +68,8 @@ public class HomeWindow extends JFrame {
 		btncart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new CartWindow(email);
+				HomeWindow.this.setVisible(false);
+
 			}
 		});
 		btncart.setToolTipText("Carrito");
@@ -82,15 +84,15 @@ public class HomeWindow extends JFrame {
 		JButton btnstores = new JButton(new ImageIcon("photos/stores.png"));
 		btnstores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				       
-				     try {
-						java.awt.Desktop.getDesktop().browse(java.net.URI.create("https://scalperscompany.com/pages/tiendas"));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				   
+
+				try {
+					java.awt.Desktop.getDesktop()
+							.browse(java.net.URI.create("https://scalperscompany.com/pages/tiendas"));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 			}
 		});
 		btnstores.setToolTipText("Tiendas");

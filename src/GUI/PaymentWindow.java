@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -13,6 +15,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PaymentWindow extends JFrame {
 
@@ -23,25 +27,9 @@ public class PaymentWindow extends JFrame {
 	private JTextField txtCdigoDeSeguridad;
 
 	/**
-	 * Launch the application.
+	 * Launch the applicatio /** Create the frame.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PaymentWindow frame = new PaymentWindow();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public PaymentWindow() {
+	public PaymentWindow(String email, int dirid) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 550, 400);
 		contentPane = new JPanel();
@@ -55,7 +43,7 @@ public class PaymentWindow extends JFrame {
 		lblNewLabel.setBounds(161, 22, 231, 23);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblDirecciones = new JLabel("PASO 3: Pago");
+		JLabel lblDirecciones = new JLabel("PASO 2: Pago");
 		lblDirecciones.setFont(new Font("Times", Font.PLAIN, 20));
 		lblDirecciones.setBounds(206, 57, 130, 44);
 		contentPane.add(lblDirecciones);
@@ -68,6 +56,24 @@ public class PaymentWindow extends JFrame {
 		contentPane.add(txtNmeroDeTarjeta);
 		txtNmeroDeTarjeta.setColumns(10);
 
+		txtNmeroDeTarjeta.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+				txtNmeroDeTarjeta.setText(null);
+
+			}
+
+		});
+
 		txtNombreDelTitular = new JTextField();
 		txtNombreDelTitular.setText("Nombre del Titular");
 		txtNombreDelTitular.setToolTipText("Nombre del Titular");
@@ -75,6 +81,24 @@ public class PaymentWindow extends JFrame {
 		txtNombreDelTitular.setColumns(10);
 		txtNombreDelTitular.setBounds(98, 195, 328, 44);
 		contentPane.add(txtNombreDelTitular);
+
+		txtNombreDelTitular.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+				txtNombreDelTitular.setText(null);
+
+			}
+
+		});
 
 		txtmmaa = new JTextField();
 		txtmmaa.setToolTipText("Fecha de vencimiento");
@@ -84,6 +108,24 @@ public class PaymentWindow extends JFrame {
 		txtmmaa.setBounds(98, 251, 165, 44);
 		contentPane.add(txtmmaa);
 
+		txtmmaa.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+				txtmmaa.setText(null);
+
+			}
+
+		});
+
 		txtCdigoDeSeguridad = new JTextField();
 		txtCdigoDeSeguridad.setToolTipText("Código de seguridad");
 		txtCdigoDeSeguridad.setText("Código de seguridad");
@@ -92,12 +134,47 @@ public class PaymentWindow extends JFrame {
 		txtCdigoDeSeguridad.setBounds(261, 251, 165, 44);
 		contentPane.add(txtCdigoDeSeguridad);
 
+		txtCdigoDeSeguridad.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+				txtCdigoDeSeguridad.setText(null);
+
+			}
+
+		});
+
 		JButton btnNewButton = new JButton("Siguiente");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				PurchaseWindow pw = new PurchaseWindow(email, dirid);
+				pw.setVisible(true);
+				PaymentWindow.this.setVisible(false);
+
+			}
+		});
 		btnNewButton.setFont(new Font("Times", Font.PLAIN, 13));
 		btnNewButton.setBounds(356, 330, 117, 29);
 		contentPane.add(btnNewButton);
 
-		JButton btnVolver = new JButton("Volver");
+		JButton btnVolver = new JButton("Cancelar");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				HomeWindow hw = new HomeWindow(email);
+				hw.setVisible(true);
+				PaymentWindow.this.setVisible(false);
+			}
+		});
 		btnVolver.setFont(new Font("Times", Font.PLAIN, 13));
 		btnVolver.setBounds(52, 328, 117, 29);
 		contentPane.add(btnVolver);

@@ -691,7 +691,7 @@ public class ProductsWindow extends JFrame {
 		btncart.setToolTipText("Carrito");
 		btncart.setBorder(null);
 		panelEast.add(btncart);
-		
+
 		JLabel lblNewLabel = new JLabel(" ");
 		panelEast.add(lblNewLabel);
 
@@ -771,7 +771,7 @@ public class ProductsWindow extends JFrame {
 			}
 
 		});
-		
+
 		btncart.addActionListener(new ActionListener() {
 
 			@Override
@@ -782,7 +782,7 @@ public class ProductsWindow extends JFrame {
 				c.setVisible(true);
 			}
 		});
-		
+
 		btnVolver.addActionListener(new ActionListener() {
 
 			@Override

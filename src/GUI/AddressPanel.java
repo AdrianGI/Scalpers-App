@@ -15,18 +15,20 @@ import javax.swing.JOptionPane;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Checkbox;
 
 public class AddressPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public AddressPanel(int id, String email) {
+	public AddressPanel(int id, String email, boolean purchase) {
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gridBagLayout);
 
@@ -45,6 +47,7 @@ public class AddressPanel extends JPanel {
 		lblSurname.setToolTipText("Apellido");
 		lblSurname.setFont(new Font("Times", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblSurname = new GridBagConstraints();
+		gbc_lblSurname.gridwidth = 2;
 		gbc_lblSurname.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSurname.gridx = 2;
 		gbc_lblSurname.gridy = 1;
@@ -66,16 +69,24 @@ public class AddressPanel extends JPanel {
 		lblPhone.setFont(new Font("Times", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblPhone = new GridBagConstraints();
 		gbc_lblPhone.insets = new Insets(0, 0, 5, 5);
-		gbc_lblPhone.gridx = 7;
+		gbc_lblPhone.gridx = 8;
 		gbc_lblPhone.gridy = 1;
 		add(lblPhone, gbc_lblPhone);
+
+		Checkbox checkbox = new Checkbox("");
+		checkbox.setState(false);
+		GridBagConstraints gbc_checkbox = new GridBagConstraints();
+		gbc_checkbox.insets = new Insets(0, 0, 5, 5);
+		gbc_checkbox.gridx = 0;
+		gbc_checkbox.gridy = 2;
+		add(checkbox, gbc_checkbox);
 
 		JLabel lblNewLabel = new JLabel();
 		lblNewLabel.setText(DB.GetAddress(id));
 		lblNewLabel.setToolTipText("Direccion");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel.gridwidth = 7;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridwidth = 2;
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel.gridx = 2;
 		gbc_lblNewLabel.gridy = 2;
@@ -86,6 +97,7 @@ public class AddressPanel extends JPanel {
 		lblcity.setToolTipText("Ciudad");
 		lblcity.setFont(new Font("Times", Font.PLAIN, 15));
 		GridBagConstraints gbc_lblcity = new GridBagConstraints();
+		gbc_lblcity.gridwidth = 2;
 		gbc_lblcity.insets = new Insets(0, 0, 5, 5);
 		gbc_lblcity.gridx = 2;
 		gbc_lblcity.gridy = 3;
@@ -125,6 +137,8 @@ public class AddressPanel extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DB.DeleteAddress(email, lblName.getText(), lblNewLabel.getText());
+				AddressPanel.this.removeAll();
+				AddressPanel.this.updateUI();
 				JOptionPane.showMessageDialog(null, "Dirección Eliminada ");
 			}
 		});
@@ -137,6 +151,19 @@ public class AddressPanel extends JPanel {
 		gbc_btnNewButton.gridy = 0;
 		add(btnNewButton, gbc_btnNewButton);
 
+		if (purchase == true) {
+			checkbox.setVisible(true);
+		} else {
+			checkbox.setVisible(false);
+		}
+
+		if (checkbox.getState() == true) {
+
+			int iddir = DB.Getdirid(email, lblName.getText(), lblSurname.getText(), lblNewLabel.getText());
+			PaymentWindow pw = new PaymentWindow(email, iddir);
+			pw.setVisible(true);
+
+		}
 	}
 
 }

@@ -18,26 +18,10 @@ public class DirMethodWindow extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DirMethodWindow frame = new DirMethodWindow("adriangi98@opendeusto.es");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public DirMethodWindow(String email) {
-		boolean payment = true;
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 450, 300);
 		contentPane = new JPanel();
@@ -59,6 +43,7 @@ public class DirMethodWindow extends JFrame {
 		JButton btnNewButton = new JButton("Añadir dirección de envío");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean payment = true;
 				AddAddressWindow a = new AddAddressWindow(email, payment);
 				a.setVisible(true);
 				DirMethodWindow.this.setVisible(false);
@@ -72,7 +57,7 @@ public class DirMethodWindow extends JFrame {
 		btnSleccionarDireccinDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				AddressWindow aw = new AddressWindow(email);
+				AddressWindow aw = new AddressWindow(email, true);
 				aw.setVisible(true);
 				DirMethodWindow.this.setVisible(false);
 			}
@@ -80,8 +65,17 @@ public class DirMethodWindow extends JFrame {
 		btnSleccionarDireccinDe.setFont(new Font("Times", Font.PLAIN, 13));
 		btnSleccionarDireccinDe.setBounds(110, 189, 231, 29);
 		contentPane.add(btnSleccionarDireccinDe);
-		
+
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				DirMethodWindow.this.setVisible(false);
+				HomeWindow hw = new HomeWindow(email);
+				hw.setVisible(true);
+
+			}
+		});
 		btnVolver.setFont(new Font("Times", Font.PLAIN, 13));
 		btnVolver.setBounds(6, 243, 117, 29);
 		contentPane.add(btnVolver);

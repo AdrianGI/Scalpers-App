@@ -15,7 +15,6 @@ public class PanelInformation extends JPanel {
 
 	public PanelInformation() {
 
-		
 		ImageIcon im = new ImageIcon("Photos/shop.jpg");
 		Image image = im.getImage();
 		Image newimg = image.getScaledInstance(1415, 700, java.awt.Image.SCALE_SMOOTH);

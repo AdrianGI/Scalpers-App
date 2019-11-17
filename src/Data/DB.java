@@ -53,6 +53,19 @@ public class DB {
 		}
 	}
 
+	public static void newPurchase(int id, int dirid, String ref, String email, String date, double total) {
+		String sql = "INSERT INTO purchases VALUES(" + id + "," + dirid + ",'" + ref + "','" + email + "','" + date
+				+ "'," + total + ")";
+
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public static void newAddress(String email, String name, String surname, String enterprise, String address,
 			String pc, String phone, String country, String province, String city, int id) {
 
@@ -71,6 +84,18 @@ public class DB {
 
 	public static void DeleteUser(String email) {
 		String sql = "DELETE from users WHERE email='" + email + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void DeleteAllCart(String email) {
+		String sql = "DELETE from cart WHERE email='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -339,6 +364,29 @@ public class DB {
 
 	}
 
+	public static int Getdirid(String email, String name, String surname, String address) {
+		int id = 0;
+		String query = "SELECT id FROM address WHERE email='" + email + "' AND name='" + name + "' AND surname='"
+				+ surname + "' AND address='" + address + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				id = rs.getInt("id");
+				;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return id;
+
+	}
+
 	public static int Getuds(String ref, String colour, String size) {
 		int uds = 0;
 		String query = "SELECT uds FROM cart WHERE ref='" + ref + "' AND colour='" + colour + "' AND size='" + size
@@ -547,7 +595,7 @@ public class DB {
 
 	public static int maxIdCart() {
 		int r = 0;
-		String query = "SELECT MAX(id) from address";
+		String query = "SELECT MAX(id) from cart";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -557,7 +605,30 @@ public class DB {
 				r = rs.getInt(1);
 
 			} else {
-				r = 1;
+				r = 0;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return r;
+
+	}
+
+	public static int maxIdPurchase() {
+		int r = 0;
+		String query = "SELECT MAX(id) from purchases";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			if (rs.next()) {
+				r = rs.getInt(1);
+
+			} else {
+				r = 0;
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -580,7 +651,7 @@ public class DB {
 				r = rs.getInt(1);
 
 			} else {
-				r = 1;
+				r = 0;
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -604,7 +675,7 @@ public class DB {
 				r = rs.getInt(1);
 
 			} else {
-				r = 1;
+				r = 0;
 			}
 			rs.close();
 		} catch (SQLException e) {

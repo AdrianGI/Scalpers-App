@@ -281,6 +281,8 @@ public class AddAddressWindow extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				System.out.println(pay);
+
 				if (name.getText().equals("") || surname.getText().equals("") || txtCountry.getText().equals("")
 						|| txtPostalCode.getText().equals("") || txtPhone.getText().equals("")
 						|| textFieldAddress.getText().equals("") || textFieldProvince.getText().equals("")
@@ -301,22 +303,27 @@ public class AddAddressWindow extends JFrame {
 							try {
 
 								DB.getConnection();
-								// int id= DB.maxId();
-								if (pay = false) {
-									DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
-											textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
-											txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(), DB.maxIdAddress()+1);
 
-									JOptionPane.showMessageDialog(null, "Dirección Añadida ", null,
-											JOptionPane.INFORMATION_MESSAGE);
+								DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
+										textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
+										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(),
+										DB.maxIdAddress() + 1);
 
-									AddressWindow aw = new AddressWindow(email);
+								int id = DB.Getdirid(email, name.getText(), surname.getText(),
+										textFieldAddress.getText());
+								JOptionPane.showMessageDialog(null, "Dirección Añadida ", null,
+										JOptionPane.INFORMATION_MESSAGE);
+
+								if (pay == true) {
+
+									AddAddressWindow.this.setVisible(false);
+
+									PaymentWindow pw = new PaymentWindow(email, id);
+									pw.setVisible(true);
+								} else {
+									AddressWindow aw = new AddressWindow(email, payment);
 									aw.setVisible(true);
 									AddAddressWindow.this.setVisible(false);
-								} else {
-
-									// meter en bd compra
-
 								}
 
 							} catch (SQLException e1) {
@@ -349,16 +356,17 @@ public class AddAddressWindow extends JFrame {
 		btnBack.setBorder(null);
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (pay=true) {
-					DirMethodWindow dm= new DirMethodWindow(email);
-					dm.setVisible(false);
-					AddAddressWindow.this.setVisible(false);
-				}else {
-				AddressWindow aw = new AddressWindow(email);
-				aw.setVisible(true);
-				AddAddressWindow.this.setVisible(false);
 
-			}
+				if (pay == true) {
+					DirMethodWindow dm = new DirMethodWindow(email);
+					dm.setVisible(true);
+					AddAddressWindow.this.setVisible(false);
+				} else {
+					AddressWindow aw = new AddressWindow(email, payment);
+					aw.setVisible(true);
+					AddAddressWindow.this.setVisible(false);
+
+				}
 			}
 		});
 		btnBack.setFont(new Font("Times", Font.BOLD, 13));

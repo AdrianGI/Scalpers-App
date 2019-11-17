@@ -29,9 +29,10 @@ public class CartPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public CartPanel(String route, int uds, String ref, String colour, String size) {
+	public CartPanel(String route, int uds, String ref, String colour, String size, boolean purchase) {
 
 		def = uds;
+
 		setLayout(new BorderLayout(0, 0));
 
 		JPanel up = new JPanel();
@@ -95,7 +96,6 @@ public class CartPanel extends JPanel {
 		labelPrice.setText(String.valueOf(DB.GetPrice(ref) * uds + "€"));
 		ProductDetails.add(labelPrice);
 
-		
 		JLabel lblTalla = new JLabel("Talla:");
 		lblTalla.setFont(new Font("Times", Font.PLAIN, 13));
 		lblTalla.setBounds(12, 74, 61, 16);
@@ -123,42 +123,44 @@ public class CartPanel extends JPanel {
 						if (value > def) {
 							def = value;
 							DB.UpdateCart(ref, colour, size, def);
-							DB.MinusStockCart(ref, colour, size);
+							DB.PlusStockCart(ref, colour, size);
+
 							labelPrice.setText(String.valueOf(DB.GetPrice(ref) * def + "€"));
 							labelPrice.updateUI();
 							String t = CartWindow.labelprice.getText();
-							double total = Double.parseDouble(t.substring(0, t.length()-1))+DB.GetPrice(ref);
-							CartWindow.labelprice.setText(total+"€");
+							double total = Double.parseDouble(t.substring(0, t.length() - 1)) + DB.GetPrice(ref);
+							CartWindow.labelprice.setText(total + "€");
 							CartWindow.labelprice.updateUI();
-							
-							DB.UpdateStock(ref, colour, size, def);
+
+							DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour) - 1));
 						} else {
 
 							if (value < def && value != 1) {
 								def = value;
 								DB.UpdateCart(ref, colour, size, def);
-								DB.PlusStockCart(ref, colour, size);
+								DB.MinusStockCart(ref, colour, size);
 								labelPrice.setText(String.valueOf(DB.GetPrice(ref) * def + "€"));
 								labelPrice.updateUI();
 								String t = CartWindow.labelprice.getText();
-								double total = Double.parseDouble(t.substring(0, t.length()-1))-DB.GetPrice(ref);
-								CartWindow.labelprice.setText(total+"€");
+								double total = Double.parseDouble(t.substring(0, t.length() - 1)) - DB.GetPrice(ref);
+								CartWindow.labelprice.setText(total + "€");
 								CartWindow.labelprice.updateUI();
-								DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour)-1));
+								DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour) + 1));
 
 							} else {
 								if (value < def && value == 1) {
 									def = value;
 									DB.UpdateCart(ref, colour, size, def);
-									DB.PlusStockCart(ref, colour, size);
+									DB.MinusStockCart(ref, colour, size);
 									labelPrice.setText(String.valueOf(DB.GetPrice(ref) + "€"));
 									labelPrice.updateUI();
 									String t = CartWindow.labelprice.getText();
-									double total = Double.parseDouble(t.substring(0, t.length()-1))-DB.GetPrice(ref);
-									CartWindow.labelprice.setText(total+"€");
+									double total = Double.parseDouble(t.substring(0, t.length() - 1))
+											- DB.GetPrice(ref);
+									CartWindow.labelprice.setText(total + "€");
 									CartWindow.labelprice.updateUI();
-									DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour)-1));
-									
+									DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour) + 1));
+
 								}
 							}
 
@@ -166,18 +168,17 @@ public class CartPanel extends JPanel {
 
 					} else {
 
-						
 						JOptionPane.showMessageDialog(null, "Producto Eliminado");
 						DB.DeleteCart(ref, colour, size);
 						def = value;
-						
+
 						labelPrice.setText(String.valueOf(DB.GetPrice(ref) + "€"));
 						labelPrice.updateUI();
 						String t = CartWindow.labelprice.getText();
-						double total = Double.parseDouble(t.substring(0, t.length()-1))-DB.GetPrice(ref);
-						CartWindow.labelprice.setText(total+"€");
+						double total = Double.parseDouble(t.substring(0, t.length() - 1)) - DB.GetPrice(ref);
+						CartWindow.labelprice.setText(total + "€");
 						CartWindow.labelprice.updateUI();
-						DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour)-1));
+						DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour) - 1));
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "No hay unidades suficientes");
@@ -186,18 +187,16 @@ public class CartPanel extends JPanel {
 			}
 
 		});
-		
-		
+
 		JButton btnDelete = new JButton("Eliminar");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				
-				//actualizar stock 
+				// actualizar stock
 				DB.DeleteCart(ref, colour, size);
 				String t = CartWindow.labelprice.getText();
-				double total = Double.parseDouble(t.substring(0, t.length()-1))-DB.GetPrice(ref)*def;
-				CartWindow.labelprice.setText(total+"€");
+				double total = Double.parseDouble(t.substring(0, t.length() - 1)) - DB.GetPrice(ref) * def;
+				CartWindow.labelprice.setText(total + "€");
 				CartWindow.labelprice.updateUI();
 				JOptionPane.showMessageDialog(null, "Producto eliminado de la cesta");
 				pcentre.updateUI();
@@ -206,13 +205,24 @@ public class CartPanel extends JPanel {
 				CartPanel.this.removeAll();
 				CartPanel.this.updateUI();
 				pcentre.setBackground(Color.WHITE);
-				DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour)+def));
+				DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour) + def));
 
 			}
 		});
 		btnDelete.setFont(new Font("Times", Font.PLAIN, 13));
 		btnDelete.setBounds(102, 233, 117, 29);
 		ProductDetails.add(btnDelete);
+
+		if (purchase == true) {
+
+			spinner.setEnabled(false);
+
+			btnDelete.setVisible(false);
+
+		} else {
+			spinner.setEnabled(true);
+
+		}
 
 	}
 }

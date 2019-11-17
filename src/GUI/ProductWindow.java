@@ -55,7 +55,6 @@ public class ProductWindow extends JFrame {
 		Image newimg = image.getScaledInstance(200, 250, java.awt.Image.SCALE_SMOOTH);
 		im = new ImageIcon(newimg);
 		JLabel lblPhoto = new JLabel(im);
-		add(lblPhoto);
 
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridwidth = 20;
@@ -87,7 +86,7 @@ public class ProductWindow extends JFrame {
 		constraints.gridheight = 1; // Cuántas filas ocupa
 		add(price, constraints);
 
-		JLabel ref = new JLabel("Ref" + DB.GetImageRef(route));
+		JLabel ref = new JLabel("Ref " + DB.GetImageRef(route));
 		ref.setFont(new Font("Times", Font.PLAIN, 13));
 		constraints.gridx = 13; // En qué columna empieza
 		constraints.gridy = 4; // En qué fila empieza
@@ -163,17 +162,18 @@ public class ProductWindow extends JFrame {
 		JButton btnAdd = new JButton("AÑADIR A LA CESTA");
 		btnAdd.setBackground(Color.WHITE);
 		btnAdd.addActionListener(new ActionListener() {
-			int i = 0;
+			
 			ArrayList<String> c = new ArrayList<String>();
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 
-				if (DB.GetStock(ref.getText().substring(3), String.valueOf(cbsize.getSelectedItem()),
+				if (DB.GetStock(ref.getText().substring(4), String.valueOf(cbsize.getSelectedItem()),
 						String.valueOf(cbColours.getSelectedItem())) > 0) {
-					
-					DB.addCart(DB.maxIdCart()+1, email, title.getText(), String.valueOf(cbColours.getSelectedItem()),
+
+					int id = DB.maxIdCart();
+					DB.addCart(id++, email, title.getText(), String.valueOf(cbColours.getSelectedItem()),
 							String.valueOf(cbsize.getSelectedItem()), 1, ref.getText().substring(3),
 							DB.getProductPrice(route), route);
 					String SelectedColour = String.valueOf(cbColours.getSelectedItem());
@@ -193,7 +193,6 @@ public class ProductWindow extends JFrame {
 
 				}
 
-	
 			}
 		});
 		btnAdd.setFont(new Font("Times", Font.PLAIN, 13));
@@ -204,6 +203,6 @@ public class ProductWindow extends JFrame {
 		add(btnAdd, constraints);
 
 		setVisible(true);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 	}
 }

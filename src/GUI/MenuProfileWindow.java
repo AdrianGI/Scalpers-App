@@ -55,7 +55,7 @@ public class MenuProfileWindow extends JFrame {
 		btnDir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MenuProfileWindow.this.setVisible(false);
-				AddressWindow aw = new AddressWindow(email);
+				AddressWindow aw = new AddressWindow(email, false);
 				aw.setVisible(true);
 			}
 		});
