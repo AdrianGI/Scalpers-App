@@ -225,10 +225,10 @@ public class AddProductWindow extends JFrame {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-
+				int i= DB.maxIdProductsinfo();
 				DB.addProduct(textFieldref.getText(), textFieldproduct.getText(), textArea.getText(), 1,
 						Double.parseDouble(textFieldprice.getText()), textFieldcolour.getText());
-				DB.addProductsInfo(DB.maxIdProductsinfo() + 1, textFieldref.getText(), textFieldsize.getText(),
+				DB.addProductsInfo(++i, textFieldref.getText(), textFieldsize.getText(),
 						textFieldcolour.getText(), textFieldruta.getText(), Integer.parseInt(textFieldstock.getText()),
 						textFieldgender.getText(), textFieldtype.getText());
 			}

@@ -151,7 +151,7 @@ public class ProductWindow extends JFrame {
 						String.valueOf(cbColours.getSelectedItem())) > 0) {
 
 					int id = DB.maxIdCart();
-					DB.addCart(id++, email, title.getText(), String.valueOf(cbColours.getSelectedItem()),
+					DB.addCart(++id, email, title.getText(), String.valueOf(cbColours.getSelectedItem()),
 							String.valueOf(cbsize.getSelectedItem()), 1, ref.getText().substring(3),
 							DB.getProductPrice(route), route);
 					String SelectedColour = String.valueOf(cbColours.getSelectedItem());
