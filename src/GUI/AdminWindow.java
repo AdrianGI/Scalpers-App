@@ -13,6 +13,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Data.DB;
+import File.FileManagement;
+
 import javax.swing.Icon;
 
 public class AdminWindow extends JFrame {
@@ -49,6 +53,14 @@ public class AdminWindow extends JFrame {
 		contentPane.add(btnDeleteUsers);
 
 		JButton btnView = new JButton(new ImageIcon("photos/view.png"));
+		btnView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FileManagement.Ranking(DB.getAllemails());
+				AdminWindow.this.setVisible(false);
+				RankWindow rw = new RankWindow();
+				rw.setVisible(true);
+			}
+		});
 		btnView.setBorder(null);
 		btnView.setToolTipText("Ver");
 		btnView.setBounds(426, 4, 34, 35);
@@ -106,6 +118,13 @@ public class AdminWindow extends JFrame {
 		contentPane.add(btnProducts);
 
 		JButton btnAdd = new JButton(new ImageIcon("photos/addproduct.png"));
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddProductWindow ap = new AddProductWindow();
+				ap.setVisible(true);
+				AdminWindow.this.setVisible(false);
+			}
+		});
 		btnAdd.setToolTipText("Añadir Usuarios");
 		btnAdd.setBorder(null);
 		btnAdd.setBounds(276, 4, 34, 34);

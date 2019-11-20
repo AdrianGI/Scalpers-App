@@ -198,6 +198,7 @@ public class DB {
 		}
 	}
 
+	
 	public static void PlusStockCart(String ref, String colour, String size) {
 
 		String sql = "UPDATE productsinfo set stock= stock+1 WHERE ref='" + ref + "' AND size='" + size
@@ -206,6 +207,8 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -319,6 +322,28 @@ public class DB {
 
 	}
 
+	
+	public static double GetuserPurchasesTotal(String email) {
+		double total=0;
+		String sql = "SELECT SUM(total) FROM purchases WHERE email ='" + email + "'";
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			if(rs.next()) {
+			total = rs.getDouble(1);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return total;
+	}
+
+	
+	
 	public static ArrayList<Integer> GetAddress(String email) {
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		String query = "SELECT id FROM address WHERE email='" + email + "'";
@@ -1171,6 +1196,38 @@ public class DB {
 		return colours;
 	}
 
+	
+	
+	
+	public static ArrayList<String> getAllemails() {
+
+		ArrayList<String> users = new ArrayList<String>();
+
+		String email = "";
+
+		String sql2 = "SELECT email FROM purchases";
+
+		try {
+
+			Statement stmt2 = conn.createStatement();
+			ResultSet rs2 = stmt2.executeQuery(sql2);
+
+			while (rs2.next()) {
+
+				email = rs2.getString("email");
+				users.add(email);
+				System.out.println(email);
+			}
+
+			rs2.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return users;
+	}
+	
 	public static ArrayList<String> getProSizes(String ref) {
 
 		ArrayList<String> sizes = new ArrayList<String>();

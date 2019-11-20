@@ -30,6 +30,7 @@ public class Main {
 			loadProperties();
 			HomeWindow Hw = new HomeWindow(user.getEmail());
 			Hw.setVisible(true);
+			
 
 		} catch (IOException e) {
 

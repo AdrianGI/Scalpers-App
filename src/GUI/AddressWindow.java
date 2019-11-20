@@ -74,7 +74,7 @@ public class AddressWindow extends JFrame {
 
 					DirMethodWindow dm = new DirMethodWindow(email);
 					dm.setVisible(true);
-					AddressWindow.this.setVisible(true);
+					AddressWindow.this.setVisible(false);
 
 				}
 
