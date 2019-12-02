@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -55,7 +56,9 @@ public class AdminWindow extends JFrame {
 		JButton btnView = new JButton(new ImageIcon("photos/view.png"));
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				FileManagement.Ranking(DB.getAllemails());
+
 				AdminWindow.this.setVisible(false);
 				RankWindow rw = new RankWindow();
 				rw.setVisible(true);
@@ -113,7 +116,7 @@ public class AdminWindow extends JFrame {
 
 		btnProducts.setBorder(null);
 
-		btnProducts.setToolTipText("Añadir Productos");
+		btnProducts.setToolTipText("Editar Producto");
 		btnProducts.setBounds(26, 4, 41, 34);
 		contentPane.add(btnProducts);
 
@@ -125,7 +128,7 @@ public class AdminWindow extends JFrame {
 				AdminWindow.this.setVisible(false);
 			}
 		});
-		btnAdd.setToolTipText("Añadir Usuarios");
+		btnAdd.setToolTipText("Añadir Producto");
 		btnAdd.setBorder(null);
 		btnAdd.setBounds(276, 4, 34, 34);
 		contentPane.add(btnAdd);

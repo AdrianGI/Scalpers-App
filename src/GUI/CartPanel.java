@@ -88,6 +88,7 @@ public class CartPanel extends JPanel {
 		spinner.setBounds(28, 154, 34, 26);
 		spinner.setValue(new Integer(DB.Getuds(ref, colour, size)));
 
+		
 		ProductDetails.add(spinner);
 
 		JLabel labelPrice = new JLabel("");
@@ -116,6 +117,8 @@ public class CartPanel extends JPanel {
 
 				int unidadesRestantes = DB.GetStock(ref, size, colour);
 
+				System.out.println(value);
+				System.out.println(unidadesRestantes);
 				if (unidadesRestantes >= value) {
 
 					if (value > 0) {
@@ -181,6 +184,7 @@ public class CartPanel extends JPanel {
 						DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour) - 1));
 					}
 				} else {
+
 					JOptionPane.showMessageDialog(null, "No hay unidades suficientes");
 				}
 
@@ -204,7 +208,7 @@ public class CartPanel extends JPanel {
 				pcentre.repaint();
 				CartPanel.this.removeAll();
 				CartPanel.this.updateUI();
-				pcentre.setBackground(Color.WHITE);
+				CartPanel.this.setBackground(Color.WHITE);
 				DB.UpdateStock(ref, colour, size, (DB.GetStock(ref, size, colour) + def));
 
 			}

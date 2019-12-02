@@ -23,18 +23,20 @@ import java.awt.Checkbox;
 
 public class AddressPanel extends JPanel {
 
-	private boolean condition ;
+	private boolean condition;
 	private Checkbox checkbox;
 	private String email;
 	private JLabel lblName;
 	private JLabel lblSurname;
 	private JLabel lblNewLabel;
+	private Thread t;
 	
+
 	/**
 	 * Create the panel.
 	 */
 	public AddressPanel(int id, String email, boolean purchase) {
-		
+
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -86,22 +88,20 @@ public class AddressPanel extends JPanel {
 		add(lblPhone, gbc_lblPhone);
 
 		checkbox = new Checkbox("");
-		
+
 		GridBagConstraints gbc_checkbox = new GridBagConstraints();
 		gbc_checkbox.insets = new Insets(0, 0, 5, 5);
 		gbc_checkbox.gridx = 0;
 		gbc_checkbox.gridy = 2;
 		add(checkbox, gbc_checkbox);
-		
+
 		checkbox.addItemListener(new ItemListener() {
-			
+
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				checkbox.setState(true);
-				
-				
-				
+
 			}
 		});
 		lblNewLabel = new JLabel();
@@ -174,56 +174,52 @@ public class AddressPanel extends JPanel {
 		gbc_btnNewButton.gridy = 0;
 		add(btnNewButton, gbc_btnNewButton);
 
-		
-		
 		if (purchase == true) {
 			checkbox.setVisible(true);
 			btnNewButton.setVisible(false);
 		} else {
 			checkbox.setVisible(false);
-			
+
 		}
 
-		Thread t =  new Thread(r);
+		t = new Thread(r);
 		t.start();
-		
+
 	}
-	
-	Runnable r =  new Runnable() {
-		
-		
-		
+
+	Runnable r = new Runnable() {
+
 		@Override
 		public void run() {
-			
-			
-			
-			condition=true;
-			while(condition) {
-				
+
+			condition = true;
+			while (condition) {
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				if (checkbox.getState() == true) {
-					condition=false;
+					condition = false;
 					int iddir = DB.Getdirid(email, lblName.getText(), lblSurname.getText(), lblNewLabel.getText());
 					System.out.println(iddir);
 					PaymentWindow pw = new PaymentWindow(email, iddir);
 					pw.setVisible(true);
-					
-
+					t.stop();
 				}
-			
+
 			}
 			try {
 				Thread.sleep(1000);
-			
 
-				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		}
-		
+
 	};
 
 }

@@ -30,6 +30,19 @@ public class AddressWindow extends JFrame {
 	private JPanel contentPane;
 	private JPanel PanelCentre;
 
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AddressWindow frame = new AddressWindow("adriangi98@opendeusto.es",true);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * 
 	 * 

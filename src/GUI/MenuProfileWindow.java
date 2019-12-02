@@ -67,7 +67,7 @@ public class MenuProfileWindow extends JFrame {
 		JButton btnMisPedidos = new JButton("Mis Pedidos");
 		btnMisPedidos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				MenuProfileWindow.this.setVisible(false);
 				OrdersWindow ow = new OrdersWindow(email);
 				ow.setVisible(true);

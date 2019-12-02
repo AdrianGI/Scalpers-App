@@ -306,8 +306,7 @@ public class AddAddressWindow extends JFrame {
 								int i = DB.maxIdAddress();
 								DB.newAddress(email, name.getText(), surname.getText(), txtEnterprise.getText(),
 										textFieldAddress.getText(), txtPostalCode.getText(), txtPhone.getText(),
-										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(),
-										++i);
+										txtCountry.getText(), textFieldProvince.getText(), txtCity.getText(), ++i);
 
 								int id = DB.Getdirid(email, name.getText(), surname.getText(),
 										textFieldAddress.getText());

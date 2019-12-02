@@ -100,6 +100,9 @@ public class ManageProductWindow extends JFrame {
 		gbc_comboBoxSize.gridy = 4;
 		gbc_comboBoxSize.weighty = 5;
 		contentPane.add(comboBoxSize, gbc_comboBoxSize);
+		
+		
+
 
 		JLabel lblColor = new JLabel("Color");
 		lblColor.setFont(new Font("Times", Font.PLAIN, 13));
@@ -124,13 +127,28 @@ public class ManageProductWindow extends JFrame {
 		comboBoxColour.setBackground(Color.WHITE);
 		comboBoxColour.addActionListener((new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				
+				textFieldPrice.setText(String.valueOf(DB.GetPrice(ref)));
 				textFieldStock.setText(String.valueOf(DB.GetStock(ref, String.valueOf(comboBoxSize.getSelectedItem()),
 						String.valueOf(comboBoxColour.getSelectedItem()))));
+				contentPane.updateUI();
 
 			}
 		}));
 
+		comboBoxSize.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				textFieldPrice.setText(String.valueOf(DB.GetPrice(ref)));
+				textFieldStock.setText(String.valueOf(DB.GetStock(ref, String.valueOf(comboBoxSize.getSelectedItem()),
+						String.valueOf(comboBoxColour.getSelectedItem()))));
+				contentPane.updateUI();
+
+			}
+		}));
+		
 		GridBagConstraints gbc_comboBoxColour = new GridBagConstraints();
 		gbc_comboBoxColour.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBoxColour.gridx = 2;
@@ -146,6 +164,29 @@ public class ManageProductWindow extends JFrame {
 		gbc_button_2.gridx = 3;
 		gbc_button_2.gridy = 9;
 		gbc_button_2.weighty = 5;
+		
+		button_2.addActionListener((new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				
+				
+				if (DB.CheckRef(ref)==true) {
+					DB.DeleteProduct(ref, String.valueOf(comboBoxSize.getSelectedItem()),
+							String.valueOf(comboBoxColour.getSelectedItem()));
+					
+					
+				}else {
+					DB.DeleteProduct(ref, String.valueOf(comboBoxSize.getSelectedItem()),
+							String.valueOf(comboBoxColour.getSelectedItem()));
+					DB.DeletePro(ref);
+					
+				}
+				
+				JOptionPane.showMessageDialog(null, "Producto Eliminado");
+
+			}
+		}));
+		
 		contentPane.add(button_2, gbc_button_2);
 
 		comboBoxSize.addActionListener((new ActionListener() {
@@ -226,6 +267,8 @@ public class ManageProductWindow extends JFrame {
 				DB.UpdateStock(ref, String.valueOf(String.valueOf(comboBoxColour.getSelectedItem())),
 						String.valueOf(comboBoxSize.getSelectedItem()), Integer.parseInt(textFieldStock.getText()));
 				JOptionPane.showMessageDialog(null, "Producto Actualizado");
+				ManageProductWindow.this.setVisible(false);
+				
 			}
 		});
 

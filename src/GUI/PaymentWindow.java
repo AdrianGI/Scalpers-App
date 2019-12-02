@@ -10,6 +10,7 @@ import java.awt.event.FocusListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
@@ -156,10 +157,43 @@ public class PaymentWindow extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				PurchaseWindow pw = new PurchaseWindow(email, dirid);
-				pw.setVisible(true);
-				PaymentWindow.this.setVisible(false);
+				if (txtCdigoDeSeguridad.getText().equals("") || txtmmaa.getText().equals("")
+						|| txtNmeroDeTarjeta.getText().equals("") || txtNombreDelTitular.getText().equals("")) {
 
+					JOptionPane.showMessageDialog(null, "Hay que rellenar todos los campos", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+					PaymentWindow.this.setVisible(false);
+					PaymentWindow pw = new PaymentWindow(email, dirid);
+
+					pw.setVisible(true);
+
+				} else {
+
+					try {
+
+						if (txtCdigoDeSeguridad.getText().length() == 3 && txtNmeroDeTarjeta.getText().length() == 16) {
+
+							PurchaseWindow pw = new PurchaseWindow(email, dirid);
+							pw.setVisible(true);
+							PaymentWindow.this.setVisible(false);
+
+						} else {
+
+							JOptionPane.showMessageDialog(null,
+									"El Numero de Tarjeta y el CVC tienen que tener un formato válido ", "ERROR",
+									JOptionPane.ERROR_MESSAGE);
+							PaymentWindow.this.setVisible(false);
+							PaymentWindow pw = new PaymentWindow(email, dirid);
+							pw.setVisible(true);
+						}
+					} catch (NumberFormatException e1) {
+						JOptionPane.showMessageDialog(null, "El telefono y el codigo postal tienen que ser numéricos",
+								"ERROR", JOptionPane.ERROR_MESSAGE);
+						PaymentWindow.this.setVisible(false);
+						PaymentWindow pw = new PaymentWindow(email, dirid);
+						pw.setVisible(true);
+					}
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("Times", Font.PLAIN, 13));

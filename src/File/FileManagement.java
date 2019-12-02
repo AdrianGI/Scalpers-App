@@ -13,49 +13,45 @@ public class FileManagement {
 
 	public static void Ranking(ArrayList<String> lista) {
 
-		int i =0;
-		int con=1;
-			
+		int i = 0;
+		int con = 1;
+
 		try {
 
-		ArrayList<String> ranking= lista;
-		PrintWriter pw = null;
-		File f = new File("Ranking.txt");
-		
-		
-		if(!f.exists())
-			pw = new PrintWriter(f);
-		
-		else {
-			
-			pw = new PrintWriter(new FileWriter(f,false));
-			
-			pw.println("\n");
-		
-		while(i<ranking.size()) {
-			
-			
-			pw.println(con + "."+ "  " + "Email: "+ "" +ranking.get(i)+ "     "+ "Gastos: "+  DB.GetuserPurchasesTotal(ranking.get(i))+ " €");
-			i++;
-			con++;
-			
-			
-		}
-		pw.flush();
-		pw.close();
-		
-		}
-		
+			ArrayList<String> ranking = lista;
+			PrintWriter pw = null;
+			File f = new File("Ranking.txt");
+
+			if (!f.exists())
+				pw = new PrintWriter(f);
+
+			else {
+
+				pw = new PrintWriter(new FileWriter(f, false));
+
+				pw.println("\n");
+
+				while (i < ranking.size()) {
+
+					pw.println(con + "." + "  " + "Email: " + "" + ranking.get(i) + "     " + "Gastos: "
+							+ DB.GetuserPurchasesTotal(ranking.get(i)) + " €");
+					i++;
+					con++;
+
+				}
+				pw.flush();
+				pw.close();
+
+			}
+
 		} catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		}
-		
-		
-			
+
+	}
+
 }

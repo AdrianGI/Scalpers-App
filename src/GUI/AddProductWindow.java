@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.TextArea;
 
@@ -189,6 +191,7 @@ public class AddProductWindow extends JFrame {
 
 					// Ecribe la ruta del fichero seleccionado en el campo de texto
 					textFieldruta.setText(fichero.getAbsolutePath());
+					
 
 					try (FileReader fr = new FileReader(fichero)) {
 						String cadena = "";
@@ -225,12 +228,18 @@ public class AddProductWindow extends JFrame {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
-				int i= DB.maxIdProductsinfo();
+				int i = DB.maxIdProductsinfo();
 				DB.addProduct(textFieldref.getText(), textFieldproduct.getText(), textArea.getText(), 1,
 						Double.parseDouble(textFieldprice.getText()), textFieldcolour.getText());
-				DB.addProductsInfo(++i, textFieldref.getText(), textFieldsize.getText(),
-						textFieldcolour.getText(), textFieldruta.getText(), Integer.parseInt(textFieldstock.getText()),
-						textFieldgender.getText(), textFieldtype.getText());
+				DB.addProductsInfo(++i, textFieldref.getText(), textFieldsize.getText(), textFieldcolour.getText(),
+						textFieldruta.getText().substring(48), Integer.parseInt(textFieldstock.getText()), textFieldgender.getText(),
+						textFieldtype.getText());
+				
+				JOptionPane.showMessageDialog(null, "Producto Añadido");
+				
+				AddProductWindow.this.setVisible(false);
+				AdminWindow aw = new AdminWindow();
+				aw.setVisible(true);
 			}
 
 		});
