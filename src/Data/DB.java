@@ -81,7 +81,7 @@ public class DB {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			log.info("Error realizando la compra");
+			log.info("Error realizando  compra");
 		}
 	}
 
