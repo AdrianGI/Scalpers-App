@@ -13,6 +13,7 @@ public class FileManagement {
 
 	public static void Ranking(ArrayList<String> lista) {
 
+		System.out.println("ENTRA A CREAR EL FICHERO");
 		int i = 0;
 		int con = 1;
 
@@ -21,17 +22,8 @@ public class FileManagement {
 			ArrayList<String> ranking = lista;
 			PrintWriter pw = null;
 			File f = new File("Ranking.txt");
-
-			if (!f.exists())
-				pw = new PrintWriter(f);
-
-			else {
-
-				pw = new PrintWriter(new FileWriter(f, false));
-
-				pw.println("\n");
-
-				while (i < ranking.size()) {
+			pw = new PrintWriter(f);
+			while (i < ranking.size()) {
 
 					pw.println(con + "." + "  " + "Email: " + "" + ranking.get(i) + "     " + "Gastos: "
 							+ DB.GetuserPurchasesTotal(ranking.get(i)) + " €");
@@ -42,7 +34,7 @@ public class FileManagement {
 				pw.flush();
 				pw.close();
 
-			}
+			
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -1,5 +1,6 @@
 package Data;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -7,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
@@ -16,6 +20,7 @@ public class DB {
 	private static final String USERNAME = "mnphxfqyhaliwl";
 	private static final String PASSWORD = "636667c3650a2a57cd771f76f51d023b2011bb470bef2efcf192dd4156bc17c8";
 	private static Connection conn;
+	private static Logger log;
 
 	/**
 	 * Metodo que establece conexion con la base de datos
@@ -24,7 +29,16 @@ public class DB {
 	 */
 
 	public static void getConnection() throws SQLException {
+		
+		log = Logger.getLogger("Log de la BD");
+		Handler manejadorArchivo= null;
 		try {
+			try {
+				manejadorArchivo = new FileHandler("BD.log");
+			} catch (SecurityException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Where is your PostgreSQL JDBC Driver? " + "Include in your library path!");
@@ -47,9 +61,12 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Usuario"+ email + " registrado");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.info("Error insertando usuario"+ email );
 		}
 	}
 
@@ -60,9 +77,11 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Nueva compra registrada");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.info("Error realizando la compra");
 		}
 	}
 
@@ -76,9 +95,11 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Nueva dirección registrada");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			log.info("Error registrando compra");
 		}
 	}
 
@@ -88,6 +109,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Usuario eliminado correctamente");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,6 +123,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Producto eliminado correctamente");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -113,6 +136,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Carrito eliminado correctamente");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,6 +149,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Producto "+ ref+ " eliminado correctamente");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -136,6 +161,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Articulo eliminado correctamente del carrito ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,6 +174,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Dirección eliminado correctamente");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,6 +191,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Perfil actualizado  correctamente");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -191,6 +219,7 @@ public class DB {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
+			log.info("Stock actualizado  correctamente");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1233,7 +1262,7 @@ public class DB {
 
 		String email = "";
 
-		String sql2 = "SELECT email FROM purchases";
+		String sql2 = "SELECT DISTINCT email FROM purchases";
 
 		try {
 
@@ -1399,8 +1428,8 @@ public class DB {
 			ResultSet rs = stmt.executeQuery(sql2);
 
 			if (rs.next()) {
-				String sql = "UPDATE cart SET uds = uds + 1 WHERE title = '" + title + "' AND colour='" + colour
-						+ "'AND email='" + email + " AND size='" + size + "'";
+				String sql = "UPDATE cart SET uds = uds + 1 WHERE ref = '" + ref + "' AND colour='" + colour
+						+ "'AND size='" + size + "'";
 				stmt.executeUpdate(sql);
 
 			} else {
@@ -1415,6 +1444,8 @@ public class DB {
 			stmt.executeUpdate(sql);
 
 			rs.close();
+			
+			log.info("Carrito actualizado  correctamente");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -1473,6 +1504,7 @@ public class DB {
 			}
 
 			rs.close();
+			log.info("Producto  actualizado  correctamente");
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
