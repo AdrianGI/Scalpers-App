@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -44,4 +45,65 @@ class TestCase {
 
 	}
 
+	@Test
+	void testConsulraRef() {
+
+		try {
+			DB.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		ArrayList<String> refs = new ArrayList<String>();
+		refs.add("22222");
+		refs.add("22930");
+		refs.add("23240");
+		refs.add("22223");
+		refs.add("22224");
+		refs.add("22229");
+		refs.add("23072");
+		refs.add("23344");
+		refs.add("21280");
+		refs.add("21281");
+		
+		
+		for ( int i =0; i<refs.size();i++) {
+			
+			
+			assertTrue(DB.CheckRef(refs.get(i)));
+		
+		}
 }
+
+	@Test
+	void testConsularRutas() {
+
+		try {
+			DB.getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String route1="products/T-Shirts/22206_BLUE.png";
+		String route2="products/T-Shirts/22203_BURDEOS.png";
+		String route3="products/Sweatshirts/22222_WHITE.png";
+		String route4= "products/T-Shirts/23344_WHITE.png";
+		String route5 = "products/Sweatshirts/21358_BLACK.png";
+		
+		assertEquals(route1, DB.GetRoute("22206", "Azul"));
+		assertEquals(route2, DB.GetRoute("22203", "Burdeos"));
+		assertEquals(route3, DB.GetRoute("22222", "Blanco"));
+		assertEquals(route4, DB.GetRoute("23344", "Blanco"));
+		assertEquals(route5, DB.GetRoute("21358", "Negro"));
+		
+		
+				
+		
+		}
+}
+	
+	
+
