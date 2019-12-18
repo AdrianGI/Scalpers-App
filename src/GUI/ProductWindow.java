@@ -88,12 +88,16 @@ public class ProductWindow extends JFrame {
 		ref.setFont(new Font("Times", Font.PLAIN, 13));
 
 		getContentPane().add(ref);
-
-		JTextArea description = new JTextArea(DB.getProductDescription(route), 2, 1);
+		String texto = DB.getProductDescription(route);
+		texto.replace(".", "\n");
+		JTextArea description = new JTextArea(texto);
+		System.out.println(DB.getProductDescription(route));
 		description.setBounds(16, 140, 150, 58);
 		description.setEditable(false);
 		JScrollPane scrollDescripcion = new JScrollPane(description);
+		
 		scrollDescripcion.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollDescripcion.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollDescripcion.setBounds(10, 11, 455, 249);
 
 		description.setFont(new Font("Times", Font.PLAIN, 13));

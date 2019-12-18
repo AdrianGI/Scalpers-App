@@ -23,13 +23,25 @@ import javax.swing.JLabel;
 
 public class CartWindow extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel contentPane,pCentral;
 	private double total;
 	static JLabel labelprice;
 
 	/**
 	 * Create the frame.
 	 */
+	public void mostrarCarrito(ArrayList<Cart> cart, int n) {
+		if(n<cart.size()) {
+			Cart c = cart.get(n);
+			String route = DB.GetCartRute(c.getRef(), c.getSize(), c.getColour());
+			CartPanel pc = new CartPanel(route, c.getUds(), c.getRef(), c.getColour(), c.getSize(), false);
+			total = total + (c.getUds() * (DB.GetPrice(c.getRef())));
+
+			pCentral.add(pc);
+			mostrarCarrito(cart, n+1);
+		}
+		
+	}
 	public CartWindow(String email) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 650, 500);
@@ -63,12 +75,12 @@ public class CartWindow extends JFrame {
 		btnNewButton.setFont(new Font("Times", Font.PLAIN, 13));
 		pAbajo.add(btnNewButton);
 
-		JPanel pCentral = new JPanel();
+		pCentral = new JPanel();
 		pCentral.setBackground(Color.WHITE);
 
 		pCentral.setLayout(new GridLayout(0, 1, 0, 0));
 		ArrayList<Cart> cart = DB.GetCart();
-		for (Cart c : cart) {
+		/*for (Cart c : cart) {
 
 			String route = DB.GetCartRute(c.getRef(), c.getSize(), c.getColour());
 			CartPanel pc = new CartPanel(route, c.getUds(), c.getRef(), c.getColour(), c.getSize(), false);
@@ -76,7 +88,8 @@ public class CartWindow extends JFrame {
 
 			pCentral.add(pc);
 
-		}
+		}*/
+		mostrarCarrito(cart, 0);
 
 		JButton btnFinalizarCompra = new JButton("Tramitar Compra");
 		btnFinalizarCompra.addActionListener(new ActionListener() {
