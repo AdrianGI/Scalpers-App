@@ -1,11 +1,14 @@
 package GUI;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import Data.DB;
 
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Color;
@@ -13,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -95,12 +99,19 @@ public class AddressPanel extends JPanel {
 		gbc_checkbox.gridy = 2;
 		add(checkbox, gbc_checkbox);
 
+		
+		
+
 		checkbox.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				checkbox.setState(true);
+				
+				//JComponent comp = (JComponent) e.getSource();
+				//  Window win = SwingUtilities.getWindowAncestor(comp);
+				//  win.dispose();
 
 			}
 		});
@@ -205,6 +216,8 @@ public class AddressPanel extends JPanel {
 					int iddir = DB.Getdirid(email, lblName.getText(), lblSurname.getText(), lblNewLabel.getText());
 					System.out.println(iddir);
 					PaymentWindow pw = new PaymentWindow(email, iddir);
+					
+					
 					pw.setVisible(true);
 					t.stop();
 				}

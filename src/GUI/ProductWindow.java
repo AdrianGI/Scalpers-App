@@ -89,20 +89,22 @@ public class ProductWindow extends JFrame {
 
 		getContentPane().add(ref);
 		String texto = DB.getProductDescription(route);
-		texto.replace(".", "\n");
-		JTextArea description = new JTextArea(texto);
+		texto = texto.replace('.', '\n');
+		System.out.println(texto);
+		JTextArea description = new JTextArea();
+		description.setText(texto);
 		System.out.println(DB.getProductDescription(route));
-		description.setBounds(16, 140, 150, 58);
+		//description.setBounds(16, 140, 150, 58);
 		description.setEditable(false);
 		JScrollPane scrollDescripcion = new JScrollPane(description);
-		
+		scrollDescripcion.setBounds(16, 140, 200, 60); 
 		scrollDescripcion.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollDescripcion.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollDescripcion.setBounds(10, 11, 455, 249);
+		
 
 		description.setFont(new Font("Times", Font.PLAIN, 13));
 
-		getContentPane().add(description, scrollDescripcion);
+		getContentPane().add(scrollDescripcion);
 		setLocationRelativeTo(null);
 
 		String SelectedColour = DB.GetColourUnique(route);

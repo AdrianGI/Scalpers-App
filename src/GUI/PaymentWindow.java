@@ -204,7 +204,7 @@ public class PaymentWindow extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				HomeWindow hw = new HomeWindow(email);
+				CartWindow hw = new CartWindow(email);
 				hw.setVisible(true);
 				PaymentWindow.this.setVisible(false);
 			}
