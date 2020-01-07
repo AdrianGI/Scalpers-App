@@ -108,11 +108,11 @@ public class AddressPanel extends JPanel {
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
 				checkbox.setState(true);
-				
+				AddressWindow.closeWindow();
 				//JComponent comp = (JComponent) e.getSource();
 				//  Window win = SwingUtilities.getWindowAncestor(comp);
 				//  win.dispose();
-
+				
 			}
 		});
 		lblNewLabel = new JLabel();

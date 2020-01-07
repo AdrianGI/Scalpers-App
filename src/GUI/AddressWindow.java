@@ -29,16 +29,18 @@ public class AddressWindow extends JFrame {
 	private JScrollPane scroll;
 	private JPanel contentPane;
 	private JPanel PanelCentre;
-
+	static JFrame w;
 	
-	
+	public static void closeWindow() {
+		w.dispose();
+	}
 	/**
 	 * 
 	 * 
 	 * /** Create the frame.
 	 */
 	public AddressWindow(String email, boolean purchase) {
-
+		w = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(450, 50, 450, 600);
 		contentPane = new JPanel();
