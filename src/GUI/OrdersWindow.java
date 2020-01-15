@@ -27,20 +27,7 @@ public class OrdersWindow extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					DB.getConnection();
-					OrdersWindow frame = new OrdersWindow("adriangi98@opendeusto.es");
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -58,18 +45,18 @@ public class OrdersWindow extends JFrame {
 		panel.setBackground(Color.WHITE);
 		getContentPane().add(panel, BorderLayout.NORTH);
 
-		JLabel lblNewLabel = new JLabel("Referencia del Pedido");
+		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setFont(new Font("Times", Font.PLAIN, 18));
 		panel.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		panel.add(lblNewLabel_1);
 
-		JLabel lblFecha = new JLabel("Fecha");
+		JLabel lblFecha = new JLabel("MIS PEDIDOS");
 		lblFecha.setFont(new Font("Times", Font.PLAIN, 18));
 		panel.add(lblFecha);
 
-		JLabel lblPrecioTotal = new JLabel("Precio Total");
+		JLabel lblPrecioTotal = new JLabel("");
 		lblPrecioTotal.setFont(new Font("Times", Font.PLAIN, 18));
 		panel.add(lblPrecioTotal);
 

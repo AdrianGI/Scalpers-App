@@ -98,7 +98,7 @@ public class AddressWindow extends JFrame {
 		contentPane.add(panelCenter, BorderLayout.CENTER);
 		panelCenter.setLayout(new GridLayout(0, 1, 0, 0));
 
-		ArrayList<Address> add = DB.GetDir();
+		ArrayList<Address> add = DB.GetDir(email);
 		for (Address c : add) {
 
 			AddressPanel ap = new AddressPanel(c.getId(), email, purchase);

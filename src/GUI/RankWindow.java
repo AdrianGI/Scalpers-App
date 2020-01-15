@@ -67,7 +67,7 @@ public class RankWindow extends JFrame implements WindowListener{
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 		panelNorte.setLayout(new BorderLayout(0, 0));
 
-		JLabel lblNewLabel = new JLabel("Ranking");
+		JLabel lblNewLabel = new JLabel("Compras");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times", Font.PLAIN, 18));
 		panelNorte.add(lblNewLabel);

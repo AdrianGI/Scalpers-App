@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -39,6 +40,7 @@ public class CartPanel extends JPanel {
 		up.setBackground(Color.WHITE);
 		add(up, BorderLayout.NORTH);
 
+	
 		JPanel down = new JPanel();
 		down.setBackground(Color.WHITE);
 		add(down, BorderLayout.SOUTH);

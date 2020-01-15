@@ -61,7 +61,7 @@ public class HomeWindow extends JFrame {
 			}
 		});
 		btnprofile.setToolTipText("Perfil");
-		btnprofile.setBounds(350, 4, 34, 34);
+		btnprofile.setBounds(303, 5, 34, 34);
 		contentPane.add(btnprofile);
 
 		JButton btncart = new JButton(new ImageIcon("photos/cart.png"));
@@ -73,13 +73,8 @@ public class HomeWindow extends JFrame {
 			}
 		});
 		btncart.setToolTipText("Carrito");
-		btncart.setBounds(460, 3, 34, 35);
+		btncart.setBounds(452, 4, 34, 35);
 		contentPane.add(btncart);
-
-		JButton btnsearch = new JButton(new ImageIcon("photos/search.png"));
-		btnsearch.setToolTipText("Buscar");
-		btnsearch.setBounds(125, 4, 34, 34);
-		contentPane.add(btnsearch);
 
 		JButton btnstores = new JButton(new ImageIcon("photos/stores.png"));
 		btnstores.addActionListener(new ActionListener() {
@@ -97,7 +92,7 @@ public class HomeWindow extends JFrame {
 		});
 		btnstores.setToolTipText("Tiendas");
 		btnstores.setBorder(null);
-		btnstores.setBounds(238, 4, 34, 34);
+		btnstores.setBounds(159, 5, 34, 34);
 		contentPane.add(btnstores);
 
 		JLabel lblmen = new JLabel(new ImageIcon("photos/scalpers.jpg"));
@@ -109,6 +104,7 @@ public class HomeWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				File file = new File("usuarios.ini");
 				file.delete();
+				DB.DeleteAllCart(email);
 				LoginWindow lw = new LoginWindow();
 				lw.setVisible(true);
 				HomeWindow.this.setVisible(false);

@@ -29,7 +29,7 @@ public class AddressPanel extends JPanel {
 
 	private boolean condition;
 	private Checkbox checkbox;
-	private String email;
+	private String emailf;
 	private JLabel lblName;
 	private JLabel lblSurname;
 	private JLabel lblNewLabel;
@@ -40,7 +40,7 @@ public class AddressPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public AddressPanel(int id, String email, boolean purchase) {
-
+		emailf=email;
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -202,7 +202,8 @@ public class AddressPanel extends JPanel {
 
 		@Override
 		public void run() {
-
+			
+			
 			condition = true;
 			while (condition) {
 				try {
@@ -213,9 +214,9 @@ public class AddressPanel extends JPanel {
 				}
 				if (checkbox.getState() == true) {
 					condition = false;
-					int iddir = DB.Getdirid(email, lblName.getText(), lblSurname.getText(), lblNewLabel.getText());
+					int iddir = DB.Getdirid(emailf, lblName.getText(), lblSurname.getText(), lblNewLabel.getText());
 					System.out.println(iddir);
-					PaymentWindow pw = new PaymentWindow(email, iddir);
+					PaymentWindow pw = new PaymentWindow(emailf, iddir);
 					
 					
 					pw.setVisible(true);

@@ -275,7 +275,7 @@ public class DB {
 
 			if (rs.next()) {
 				String cl = rs.getString("password");
-
+				
 				if (cl.equals(password)) {
 					result = 2;
 				} else {
@@ -1531,9 +1531,9 @@ public class DB {
 		}
 	}
 
-	public static ArrayList<Cart> GetCart() {
+	public static ArrayList<Cart> GetCart(String email) {
 		ArrayList<Cart> cart = new ArrayList<Cart>();
-		String sql = "SELECT * FROM cart";
+		String sql = "SELECT * FROM cart WHERE email ='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();
@@ -1584,9 +1584,9 @@ public class DB {
 
 	}
 
-	public static ArrayList<Address> GetDir() {
+	public static ArrayList<Address> GetDir(String email) {
 		ArrayList<Address> address = new ArrayList<Address>();
-		String sql = "SELECT * FROM address";
+		String sql = "SELECT * FROM address WHERE email ='" + email + "'";
 
 		try {
 			Statement stmt = conn.createStatement();

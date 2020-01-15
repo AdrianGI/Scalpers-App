@@ -13,13 +13,14 @@ public class FileManagement {
 
 	public static void Ranking(ArrayList<String> lista) {
 
-		System.out.println("ENTRA A CREAR EL FICHERO");
+		
 		int i = 0;
 		int con = 1;
 
 		try {
 
 			ArrayList<String> ranking = lista;
+			
 			PrintWriter pw = null;
 			File f = new File("Ranking.txt");
 			pw = new PrintWriter(f);

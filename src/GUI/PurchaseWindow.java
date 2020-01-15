@@ -70,7 +70,7 @@ public class PurchaseWindow extends JFrame {
 		pCentral.setBackground(Color.WHITE);
 
 		pCentral.setLayout(new GridLayout(0, 1, 0, 0));
-		ArrayList<Cart> cart = DB.GetCart();
+		ArrayList<Cart> cart = DB.GetCart(email);
 		for (Cart c : cart) {
 
 			String route = DB.GetCartRute(c.getRef(), c.getSize(), c.getColour());
@@ -84,7 +84,7 @@ public class PurchaseWindow extends JFrame {
 		JButton btnFinalizarCompra = new JButton("Pedir y Pagar");
 		btnFinalizarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				System.out.println(email);
 				LocalDate date = java.time.LocalDate.now();
 				String datenow = date.toString();
 				String ref = randomAlphaNumeric(5);
@@ -94,7 +94,8 @@ public class PurchaseWindow extends JFrame {
 				PurchaseWindow.this.setVisible(false);
 				HomeWindow hw = new HomeWindow(email);
 				hw.setVisible(true);
-
+				
+				
 			}
 		});
 		btnFinalizarCompra.setHorizontalAlignment(SwingConstants.LEFT);

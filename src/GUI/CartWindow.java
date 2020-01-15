@@ -79,7 +79,7 @@ public class CartWindow extends JFrame {
 		pCentral.setBackground(Color.WHITE);
 
 		pCentral.setLayout(new GridLayout(0, 1, 0, 0));
-		ArrayList<Cart> cart = DB.GetCart();
+		ArrayList<Cart> cart = DB.GetCart(email);
 		/*for (Cart c : cart) {
 
 			String route = DB.GetCartRute(c.getRef(), c.getSize(), c.getColour());
@@ -94,7 +94,7 @@ public class CartWindow extends JFrame {
 		JButton btnFinalizarCompra = new JButton("Tramitar Compra");
 		btnFinalizarCompra.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				System.out.println(email);
 				DirMethodWindow dm = new DirMethodWindow(email);
 				dm.setVisible(true);
 				CartWindow.this.setVisible(false);

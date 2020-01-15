@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import com.oracle.tools.packager.Log;
+
 import Data.DB;
 
 import javax.swing.JLabel;
@@ -42,8 +44,10 @@ public class ProductsWindow extends JFrame {
 	private JPanel panelWest;
 	private JPanel panelEast;
 
+	
 	public ProductsWindow(String email) {
 
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
